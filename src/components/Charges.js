@@ -1,5 +1,6 @@
 import React from "react";
 import Charge from "./Charge";
+import "../css/elements-style.css";
 
 function* createKeyGenerator() {
   let id = 0;
@@ -22,37 +23,50 @@ class Charges extends React.Component {
 
   componentDidMount() {}
 
+  clearInputs = () => {
+    this.category.current.value = "";
+    this.description.current.value = "";
+    this.money.current.value = "";
+  };
+
   keyGenerator = createKeyGenerator();
 
   addCharge = (e) => {
     e.preventDefault();
-    this.charges = JSON.parse(localStorage.getItem("charges"));
-    this.charges.push({
-      chargeKey: this.keyGenerator.next().value,
-      category: this.category.current.value,
-      description: this.description.current.value,
-      money: this.money.current.value,
-      date: new Date().toLocaleDateString().replace(/\./gi, "/"),
-    });
-    console.log(this.charges);
-    localStorage.setItem("charges", JSON.stringify(this.charges));
-    this.setState({
-      charges: JSON.parse(localStorage.getItem("charges")),
-    });
+    if (
+      (this.money.current.value,
+      this.category.current.value)
+    ) {
+      this.charges = JSON.parse(localStorage.getItem("charges"));
+      this.charges.push({
+        chargeKey: this.keyGenerator.next().value,
+        category: this.category.current.value,
+        description: this.description.current.value,
+        money: this.money.current.value,
+        date: new Date().toLocaleDateString().replace(/\./gi, "/"),
+      });
+      this.clearInputs();
+      console.log(this.charges);
+      localStorage.setItem("charges", JSON.stringify(this.charges));
+      this.setState({
+        charges: JSON.parse(localStorage.getItem("charges")),
+      });
+    }
   };
 
   render() {
     return (
       <div className="Charges">
         <form>
-          <input type="text" placeholder="Category" ref={this.category}></input>
+          <input  className="input-text" type="text" placeholder="Category" ref={this.category}></input>
           <input
+            className="input-text"
             type="text"
             placeholder="Description"
             ref={this.description}
           ></input>
-          <input type="text" placeholder="Money" ref={this.money}></input>
-          <button onClick={this.addCharge}>Додати</button>
+          <input  className="input-text" type="text" placeholder="Money" ref={this.money}></input>
+          <button onClick={this.addCharge} className="btn">Додати</button>
         </form>
         <table>
           <tbody>
