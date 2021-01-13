@@ -2,10 +2,10 @@ import React from 'react'
 
 function Charge(props){
     return  <tr>
-        <th>{props.category}</th>
-        <th>{props.description}</th>
-        <th>{props.date}</th>
-        <th>{props.money}</th>
+        <td>{props.category}</td>
+        <td>{props.description}</td>
+        <td>{props.date}</td>
+        <td>{props.money}</td>
     </tr>
 }
 
