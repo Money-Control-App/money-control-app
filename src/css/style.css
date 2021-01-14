@@ -35,6 +35,9 @@ tr:not(:first-child):hover {
 .table__btn {
   height: 30%;
 }
+.table .MuiFormControl-marginNormal {
+  margin-right: 7px;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -56,7 +56,7 @@ class Charges extends React.Component {
   render() {
     return (
       <div className="charges table">
-        <form className="table__inputs">
+        <form className="table__inputs table__charges">
           <Input
             ref={this.category}
             id='category'
