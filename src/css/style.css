@@ -1,6 +1,9 @@
 .form__names {
   display: flex;
 }
+.form__names .MuiFormControl-fullWidth + .MuiFormControl-fullWidth {
+  margin-left: 10px;
+}
 .form__header {
   display: flex;
   justify-content: center;
