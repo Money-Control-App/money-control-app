@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Income from "./Income";
+import { Input } from './PartForTable/Input';
+import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 
 function* createKeyGenerator() {
   let id = 0;
@@ -47,7 +49,7 @@ function Incomes() {
   function addIncome(e) {
     e.preventDefault();
     console.log(incomesArr);
-    if (category.current.value&&money.current.value>0){
+    if (category.current.value && money.current.value > 0) {
       incomesArr.push({
         key: keyGenerator.next().value,
         category: category.current.value,
@@ -67,37 +69,42 @@ function Incomes() {
   }
 
   return (
-    <div className="Incomes">
-      <form>
-        <input
-          className="input"
-          type="text"
-          placeholder="Category"
+    <div className="incomes table">
+      <form className="table__inputs">
+        <Input
           ref={category}
-        ></input>
-        <input
-          className="input"
-          type="text"
-          placeholder="Description"
+          id='category'
+          type='text'
+          label='Category'
+          name='category'
+        />
+        <Input
           ref={description}
-        ></input>
-        <input
-          className="input"
-          type="number"
-          placeholder="Money"
+          id='description'
+          type='text'
+          label='Description'
+          name='description'
+        />
+        <Input
           ref={money}
-        ></input>
-        <button onClick={addIncome} className="btn">
-          Додати
-        </button>
+          id='money'
+          type='number'
+          label='Money'
+          name='money'
+        />
+        <ButtonsForTable
+          clickBtn={addIncome}
+          className='table__btn'>
+          Add
+        </ButtonsForTable>
       </form>
       <table>
         <tbody>
           <tr key='head'>
-            <th>category</th>
-            <th>description</th>
-            <th>date</th>
-            <th>money</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Money</th>
           </tr>
           {incomes.map((income) => (
             <Income

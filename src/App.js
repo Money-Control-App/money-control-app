@@ -12,8 +12,8 @@ function App() {
   return (
     <div className="App">
       <Charges />
-      <Setting />
       <Incomes />
+      <Setting />
     </div>
   );
 }
