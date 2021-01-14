@@ -1,6 +1,6 @@
-import logo from './logo.svg';
-import './App.css';
-import Charges from './components/Charges'
+import './css/style.css';
+import Charges from './components/Charges';
+import { Setting } from './components/Settings/Setting';
 import { useEffect } from 'react';
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
   return (
     <div className="App">
       <Charges />
+      <Setting />
     </div>
   );
 }
