@@ -1,0 +1,8 @@
+.form__names {
+  display: flex;
+}
+.form__header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
