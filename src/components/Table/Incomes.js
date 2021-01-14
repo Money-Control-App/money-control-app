@@ -91,6 +91,7 @@ function Incomes() {
           type='number'
           label='Money'
           name='money'
+          className='input__number'
         />
         <ButtonsForTable
           clickBtn={addIncome}

@@ -77,6 +77,7 @@ class Charges extends React.Component {
             type='number'
             label='Money'
             name='money'
+            className='input__number'
           />
 
           <ButtonsForTable

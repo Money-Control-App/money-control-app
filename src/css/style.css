@@ -35,3 +35,9 @@ tr:not(:first-child):hover {
 .table__btn {
   height: 30%;
 }
+
+.input__number::-webkit-outer-spin-button,
+.input__number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
