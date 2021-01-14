@@ -1,6 +1,6 @@
 import React from "react";
 import Charge from "./Charge";
-import "../css/elements-style.css";
+import "../../css/elements-style.css";
 
 function* createKeyGenerator() {
   let id = 0;
@@ -37,7 +37,7 @@ class Charges extends React.Component {
       this.charges = JSON.parse(localStorage.getItem("charges"));
       this.charges.push({
         chargeKey: this.keyGenerator.next().value,
-        category: this.category.current.value,
+        category: this.category.current.value || "",
         description: this.description.current.value,
         money: this.money.current.value,
         date: new Date().toLocaleDateString().replace(/\./gi, "/"),
