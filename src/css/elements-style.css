@@ -10,7 +10,14 @@ body{
   padding: 50px;
 }
 
-.input-text{
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+.input{
   border: none;
   border-bottom: 2px solid #C4C4C4;
 

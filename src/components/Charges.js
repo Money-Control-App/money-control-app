@@ -33,10 +33,7 @@ class Charges extends React.Component {
 
   addCharge = (e) => {
     e.preventDefault();
-    if (
-      (this.money.current.value,
-      this.category.current.value)
-    ) {
+    if ((this.money.current.value, this.category.current.value &&this.money.current.value>0)) {
       this.charges = JSON.parse(localStorage.getItem("charges"));
       this.charges.push({
         chargeKey: this.keyGenerator.next().value,
@@ -58,15 +55,27 @@ class Charges extends React.Component {
     return (
       <div className="Charges">
         <form>
-          <input  className="input-text" type="text" placeholder="Category" ref={this.category}></input>
           <input
-            className="input-text"
+            className="input"
+            type="text"
+            placeholder="Category"
+            ref={this.category}
+          ></input>
+          <input
+            className="input"
             type="text"
             placeholder="Description"
             ref={this.description}
           ></input>
-          <input  className="input-text" type="text" placeholder="Money" ref={this.money}></input>
-          <button onClick={this.addCharge} className="btn">Додати</button>
+          <input
+            className="input"
+            type="number"
+            placeholder="Money"
+            ref={this.money}
+          ></input>
+          <button onClick={this.addCharge} className="btn">
+            Додати
+          </button>
         </form>
         <table>
           <tbody>
