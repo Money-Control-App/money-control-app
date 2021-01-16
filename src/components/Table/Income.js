@@ -1,12 +1,12 @@
 import React from "react";
 
-function Income(props) {
+function Income({category, description, date, money}) {
   return (
     <tr>
-      <td>{props.category}</td>
-      <td>{props.description}</td>
-      <td>{props.date}</td>
-      <td>{props.money}</td>
+      <td>{category}</td>
+      <td>{description}</td>
+      <td>{date}</td>
+      <td>{money}</td>
     </tr>
   );
 }

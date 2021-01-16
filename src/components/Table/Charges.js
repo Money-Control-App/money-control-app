@@ -1,5 +1,7 @@
 import React from "react";
 import Charge from "./Charge";
+import { Input } from './PartForTable/Input';
+import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import "../../css/elements-style.css";
 
 function* createKeyGenerator() {
@@ -21,7 +23,7 @@ class Charges extends React.Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   clearInputs = () => {
     this.category.current.value = "";
@@ -33,7 +35,7 @@ class Charges extends React.Component {
 
   addCharge = (e) => {
     e.preventDefault();
-    if ((this.money.current.value, this.category.current.value &&this.money.current.value>0)) {
+    if ((this.money.current.value, this.category.current.value && this.money.current.value > 0)) {
       this.charges = JSON.parse(localStorage.getItem("charges"));
       this.charges.push({
         chargeKey: this.keyGenerator.next().value,
@@ -53,37 +55,43 @@ class Charges extends React.Component {
 
   render() {
     return (
-      <div className="Charges">
-        <form>
-          <input
-            className="input"
-            type="text"
-            placeholder="Category"
+      <div className="charges table">
+        <form className="table__inputs table__charges">
+          <Input
             ref={this.category}
-          ></input>
-          <input
-            className="input"
-            type="text"
-            placeholder="Description"
+            id='category'
+            type='text'
+            label='Category'
+            name='category'
+          />
+          <Input
             ref={this.description}
-          ></input>
-          <input
-            className="input"
-            type="number"
-            placeholder="Money"
-            ref={this.money}
-          ></input>
-          <button onClick={this.addCharge} className="btn">
-            Додати
-          </button>
+            id='description'
+            type='text'
+            label='Description'
+            name='description'
+          />
+          <Input
+            ref={this.description}
+            id='money'
+            type='number'
+            label='Money'
+            name='money'
+          />
+
+          <ButtonsForTable
+            clickBtn={this.addCharge}
+            className='table__btn'>
+            Add
+          </ButtonsForTable>
         </form>
         <table>
           <tbody>
             <tr>
-              <th>category</th>
-              <th>description</th>
-              <th>date</th>
-              <th>money</th>
+              <th>Category</th>
+              <th>Description</th>
+              <th>Date</th>
+              <th>Money</th>
             </tr>
             {this.state.charges.map((charge) => (
               <Charge
