@@ -12,9 +12,9 @@ function App() {
   })
   return (
     <div className='App'>
-      {/* <Charges />
+      <Charges />
       <Incomes />
-      <Setting />  */}
+      <Setting />
       <Graphs />
     </div>
   )

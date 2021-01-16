@@ -1,48 +1,104 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   NavLink,
 } from 'react-router-dom'
-import RadialGraph from './RadialGraph'
-import '../../css/sourse/graph.css'
 
-function Graphs() {
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
+
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+
+import Dates from './PartsGraph/Dates'
+
+import RadialGraph from './RadialGraph'
+import LinearGraph from './LinearGraph'
+import BoxGraph from './BoxGraph'
+
+/* import '../../css/sourse/graph.css'
+ */import './graph.css'
+
+
+ function Graphs() {
+const [dataType, setDataType] = useState('incomes');
+const handleChangeDataType = (e) => setDataType(e.target.value)
+
+const [startDate, setStartDate] = useState('');
+const handleChangeStartDate = (data) => setStartDate(data.value)
+
+const [endtDate, setEndDate] = useState('');
+const handleChangeEndDate = (e) => setEndDate(e.target.value)
+
+console.log(dataType)
+console.log(startDate)
+console.log(endtDate)
+
   return (
     <div className='graph-wrapper'>
       <nav className='graph-nav'>
-        <div className='graph-inputs'>
-          <div>
-            <input type='radio' name='dataType' onClick='' />
-            <label htmlFor='dataType'>Income</label>
 
-            <input type='radio' name='dataType' onClick='' />
-            <label htmlFor='dataType'>Expenses</label>
+        <div className='graph-inputs'>
+          <div className='input-type'>
+            <FormControl component='fieldset' onChange={handleChangeDataType}>
+              <RadioGroup
+                row
+                aria-label='inputType'
+                name='inputType'
+                defaultValue='incomes'
+              >
+                <FormControlLabel
+                  value='incomes'
+                  control={<Radio color='primary' />}
+                  label='Income'
+                  labelPlacement='end'
+                />
+                <FormControlLabel
+                  value='charges'
+                  control={<Radio color='primary' />}
+                  label='Expenses'
+                  labelPlacement='end'
+                />
+              </RadioGroup>
+            </FormControl>
           </div>
 
-          <p>Set Dates</p>
+          <div className='input-dates'>
+              <Dates 
+/*               handleChangeStartDate = {this.handleChangeStartDate}
+ */              />
+          </div>
         </div>
-
-        <Router >
-        
-          <NavLink className='graph-link' activeClassName='' to='/radial'>
+<div className='graph'>
+        <Router>
+          <NavLink className='graph-link' activeClassName='active-link' to='/radial'>
             Radial
           </NavLink>
-          <NavLink className='graph-link' activeClassName='' to=''>
+          <NavLink className='graph-link' activeClassName='active-link' to='/linear'>
             Linear
           </NavLink>
-          <NavLink className='graph-link' activeClassName='' to=''>
+          <NavLink className='graph-link' activeClassName='active-link' to='/box'>
             Bar
           </NavLink>
 
-          <Route path='/radial' component={RadialGraph} />
-          <Route path='' component='' />
-          <Route path='' component='' />
+          <Route className = 'radial' path='/radial' component={RadialGraph} />
+          <Route path='/linear' component={LinearGraph} />
+          <Route path='/box' component={BoxGraph} />
         </Router>
+        </div>
       </nav>
     </div>
+
+    
   )
 }
 
+
+
 export default Graphs
+ 
