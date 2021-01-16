@@ -2,12 +2,14 @@
     &__head
         display: flex
         justify-content: space-between
+        width: 100%
     &__names
         display: flex
         flex-direction: column
+        width: 55%
         .MuiFormControl-fullWidth
             #firstName
-            margin-top: 0
+                margin-top: 0
 
             // margin-left: 10px
     &__header
@@ -25,12 +27,25 @@
         padding-top: 5px
         padding-bottom: 10px
         height: 100%
+        .MuiOutlinedInput-notchedOutline
+            border: none
+        .MuiFormControl-marginNormal
+            margin-top: 0px
+        .MuiOutlinedInput-input
+            padding-top: 10px
+            padding-bottom: 5px
         &--load
             border: none
-            display: none
+            opacity: 1
+            // display: none
+        &--block
+            border: 1px solid red
 .avatar
     width: auto
     height: 120px
     border-radius: 30px
     margin-bottom: 10px
+
     
+.btnAVA
+    height: 40px

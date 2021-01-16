@@ -1,12 +1,14 @@
 .form__head {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 .form__names {
   display: flex;
   flex-direction: column;
+  width: 55%;
 }
-.form__names .MuiFormControl-fullWidth {
+.form__names .MuiFormControl-fullWidth #firstName {
   margin-top: 0;
 }
 .form__header {
@@ -25,9 +27,22 @@
   padding-bottom: 10px;
   height: 100%;
 }
+.form__avatar .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+.form__avatar .MuiFormControl-marginNormal {
+  margin-top: 0px;
+}
+.form__avatar .MuiOutlinedInput-input {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
 .form__avatar--load {
   border: none;
-  display: none;
+  opacity: 1;
+}
+.form__avatar--block {
+  border: 1px solid red;
 }
 
 .avatar {
@@ -35,6 +50,10 @@
   height: 120px;
   border-radius: 30px;
   margin-bottom: 10px;
+}
+
+.btnAVA {
+  height: 40px;
 }
 
 table {

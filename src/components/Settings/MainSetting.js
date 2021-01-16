@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FillForm from './FillForm';
 import { Input } from './PartsForm/Input';
 import { ButtonSubmit } from './PartsForm/ButtonSubmit';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useData } from './DataUser';
-import { Avatar } from './Avatar';
+import blankPhoto from '../../img/newUser/blank_photo.webp';
 import * as yup from 'yup';
 import "yup-phone";
 import parsePhoneNumberFromString from 'libphonenumber-js';
@@ -13,6 +13,10 @@ import parsePhoneNumberFromString from 'libphonenumber-js';
 const REGULAR_NOT_NUMBER = /^([^0-9]*)$/;
 const MESSAGE_FOR_FILL = 'Fill this field';
 const PHONE_REGEXP = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
+const TYPE_AVATAR = ["image/jpg",
+    "image/jpeg",
+    "image/gif",
+    "image/png"];
 
 const schema = yup.object().shape({
     firstName:
@@ -32,7 +36,15 @@ const schema = yup.object().shape({
     phoneNumber:
         yup.string()
             .required(MESSAGE_FOR_FILL)
-            .matches(PHONE_REGEXP, 'Phone number is invalid')
+            .matches(PHONE_REGEXP, 'Phone number is invalid'),
+    loadAvatar:
+        yup.mixed()
+            .test(
+                "fileFormat",
+                "Unsupported Format",
+                value => value && TYPE_AVATAR.includes(value[0].type)
+            )
+            .typeError("1234")
 });
 
 const formatTheNumber = (inputNumber) => {
@@ -47,9 +59,25 @@ export const MainSetting = () => {
         mode: 'onBlur',
         resolver: yupResolver(schema)
     });
+    // const { register, handleSubmit } = useForm | ({})
+    const [profilePhoto, setAvatar] = useState(blankPhoto);
 
+    localStorage.setItem("avatar", (blankPhoto));
+
+    const photoHandle = (event) => {
+        const newPhoto = new FileReader();
+        newPhoto.onload = () => {
+            if (newPhoto.readyState === 2) {
+                setAvatar(newPhoto.result)
+            }
+        }
+
+
+        newPhoto.readAsDataURL(event.target.files[0]);
+    }
     const onSubmit = (data) => {
         // кудась перейти
+        console.log(data)
         setValues(data);
     };
     return (
@@ -77,7 +105,21 @@ export const MainSetting = () => {
                         helperText={errors?.lastName?.message}
                     />
                 </div>
-                <Avatar />
+
+                <div className='form__avatar'>
+                    <div className='form__avatar--block'><img src={profilePhoto} className='avatar' /></div>
+                    <Input
+                        ref={register}
+                        className='form__avatar--load'
+                        name='loadAvatar'
+                        type='file'
+                        id='loadAvatar'
+                        onChange={photoHandle}
+                        error={!!errors.loadAvatar}
+                        helperText={errors?.loadAvatar?.message}
+                    />
+                </div>
+
             </div>
             <Input
                 ref={register}
