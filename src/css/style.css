@@ -41,10 +41,6 @@
   border: none;
   opacity: 1;
 }
-.form__avatar--block {
-  border: 1px solid red;
-}
-
 .avatar {
   width: auto;
   height: 120px;
