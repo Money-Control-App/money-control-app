@@ -4,13 +4,15 @@ import { Input } from './PartsForm/Input';
 import { ButtonSubmit } from './PartsForm/ButtonSubmit';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useData } from './DataUser';
+import { Avatar } from './Avatar';
 import * as yup from 'yup';
 import "yup-phone";
 import parsePhoneNumberFromString from 'libphonenumber-js';
 
 const REGULAR_NOT_NUMBER = /^([^0-9]*)$/;
 const MESSAGE_FOR_FILL = 'Fill this field';
-const phoneRegExp = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+const PHONE_REGEXP = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
 const schema = yup.object().shape({
     firstName:
@@ -29,7 +31,8 @@ const schema = yup.object().shape({
             .required(MESSAGE_FOR_FILL),
     phoneNumber:
         yup.string()
-            .matches(phoneRegExp, 'Phone number is invalid')
+            .required(MESSAGE_FOR_FILL)
+            .matches(PHONE_REGEXP, 'Phone number is invalid')
 });
 
 const formatTheNumber = (inputNumber) => {
@@ -39,37 +42,42 @@ const formatTheNumber = (inputNumber) => {
 };
 
 export const MainSetting = () => {
+    const { data, setValues } = useData();
     const { register, handleSubmit, errors } = useForm({
         mode: 'onBlur',
         resolver: yupResolver(schema)
     });
 
     const onSubmit = (data) => {
-        console.log(data);
+        // кудась перейти
+        setValues(data);
     };
     return (
         <FillForm onSubmit={handleSubmit(onSubmit)} >
-            <div className="form__names">
-                <Input
-                    ref={register}
-                    id='firstName'
-                    type='text'
-                    label='First name'
-                    name='firstName'
-                    required
-                    error={!!errors.firstName}
-                    helperText={errors?.firstName?.message}
-                />
-                <Input
-                    ref={register}
-                    id='lastName'
-                    type='text'
-                    label='Last name'
-                    name='lastName'
-                    required
-                    error={!!errors.lastName}
-                    helperText={errors?.lastName?.message}
-                />
+            <div className='form__head'>
+                <div className="form__names">
+                    <Input
+                        ref={register}
+                        id='firstName'
+                        type='text'
+                        label='First name'
+                        name='firstName'
+                        required
+                        error={!!errors.firstName}
+                        helperText={errors?.firstName?.message}
+                    />
+                    <Input
+                        ref={register}
+                        id='lastName'
+                        type='text'
+                        label='Last name'
+                        name='lastName'
+                        required
+                        error={!!errors.lastName}
+                        helperText={errors?.lastName?.message}
+                    />
+                </div>
+                <Avatar />
             </div>
             <Input
                 ref={register}
@@ -77,6 +85,7 @@ export const MainSetting = () => {
                 type='text'
                 label='Nickname'
                 name='nickname'
+                defaultValue='@'
             />
             <Input
                 ref={register}
@@ -94,12 +103,15 @@ export const MainSetting = () => {
                 type='tel'
                 label='Phone number'
                 name='phoneNumber'
+                defaultValue='+38'
                 error={!!errors.phoneNumber}
                 helperText={errors?.phoneNumber?.message}
                 onChange={(event) => event.target.value = formatTheNumber(event.target.value)}
             />
             <ButtonSubmit>Ok</ButtonSubmit>
+
         </FillForm>
+
     )
 }
 
