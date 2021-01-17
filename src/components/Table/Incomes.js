@@ -1,78 +1,106 @@
 import React, { useEffect, useState } from "react";
 import Income from "./Income";
-import { Input } from "./PartForTable/Input";
-import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
+import { Input } from './PartForTable/Input';
+import { ButtonsForTable } from './PartForTable/ButtonsForTable';
+
+function* createKeyGenerator() {
+  let id = 0;
+  while (true) {
+    yield id++ + "income";
+  }
+}
 
 function Incomes() {
   const [incomes, setIncomes] = useState(
-    JSON.parse(localStorage.getItem("incomes"))
+    JSON.parse(localStorage.getItem("incomes")) || [
+      {
+        category: "fuck",
+        money: "12",
+        description: "shit",
+        date: new Date().toLocaleDateString().replace(/\./gi, "/"),
+        key: "0income",
+      },
+    ]
   );
-  const incomeCategory = React.createRef();
-  const incomeDescription = React.createRef();
-  const incomeMoney = React.createRef();
+  const category = React.createRef();
+  const description = React.createRef();
+  const money = React.createRef();
+  const keyGenerator = createKeyGenerator();
   let incomesArr = [];
 
   useEffect(() => {
+    if (!localStorage.getItem("incomes")) {
+      localStorage.setItem(
+        "incomes",
+        JSON.stringify([
+          {
+            category: "fuck",
+            money: "12",
+            description: "shit",
+            date: new Date().toLocaleDateString().replace(/\./gi, "/"),
+            key: "0income",
+          },
+        ])
+      );
+    }
     incomesArr = JSON.parse(localStorage.getItem("incomes"));
   });
 
   function addIncome(e) {
     e.preventDefault();
-    if (incomeCategory.current.value && incomeMoney.current.value > 0) {
+    console.log(incomesArr);
+    if (category.current.value && money.current.value > 0) {
       incomesArr.push({
-        key:
-          new Date().getDate() +
-          incomeCategory.current.value +
-          incomeMoney.current.value,
-        category: incomeCategory.current.value,
-        description: incomeDescription.current.value,
-        money: incomeMoney.current.value,
-        date: new Date().toLocaleDateString(),
+        key: keyGenerator.next().value,
+        category: category.current.value,
+        description: description.current.value,
+        money: money.current.value,
+        date: new Date().toLocaleDateString().replace(/\./gi, "/"),
       });
-      incomeDescription.current.value = "";
-      incomeMoney.current.value = "";
+      category.current.value = "";
+      description.current.value = "";
+      money.current.value = "";
     }
     console.log(incomesArr);
     localStorage.setItem("incomes", JSON.stringify(incomesArr));
+    console.log(JSON.parse(localStorage.getItem("incomes")));
     setIncomes(JSON.parse(localStorage.getItem("incomes")));
+
   }
 
   return (
     <div className="incomes table">
       <form className="table__inputs">
-        <select id="income-categories" ref={incomeCategory}>
-          <option disabled>Pick category</option>
-          {JSON.parse(localStorage.getItem("incomeCategories")).map(
-            (category) => (
-              <option value={category.name} key={category.categoryId}>
-                {category.name}
-              </option>
-            )
-          )}
-        </select>
         <Input
-          key="9iu8o78kj9hj79kh87jkh"
-          ref={incomeDescription}
-          id="description"
-          type="text"
-          label="Description"
-          name="description"
+          ref={category}
+          id='category'
+          type='text'
+          label='Category'
+          name='category'
         />
         <Input
-          key="21xvc5v1cv23b4ghg5"
-          ref={incomeMoney}
-          id="money"
-          type="number"
-          label="Money"
-          name="money"
+          ref={description}
+          id='description'
+          type='text'
+          label='Description'
+          name='description'
         />
-        <ButtonsForTable clickBtn={addIncome} className="table__btn">
+        <Input
+          ref={money}
+          id='money'
+          type='number'
+          label='Money'
+          name='money'
+        />
+        <ButtonsForTable
+          clickBtn={addIncome}
+          className='table__btn'>
           Add
         </ButtonsForTable>
       </form>
       <table>
         <tbody>
-          <tr key="head">
+          <tr key='head'>
             <th>Category</th>
             <th>Description</th>
             <th>Date</th>
