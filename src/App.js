@@ -1,10 +1,4 @@
 import "./css/style.css";
-import {
-  Link,
-  NavLink,
-  Route,
-  BrowserRouter as Router,
-} from "react-router-dom";
 import { Setting } from "./components/Settings/Setting";
 import { useEffect } from "react";
 import "./App.css";
