@@ -1,12 +1,12 @@
-import './css/style.css';
-import {Link,NavLink,Route, BrowserRouter as Router  }  from 'react-router-dom';
-import { Setting } from './components/Settings/Setting';
-import { useEffect } from 'react';
+import "./css/style.css";
+import { Setting } from "./components/Settings/Setting";
+import { useEffect } from "react";
 import "./App.css";
 import Charges from "./components/Table/Charges";
 import Incomes from "./components/Table/Incomes";
-import NavPanel from "./components/Navigation/NavPanel.js"
-
+import Graphs from "./components/Graphs/Graphs";
+import {Link,NavLink,Route, BrowserRouter as Router  }  from 'react-router-dom';
+import NavPanel from "./components/Navigation/NavPanel"
 function App() {
   useEffect(() => {
     localStorage.setItem("charges", JSON.stringify([]));
@@ -25,8 +25,8 @@ function App() {
       <Charges />
       <Incomes />
       <Setting />
+      <Graphs />
     </div>
   );
 }
-
 export default App;
