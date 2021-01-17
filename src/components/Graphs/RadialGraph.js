@@ -1,25 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Box from '@material-ui/core/Box'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles'
 import '../../css/sourse/graph.css'
 
-const valuesInput = [
-  {
-    id: 'type1',
-    value: 20,
-  },
-  {
-    id: 'type2',
-    value: 40,
-  },
-  {
-    id: 'type3',
-    value: 50,
-  },
-]
-
 const RadialGraph = () => {
+  const [inputSource, setInputSource] = useState(
+    JSON.parse(localStorage.getItem('incomes')),
+  )
+
+  const [categories, setCategories] = useState(
+    JSON.parse(localStorage.getItem('incomeCategories')),
+  )
+
+  const valuesInput = categories.map((category) => {
+    let totalSum = inputSource.reduce((total, input) => {
+      return total + +input.money
+    }, 0)
+
+    let catSum = inputSource
+      .filter((input) => input.category == category.name)
+      .reduce((total, input) => {
+        return total + +input.money
+      }, 0)
+
+    return {
+      id: category.name,
+      value: Math.round((+catSum / +totalSum) * 100),
+    }
+  })
+
   const useStyles = makeStyles((theme) => ({
     root: {
       display: 'grid',
@@ -80,9 +90,9 @@ const RadialGraph = () => {
           )
         })}
       </Box>
-    <Box className='radial-legend'>
-<p>here will be a legend with keys to the grapg</p>
-    </Box>
+      <Box className='radial-legend'>
+        <p>here will be a legend with keys to the graph</p>
+      </Box>
     </Box>
   )
 }
