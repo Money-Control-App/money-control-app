@@ -1,112 +1,97 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Charge from "./Charge";
-import { Input } from './PartForTable/Input';
-import { ButtonsForTable } from './PartForTable/ButtonsForTable';
-import "../../css/elements-style.css";
+import { Input } from "./PartForTable/Input";
+import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
 
-function* createKeyGenerator() {
-  let id = 0;
-  while (true) {
-    yield id++ + "charge";
-  }
-}
+function Charges() {
+  const chargeCategory = React.createRef();
+  const chargeDescription = React.createRef();
+  const chargeMoney = React.createRef();
+  const [charges, setCharges] = useState(
+    JSON.parse(localStorage.getItem("charges"))
+  );
+  let chargesArr = [];
 
-class Charges extends React.Component {
-  constructor(props) {
-    super(props);
-    this.category = React.createRef();
-    this.description = React.createRef();
-    this.money = React.createRef();
-    this.charges = JSON.parse(localStorage.getItem("charges"));
-    this.state = {
-      charges: [],
-    };
-  }
+  useEffect(() => {
+    chargesArr = JSON.parse(localStorage.getItem("charges"));
+  });
 
-  componentDidMount() { }
-
-  clearInputs = () => {
-    this.category.current.value = "";
-    this.description.current.value = "";
-    this.money.current.value = "";
-  };
-
-  keyGenerator = createKeyGenerator();
-
-  addCharge = (e) => {
+  function addCharge(e) {
     e.preventDefault();
-    if ((this.money.current.value, this.category.current.value && this.money.current.value > 0)) {
-      this.charges = JSON.parse(localStorage.getItem("charges"));
-      this.charges.push({
-        chargeKey: this.keyGenerator.next().value,
-        category: this.category.current.value || "",
-        description: this.description.current.value,
-        money: this.money.current.value,
-        date: new Date().toLocaleDateString().replace(/\./gi, "/"),
+    console.log(chargesArr);
+    if (chargeCategory.current.value && chargeMoney.current.value > 0) {
+      chargesArr.push({
+        key:
+          new Date().getDate() +
+          chargeCategory.current.value +
+          chargeMoney.current.value,
+        category: chargeCategory.current.value,
+        description: chargeDescription.current.value,
+        money: chargeMoney.current.value,
+        date: new Date().toLocaleDateString(),
       });
-      this.clearInputs();
-      console.log(this.charges);
-      localStorage.setItem("charges", JSON.stringify(this.charges));
-      this.setState({
-        charges: JSON.parse(localStorage.getItem("charges")),
-      });
+      chargeDescription.current.value = "";
+      chargeMoney.current.value = "";
     }
-  };
-
-  render() {
-    return (
-      <div className="charges table">
-        <form className="table__inputs table__charges">
-          <Input
-            ref={this.category}
-            id='category'
-            type='text'
-            label='Category'
-            name='category'
-          />
-          <Input
-            ref={this.description}
-            id='description'
-            type='text'
-            label='Description'
-            name='description'
-          />
-          <Input
-            ref={this.description}
-            id='money'
-            type='number'
-            label='Money'
-            name='money'
-          />
-
-          <ButtonsForTable
-            clickBtn={this.addCharge}
-            className='table__btn'>
-            Add
-          </ButtonsForTable>
-        </form>
-        <table>
-          <tbody>
-            <tr>
-              <th>Category</th>
-              <th>Description</th>
-              <th>Date</th>
-              <th>Money</th>
-            </tr>
-            {this.state.charges.map((charge) => (
-              <Charge
-                category={charge.category}
-                description={charge.description}
-                date={charge.date}
-                money={charge.money}
-                key={charge.chargeKey}
-              />
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+    console.log(chargesArr);
+    localStorage.setItem("charges", JSON.stringify(chargesArr));
+    setCharges(JSON.parse(localStorage.getItem("charges")));
   }
+
+  return (
+    <div className="charges table">
+      <form className="table__inputs table__charges">
+        <select id="charge-categories" ref={chargeCategory}>
+          <option disabled>Pick category</option>
+          {JSON.parse(localStorage.getItem("chargeCategories")).map(
+            (category) => (
+              <option value={category.name} key={category.categoryId}>
+                {category.name}
+              </option>
+            )
+          )}
+        </select>
+        <Input
+          key="6gd4fg5d6f4gd3fg4df5g4"
+          ref={chargeDescription}
+          id="description"
+          type="text"
+          label="Description"
+          name="description"
+        />
+        <Input
+          key="d7fg68fgd6f8g76"
+          ref={chargeMoney}
+          id="money"
+          type="number"
+          label="Money"
+          name="money"
+        />
+        <ButtonsForTable clickBtn={addCharge} className="table__btn">
+          Add
+        </ButtonsForTable>
+      </form>
+      <table>
+        <tbody>
+          <tr key="head">
+            <th>Category</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Money</th>
+          </tr>
+          {charges.map((charge) => (
+            <Charge
+              category={charge.category}
+              description={charge.description}
+              date={charge.date}
+              money={charge.money}
+              key={charge.chargeKey}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
 
 export default Charges;

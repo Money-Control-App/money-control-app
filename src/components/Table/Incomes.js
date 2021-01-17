@@ -5,19 +5,11 @@ import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
 
 function Incomes() {
   const [incomes, setIncomes] = useState(
-    JSON.parse(localStorage.getItem("incomes")) || [
-      {
-        category: "fuck",
-        money: "12",
-        description: "shit",
-        date: new Date().toLocaleDateString(),
-        key: "0income",
-      },
-    ]
+    JSON.parse(localStorage.getItem("incomes"))
   );
-  const category = React.createRef();
-  const description = React.createRef();
-  const money = React.createRef();
+  const incomeCategory = React.createRef();
+  const incomeDescription = React.createRef();
+  const incomeMoney = React.createRef();
   let incomesArr = [];
 
   useEffect(() => {
@@ -26,46 +18,49 @@ function Incomes() {
 
   function addIncome(e) {
     e.preventDefault();
-    console.log(incomesArr);
-    if (category.current.value && money.current.value > 0) {
+    if (incomeCategory.current.value && incomeMoney.current.value > 0) {
       incomesArr.push({
         key:
-          new Date().getDate() + category.current.value + money.current.value,
-        category: category.current.value,
-        description: description.current.value,
-        money: money.current.value,
+          new Date().getDate() +
+          incomeCategory.current.value +
+          incomeMoney.current.value,
+        category: incomeCategory.current.value,
+        description: incomeDescription.current.value,
+        money: incomeMoney.current.value,
         date: new Date().toLocaleDateString(),
       });
-      category.current.value = "";
-      description.current.value = "";
-      money.current.value = "";
+      incomeDescription.current.value = "";
+      incomeMoney.current.value = "";
     }
     console.log(incomesArr);
     localStorage.setItem("incomes", JSON.stringify(incomesArr));
-    console.log(JSON.parse(localStorage.getItem("incomes")));
     setIncomes(JSON.parse(localStorage.getItem("incomes")));
   }
 
   return (
     <div className="incomes table">
       <form className="table__inputs">
-        <select id="income-categories" ref={category}>
+        <select id="income-categories" ref={incomeCategory}>
           <option disabled>Pick category</option>
           {JSON.parse(localStorage.getItem("incomeCategories")).map(
             (category) => (
-              <option value={category.name}>{category.name}</option>
+              <option value={category.name} key={category.categoryId}>
+                {category.name}
+              </option>
             )
           )}
         </select>
         <Input
-          ref={description}
+          key="9iu8o78kj9hj79kh87jkh"
+          ref={incomeDescription}
           id="description"
           type="text"
           label="Description"
           name="description"
         />
         <Input
-          ref={money}
+          key="21xvc5v1cv23b4ghg5"
+          ref={incomeMoney}
           id="money"
           type="number"
           label="Money"
