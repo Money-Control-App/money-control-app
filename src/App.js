@@ -10,7 +10,9 @@ import { useEffect } from "react";
 import "./App.css";
 import Charges from "./components/Table/Charges";
 import Incomes from "./components/Table/Incomes";
-import NavPanel from "./components/Navigation/NavPanel.js";
+import Graphs from "./components/Graphs/Graphs";
+import {Link,NavLink,Route, BrowserRouter as Router  }  from 'react-router-dom';
+import NavPanel from "./components/Navigation/NavPanel"
 
 function App() {
   if (!localStorage.getItem("incomes")) {
@@ -152,8 +154,8 @@ function App() {
       <Charges />
       <Incomes />
       <Setting />
+      <Graphs />
     </div>
   );
 }
-
 export default App;
