@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Income from "./Income";
-import { Input } from './PartForTable/Input';
-import { ButtonsForTable } from './PartForTable/ButtonsForTable';
-
-function* createKeyGenerator() {
-  let id = 0;
-  while (true) {
-    yield id++ + "income";
-  }
-}
+import { Input } from "./PartForTable/Input";
+import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
 
 function Incomes() {
   const [incomes, setIncomes] = useState(
@@ -17,7 +10,7 @@ function Incomes() {
         category: "fuck",
         money: "12",
         description: "shit",
-        date: new Date().toLocaleDateString().replace(/\./gi, "/"),
+        date: new Date().toLocaleDateString(),
         key: "0income",
       },
     ]
@@ -25,24 +18,9 @@ function Incomes() {
   const category = React.createRef();
   const description = React.createRef();
   const money = React.createRef();
-  const keyGenerator = createKeyGenerator();
   let incomesArr = [];
 
   useEffect(() => {
-    if (!localStorage.getItem("incomes")) {
-      localStorage.setItem(
-        "incomes",
-        JSON.stringify([
-          {
-            category: "fuck",
-            money: "12",
-            description: "shit",
-            date: new Date().toLocaleDateString().replace(/\./gi, "/"),
-            key: "0income",
-          },
-        ])
-      );
-    }
     incomesArr = JSON.parse(localStorage.getItem("incomes"));
   });
 
@@ -51,11 +29,12 @@ function Incomes() {
     console.log(incomesArr);
     if (category.current.value && money.current.value > 0) {
       incomesArr.push({
-        key: keyGenerator.next().value,
+        key:
+          new Date().getDate() + category.current.value + money.current.value,
         category: category.current.value,
         description: description.current.value,
         money: money.current.value,
-        date: new Date().toLocaleDateString().replace(/\./gi, "/"),
+        date: new Date().toLocaleDateString(),
       });
       category.current.value = "";
       description.current.value = "";
@@ -65,42 +44,40 @@ function Incomes() {
     localStorage.setItem("incomes", JSON.stringify(incomesArr));
     console.log(JSON.parse(localStorage.getItem("incomes")));
     setIncomes(JSON.parse(localStorage.getItem("incomes")));
-
   }
 
   return (
     <div className="incomes table">
       <form className="table__inputs">
-        <Input
-          ref={category}
-          id='category'
-          type='text'
-          label='Category'
-          name='category'
-        />
+        <select id="income-categories" ref={category}>
+          <option disabled>Pick category</option>
+          {JSON.parse(localStorage.getItem("incomeCategories")).map(
+            (category) => (
+              <option value={category.name}>{category.name}</option>
+            )
+          )}
+        </select>
         <Input
           ref={description}
-          id='description'
-          type='text'
-          label='Description'
-          name='description'
+          id="description"
+          type="text"
+          label="Description"
+          name="description"
         />
         <Input
           ref={money}
-          id='money'
-          type='number'
-          label='Money'
-          name='money'
+          id="money"
+          type="number"
+          label="Money"
+          name="money"
         />
-        <ButtonsForTable
-          clickBtn={addIncome}
-          className='table__btn'>
+        <ButtonsForTable clickBtn={addIncome} className="table__btn">
           Add
         </ButtonsForTable>
       </form>
       <table>
         <tbody>
-          <tr key='head'>
+          <tr key="head">
             <th>Category</th>
             <th>Description</th>
             <th>Date</th>

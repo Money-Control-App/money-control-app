@@ -8,6 +8,41 @@ import Incomes from "./components/Table/Incomes";
 import NavPanel from "./components/Navigation/NavPanel.js"
 
 function App() {
+
+  if (!localStorage.getItem("incomes")) {
+    localStorage.setItem(
+      "incomes",
+      JSON.stringify([
+        {
+          category: "fuck",
+          money: "12",
+          description: "shit",
+          date: new Date().toLocaleDateString(),
+          key: "0income",
+        },
+      ])
+    );
+  }
+  if (!localStorage.getItem("incomeCategories")) {
+    localStorage.setItem(
+      "incomeCategories",
+      JSON.stringify([
+        {
+          categoryId: 1,
+          name: "Salary",
+        },
+        {
+          categoryId: 2,
+          name: "Investments",
+        },
+        {
+          categoryId: 3,
+          name: "Rental",
+        },
+      ])
+    );
+  }
+
   useEffect(() => {
     localStorage.setItem("charges", JSON.stringify([]));
   });
