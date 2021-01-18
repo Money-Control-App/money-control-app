@@ -1,13 +1,55 @@
+.form__head {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
 .form__names {
   display: flex;
+  flex-direction: column;
+  width: 55%;
 }
-.form__names .MuiFormControl-fullWidth + .MuiFormControl-fullWidth {
-  margin-left: 10px;
+.form__names .MuiFormControl-fullWidth #firstName {
+  margin-top: 0;
 }
 .form__header {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.form__avatar {
+  flex: 0 0 50%;
+  height: 100%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  height: 100%;
+}
+.form__avatar .MuiOutlinedInput-notchedOutline {
+  border: none;
+}
+.form__avatar .MuiFormControl-marginNormal {
+  margin-top: 0px;
+}
+.form__avatar .MuiOutlinedInput-input {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+.form__avatar--load {
+  border: none;
+  opacity: 1;
+}
+.avatar {
+  width: auto;
+  height: 120px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+
+.btnAVA {
+  height: 40px;
 }
 
 table {
