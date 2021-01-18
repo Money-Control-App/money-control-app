@@ -1,8 +1,8 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, { createContext, useContext, useState } from 'react';
 const DataContext = createContext();
 
 //  Тут зберігаються дані з налаштувань юзера data
-export const DataProvider = ({children}) => {
+export const DataProvider = ({ children }) => {
     const [data, setData] = useState({});
 
     const setValues = (values) => {
@@ -13,11 +13,10 @@ export const DataProvider = ({children}) => {
     }
     console.log(data)
     return (
-        <DataContext.Provider value = {{data, setValues}} >
+        <DataContext.Provider value={{ data, setValues }} >
             {children}
         </DataContext.Provider>
     )
 }
 
 export const useData = () => useContext(DataContext);
-
