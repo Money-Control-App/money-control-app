@@ -21,8 +21,7 @@ import RadialGraph from './RadialGraph'
 import LinearGraph from './LinearGraph'
 import BoxGraph from './BoxGraph'
 
-/* import '../../css/sourse/graph.css'
- */import './graph.css'
+import './graph.css'
 
 
  function Graphs() {
@@ -86,8 +85,8 @@ console.log(endtDate)
             Bar
           </NavLink>
 
-          <Route className = 'radial' path='/radial' component={RadialGraph} />
-          <Route path='/linear' component={LinearGraph} />
+          <Route className = 'radial' path='/radial' component={()=> <RadialGraph source={dataType}/>} />
+          <Route path='/linear'  component={()=> <LinearGraph source={dataType}/>}/>
           <Route path='/box' component={BoxGraph} />
         </Router>
         </div>
