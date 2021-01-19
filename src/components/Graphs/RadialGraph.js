@@ -4,13 +4,16 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles'
 import '../../css/sourse/graph.css'
 
-const RadialGraph = () => {
+const RadialGraph = (props) => {
   const [inputSource, setInputSource] = useState(
-    JSON.parse(localStorage.getItem('incomes')),
+    JSON.parse(localStorage.getItem(props.source.toString())),
   )
 
+  const categorySource =
+    props.source === 'incomes' ? 'incomeCategories' : 'chargeCategories'
+
   const [categories, setCategories] = useState(
-    JSON.parse(localStorage.getItem('incomeCategories')),
+    JSON.parse(localStorage.getItem(categorySource.toString())),
   )
 
   const valuesInput = categories.map((category) => {
