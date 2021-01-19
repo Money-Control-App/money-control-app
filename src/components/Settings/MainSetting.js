@@ -8,8 +8,10 @@ import { useData } from './DataUser';
 import blankPhoto from '../../img/newUser/blank_photo.webp';
 import * as yup from 'yup';
 import "yup-phone";
+import PhoneInput from 'react-phone-input-2';
 import parsePhoneNumberFromString from 'libphonenumber-js';
-
+// import ReactPhoneInput from 'react-phone-input-material-ui';
+import 'react-phone-input-2/lib/material.css';
 const REGULAR_NOT_NUMBER = /^([^0-9]*)$/;
 const MESSAGE_FOR_FILL = 'Fill this field';
 const PHONE_REGEXP = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
@@ -33,10 +35,10 @@ const schema = yup.object().shape({
         yup.string()
             .email("Email. should have correct format")
             .required(MESSAGE_FOR_FILL),
-    phoneNumber:
-        yup.string()
-            .required(MESSAGE_FOR_FILL)
-            .matches(PHONE_REGEXP, 'Phone number is invalid'),
+    // phoneNumber:
+    //     yup.string()
+    //         .required(MESSAGE_FOR_FILL)
+    //         .matches(PHONE_REGEXP, 'Phone number is invalid'),
     loadAvatar:
         yup.mixed()
             .test(
@@ -46,21 +48,15 @@ const schema = yup.object().shape({
             )
 });
 
-const formatTheNumber = (inputNumber) => {
-    const phoneNumber = parsePhoneNumberFromString(inputNumber);
-    return (!phoneNumber) ? inputNumber :
-        phoneNumber.formatInternational();
-};
-
 export const MainSetting = () => {
+    const refPhone = React.createRef();
+
     const { data, setValues } = useData();
     const { register, handleSubmit, errors } = useForm({
         mode: 'onBlur',
         resolver: yupResolver(schema)
     });
-    // const { register, handleSubmit } = useForm | ({})
     const [profilePhoto, setAvatar] = useState(blankPhoto);
-
     localStorage.setItem("avatar", (blankPhoto));
 
     const photoHandle = (event) => {
@@ -70,15 +66,18 @@ export const MainSetting = () => {
                 setAvatar(newPhoto.result)
             }
         }
-
-
         newPhoto.readAsDataURL(event.target.files[0]);
     }
+
+    const changeNumber = (number) => {   
+        refPhone.current.value = number;
+    }
+
     const onSubmit = (data) => {
-        // кудась перейти
-        console.log(data)
-        setValues(data);
+        const phoneNumberInp = refPhone.current.value;
+        setValues({phoneNumber: phoneNumberInp}, data);
     };
+
     return (
         <FillForm onSubmit={handleSubmit(onSubmit)} >
             <div className='form__head'>
@@ -138,16 +137,15 @@ export const MainSetting = () => {
                 error={!!errors.email}
                 helperText={errors?.email?.message}
             />
-            <Input
-                ref={register}
-                id='phoneNumber'
-                type='tel'
-                label='Phone number'
-                name='phoneNumber'
-                defaultValue='+38'
-                error={!!errors.phoneNumber}
-                helperText={errors?.phoneNumber?.message}
-                onChange={(event) => event.target.value = formatTheNumber(event.target.value)}
+            <PhoneInput
+                inputStyle={{ width: '100%' }}
+                ref={refPhone}
+                country='ua'
+                placeholder='+380991234567'
+                enableSearch
+                disableSearchIcon
+                preferredCountries={['de', 'es', 'fr', 'ru', 'jp']}
+                onChange={changeNumber}
             />
             <ButtonSubmit>Ok</ButtonSubmit>
 
