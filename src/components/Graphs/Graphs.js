@@ -87,7 +87,7 @@ console.log(endtDate)
 
           <Route className = 'radial' path='/radial' component={()=> <RadialGraph source={dataType}/>} />
           <Route path='/linear'  component={()=> <LinearGraph source={dataType}/>}/>
-          <Route path='/box' component={BoxGraph} />
+          <Route path='/box' component={()=> <BoxGraph source={dataType} />}/>
         </Router>
         </div>
       </nav>
