@@ -35,13 +35,13 @@ const schema = yup.object().shape({
         yup.string()
             .email("Email. should have correct format")
             .required(MESSAGE_FOR_FILL),
-    loadAvatar:
-        yup.mixed()
-            .test(
-                "fileFormat",
-                "Unsupported Format",
-                value => value && TYPE_AVATAR.includes(value[0].type)
-            )
+    // loadAvatar:
+    //     yup.mixed()
+    //         .test(
+    //             "fileFormat",
+    //             "Unsupported Format",
+    //             value => value && TYPE_AVATAR.includes(value[0].type)
+    //         )
 });
 
 export const MainSetting = () => {
@@ -62,7 +62,7 @@ export const MainSetting = () => {
         newPhoto.onload = () => {
             if (newPhoto.readyState === 2) {
                 console.log(newPhoto.result)
-                localStorage.setItem("avatar", JSON.stringify(newPhoto.result));
+               
                 
                 setAvatar(newPhoto.result)
                 console.log(profilePhoto)
@@ -73,13 +73,15 @@ export const MainSetting = () => {
 
     const changeNumber = (number) => {
         refPhone.current.value = number;
+        console.log(refPhone.current.value )
     }
 
     const onSubmit = (data) => {
-        const phoneNumberInp = refPhone.current.value;
+        const phoneNumberInp = infoUser ? infoUser.data.phoneNumber : refPhone.current.value;
         data.phoneNumber = phoneNumberInp;
         console.log(data);
         setValues(data);
+        localStorage.setItem("avatar", JSON.stringify(profilePhoto));
         localStorage.setItem('User-Info', JSON.stringify({ data }));
     };
 
@@ -93,7 +95,6 @@ export const MainSetting = () => {
                         type='text'
                         label='First name'
                         name='firstName'
-                        required
                         defaultValue={infoUser ? infoUser.data.firstName : ''}
                         error={!!errors.firstName}
                         helperText={errors?.firstName?.message}
@@ -104,7 +105,6 @@ export const MainSetting = () => {
                         type='text'
                         label='Last name'
                         name='lastName'
-                        required
                         defaultValue={infoUser ? infoUser.data.lastName : ''}
                         error={!!errors.lastName}
                         helperText={errors?.lastName?.message}
@@ -114,7 +114,7 @@ export const MainSetting = () => {
                 <div className='form__avatar'>
                     <div className='form__avatar--block'><img src={profilePhoto} className='avatar' /></div>
                     <Input
-                        ref={register}
+                        // ref={register}
                         name='loadAvatar'
                         type='file'
                         id='loadAvatar'
@@ -132,7 +132,6 @@ export const MainSetting = () => {
                 label='Nickname'
                 defaultValue={infoUser ? infoUser.data.nickname : '@'}
                 name='nickname'
-                classes={'form__nickname'}
             />
             <Input
                 ref={register}
@@ -140,7 +139,6 @@ export const MainSetting = () => {
                 type='email'
                 label='E-mail'
                 name='email'
-                required
                 defaultValue={infoUser ? infoUser.data.email : ''}
                 error={!!errors.email}
                 helperText={errors?.email?.message}

@@ -13,7 +13,9 @@ export const MainPage = () => {
         <div className='main--page'>
             <div className='main--user'>
                 <div>
-                    <h5 className='main__name'>Hello, {infoUser ? infoUser.data.firstName : 'person'}!</h5>
+                    <h5 className='main__name'>Hello,
+                     {infoUser ? infoUser.data.firstName : 'person'}
+                     !</h5>
                 </div>
                 <div>
                     <img className='main__avatar' src={avatarUser ? avatarUser : standartPhoto} />
