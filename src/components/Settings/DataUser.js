@@ -12,6 +12,7 @@ export const DataProvider = ({ children }) => {
         }))
     }
     console.log(data)
+    
     return (
         <DataContext.Provider value={{ data, setValues }} >
             {children}

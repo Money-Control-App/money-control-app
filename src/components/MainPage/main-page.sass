@@ -1,0 +1,31 @@
+$context: 16
+$maxWidth: 1440
+
+@mixin adaptiv-font($pcSize, $mobSize)
+    $addSize: $pcSize - $mobSize
+    $maxWidth: $maxWidth - 320
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}))
+
+.main
+    &--page
+        display: flex
+        padding-top: 30px
+        flex-direction: row-reverse
+    &--user
+        display: flex
+        flex-direction: column-reverse
+        align-items: center
+    &__name
+        @include adaptiv-font(32, 20)
+        margin-top: 10px
+    &__avatar
+        height: 200px
+        width: 200px
+        border-radius: 50%
+        @media ( max-width: 425px )
+            height: 150px
+            width: 150px
+    &__text
+        @include adaptiv-font(62, 22)
+        align-self: flex-end
+        margin-right: 30px

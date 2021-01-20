@@ -9,16 +9,16 @@ import blankPhoto from '../../img/newUser/blank_photo.webp';
 import * as yup from 'yup';
 import "yup-phone";
 import PhoneInput from 'react-phone-input-2';
-import parsePhoneNumberFromString from 'libphonenumber-js';
-// import ReactPhoneInput from 'react-phone-input-material-ui';
 import 'react-phone-input-2/lib/material.css';
+import './form.sass';
 const REGULAR_NOT_NUMBER = /^([^0-9]*)$/;
 const MESSAGE_FOR_FILL = 'Fill this field';
 const PHONE_REGEXP = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 const TYPE_AVATAR = ["image/jpg",
     "image/jpeg",
     "image/gif",
-    "image/png"];
+    "image/png",
+    'image/webp'];
 
 const schema = yup.object().shape({
     firstName:
@@ -35,10 +35,6 @@ const schema = yup.object().shape({
         yup.string()
             .email("Email. should have correct format")
             .required(MESSAGE_FOR_FILL),
-    // phoneNumber:
-    //     yup.string()
-    //         .required(MESSAGE_FOR_FILL)
-    //         .matches(PHONE_REGEXP, 'Phone number is invalid'),
     loadAvatar:
         yup.mixed()
             .test(
@@ -56,26 +52,35 @@ export const MainSetting = () => {
         mode: 'onBlur',
         resolver: yupResolver(schema)
     });
-    const [profilePhoto, setAvatar] = useState(blankPhoto);
-    localStorage.setItem("avatar", (blankPhoto));
+
+    const infoUser = JSON.parse(localStorage.getItem("User-Info"));
+    const avatarUser = JSON.parse(localStorage.getItem("avatar"));
+    const [profilePhoto, setAvatar] = useState(avatarUser? avatarUser : blankPhoto);
 
     const photoHandle = (event) => {
         const newPhoto = new FileReader();
         newPhoto.onload = () => {
             if (newPhoto.readyState === 2) {
+                console.log(newPhoto.result)
+                localStorage.setItem("avatar", JSON.stringify(newPhoto.result));
+                
                 setAvatar(newPhoto.result)
+                console.log(profilePhoto)
             }
         }
         newPhoto.readAsDataURL(event.target.files[0]);
     }
 
-    const changeNumber = (number) => {   
+    const changeNumber = (number) => {
         refPhone.current.value = number;
     }
 
     const onSubmit = (data) => {
         const phoneNumberInp = refPhone.current.value;
-        setValues({phoneNumber: phoneNumberInp}, data);
+        data.phoneNumber = phoneNumberInp;
+        console.log(data);
+        setValues(data);
+        localStorage.setItem('User-Info', JSON.stringify({ data }));
     };
 
     return (
@@ -89,6 +94,7 @@ export const MainSetting = () => {
                         label='First name'
                         name='firstName'
                         required
+                        defaultValue={infoUser ? infoUser.data.firstName : ''}
                         error={!!errors.firstName}
                         helperText={errors?.firstName?.message}
                     />
@@ -99,6 +105,7 @@ export const MainSetting = () => {
                         label='Last name'
                         name='lastName'
                         required
+                        defaultValue={infoUser ? infoUser.data.lastName : ''}
                         error={!!errors.lastName}
                         helperText={errors?.lastName?.message}
                     />
@@ -108,7 +115,6 @@ export const MainSetting = () => {
                     <div className='form__avatar--block'><img src={profilePhoto} className='avatar' /></div>
                     <Input
                         ref={register}
-                        className='form__avatar--load'
                         name='loadAvatar'
                         type='file'
                         id='loadAvatar'
@@ -124,8 +130,9 @@ export const MainSetting = () => {
                 id='nickname'
                 type='text'
                 label='Nickname'
+                defaultValue={infoUser ? infoUser.data.nickname : '@'}
                 name='nickname'
-                defaultValue='@'
+                classes={'form__nickname'}
             />
             <Input
                 ref={register}
@@ -134,6 +141,7 @@ export const MainSetting = () => {
                 label='E-mail'
                 name='email'
                 required
+                defaultValue={infoUser ? infoUser.data.email : ''}
                 error={!!errors.email}
                 helperText={errors?.email?.message}
             />
@@ -142,6 +150,7 @@ export const MainSetting = () => {
                 ref={refPhone}
                 country='ua'
                 placeholder='+380991234567'
+                value={infoUser ? infoUser.data.phoneNumber : ''}
                 enableSearch
                 disableSearchIcon
                 preferredCountries={['de', 'es', 'fr', 'ru', 'jp']}

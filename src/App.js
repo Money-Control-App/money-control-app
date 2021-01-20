@@ -1,11 +1,12 @@
 import "./css/style.css";
+import {MainPage} from './components/MainPage/MainPage';
 import { Setting } from "./components/Settings/Setting";
 import { useEffect } from "react";
 import "./App.css";
 import Charges from "./components/Table/Charges";
 import Incomes from "./components/Table/Incomes";
 import Graphs from "./components/Graphs/Graphs";
-import {Link,NavLink,Route, BrowserRouter as Router  }  from 'react-router-dom';
+import {Link,NavLink,Route, BrowserRouter as Router,  Switch  }  from 'react-router-dom';
 import NavPanel from "./components/Navigation/NavPanel"
 
 function App() {
@@ -139,16 +140,14 @@ function App() {
     <div className="App">
       <Router>
         <NavPanel />
-
-        {/* <Route path="/home" component={Home} />
-        <Route path="/categories" component={Categories}/>
-        <Route path="/dataanalysis" component={dataAnalysis}/> */}
+        <Switch>
+        <Route path='/setting' component={Setting} />
+        <Route path='/graphs' component={Graphs} />
+        <Route path='/incomes' component={Incomes} />
+        <Route path='/charges' component={Charges} />
+        <Route path={'/'} component={MainPage}/>
+        </Switch>
       </Router>
-
-      <Charges />
-      <Incomes />
-      <Setting />
-      <Graphs />
     </div>
   );
 }

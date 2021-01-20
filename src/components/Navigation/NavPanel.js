@@ -6,14 +6,18 @@ export default function NavPanel() {
     <nav className="nav">
         <div>here will be a logo</div>
         <div>
-        <NavLink className="link" activeClassName="active-link" to="/home">
-          Home
+        <NavLink className="link" activeClassName="active-link" to="/setting">
+          Setting
         </NavLink>
-        <NavLink className="link" activeClassName="active-link" to="/categories">
-          Categories
+        <NavLink className="link" activeClassName="active-link" to="/graphs">
+        Graphs
         </NavLink>
-        <NavLink className="link" activeClassName="active-link" to="/dataAnalysis">
-          Data analysis
+        <NavLink className="link" activeClassName="active-link" to="/incomes">
+        incomes
+        </NavLink>
+        
+        <NavLink className="link" activeClassName="active-link" to="/charges">
+        Charges
         </NavLink>
         </div>
       </nav>
