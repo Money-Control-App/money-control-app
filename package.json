@@ -9,6 +9,8 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
+    "compass-mixins": "^0.12.10",
+    "compass-sass-mixins": "^0.12.7",
     "libphonenumber-js": "^1.9.7",
     "node-sass": "^4.13.1",
     "react": "^17.0.1",

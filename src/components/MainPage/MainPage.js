@@ -10,22 +10,28 @@ export const MainPage = () => {
 
     return (
         <Container maxWidth='md'>
-        <div className='main--page'>
-            <div className='main--user'>
-                <div>
-                    <h5 className='main__name'>Hello,
+            <div className='main--page'>
+                <div className='main--user'>
+                    <div>
+                        <h5 className='main__name'>Hello,&nbsp;
                      {infoUser ? infoUser.data.firstName : 'person'}
                      !</h5>
+                    </div>
+                    <div className='avatar-block'>
+                        <img className='main__avatar' src={avatarUser ? avatarUser : standartPhoto} />
+                    </div>
                 </div>
-                <div>
-                    <img className='main__avatar' src={avatarUser ? avatarUser : standartPhoto} />
+                <div className='main__text'>
+                    We help you <br />
+                &nbsp;&nbsp;&nbsp;to save your money! <br />
+                Don't forget to fill it
+            </div>
+            </div>
+            {avatarUser &&
+                <div className='main__balance'>
+                    Total balance: 
                 </div>
-            </div>
-            <div className='main__text'>
-                We help you to save your money! <br/>
-                Don't forget to fill it    
-            </div>
-        </div>
+            }
         </Container>
     )
 }
