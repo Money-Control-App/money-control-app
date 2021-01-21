@@ -16,7 +16,7 @@ export default function NavPanel() {
           <NavLink className="nav__link" activeClassName="active-link" to="/setting">
             Setting
         </NavLink>
-          <NavLink className="nav__link" activeClassName="active-link" to="/data">
+          <NavLink className="nav__link" activeClassName="active-link" to="/dataanalusis">
             Data
         </NavLink>
 
