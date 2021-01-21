@@ -3,12 +3,10 @@ import './fonts/fonts.css';
 import { MainPage } from './components/MainPage/MainPage';
 import { Setting } from "./components/Settings/Setting";
 import { useEffect } from "react";
-import Charges from "./components/Table/Charges";
-import Incomes from "./components/Table/Incomes";
-import Graphs from "./components/Graphs/Graphs";
+
 import { Link, NavLink, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import NavPanel from "./components/Navigation/NavPanel"
-import Tabs from './components/Tabs/Tabs.js'
+import DataAnalysis from './components/DataAnalysis/DataAnalysis.js'
 
 function App() {
   if (!localStorage.getItem("incomes")) {
@@ -145,13 +143,9 @@ function App() {
       <Router>
         <NavPanel />
         <Switch>
-          <Route exact path='/data-analysis' component={Tabs} />
+          <Route exact path='/data-analysis' component={DataAnalysis} />
           <Route exact path='/setting' component={Setting} />
           <Route exact path={'/'} component={MainPage} />
-
-           <Route path='/data-analysis/chargetable'  component={Charges}/>
-        <Route path='/data-analysis/:chargeincomes' component={Incomes}/>
-        <Route path='/data-analysis/:chargegraphic'  component={Graphs}/>
         </Switch>
       </Router>
     </div>
