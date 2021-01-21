@@ -14,7 +14,7 @@ const userSetting = () => {
     <DataProvider>
         <Container
             maxWidth='sm'>
-            <Header>Setting User </Header>
+            <Header>Setting UUser </Header>
             <SettingUser />
         </Container>
     </DataProvider>

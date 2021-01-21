@@ -4,20 +4,20 @@ import { Link, NavLink, BrowserRouter as Router, Route } from "react-router-dom"
 
 export default function Tabs() {
   return (
-    <div>
-      <Link to="/dataanalusis/chargetable" className="link" activeClassName="active-link">
+    <nav className='nav-setting'>
+      <Link to="/data-analysis/chargetable" className="nav-setting-link" activeClassName="active-link-s">
         Table
       </Link>
-      <Link to="/dataanalusis/chargegraphic" className="link" activeClassName="active-link">
+      <Link to="/data-analysis/chargegraphic" className="nav-setting-link" activeClassName="active-link-s">
         Graphic
       </Link>
-      <Link to="/dataanalusis/chargeincomes" className="link" activeClassName="active-link">
+      <Link to="/data-analysis/chargeincomes" className="nav-setting-link" activeClassName="active-link-s">
         Incomes
       </Link>
 
       <Router>
 
       </Router>
-    </div>
+    </nav>
   );
 }
