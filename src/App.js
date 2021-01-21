@@ -18,35 +18,35 @@ function App() {
           category: "Salary",
           money: "9999",
           description: "",
-          date: "05.01.2021",
+          date: "05/01/2021",
           key: "05Salary9999",
         },
         {
           category: "Investments",
           money: "250",
           description: "Bitcoin",
-          date: "07.01.2021",
+          date: "07/01/2021",
           key: "07Investments250"
         },
         {
           category: "Rental",
           money: "400",
           description: "",
-          date: "03.01.2021",
+          date: "03/01/2021",
           key: "03Rent400"
         },
         {
           category: "Investments",
           money: "120",
           description: "Netflix",
-          date: "10.01.2021",
+          date: "10/01/2021",
           key: "10Investments120"
         },
         {
           category: "Salary",
           money: "745",
           description: "Side project",
-          date: "11.01.2021",
+          date: "11/01/2021",
           key: "11Salary745",
         }
       ])
@@ -61,35 +61,35 @@ function App() {
           category: "Health",
           money: "14",
           description: "Headache tablets",
-          date: "01.01.2021",
+          date: "01/01/2021",
           key: "01Health14",
         },
         {
           category: "Food",
           money: "35",
           description: "Pickles",
-          date: "01.01.2021",
+          date: "01/01/2021",
           key: "01Food35",
         },
         {
           category: "Travel",
           money: "400",
           description: "Tickets to Mexico",
-          date: "15.01.2021",
+          date: "15/01/2021",
           key: "15Health400",
         },
         {
           category: "Food",
           money: "140",
           description: "Dumplings",
-          date: "03.01.2021",
+          date: "03/01/2021",
           key: "03Health140",
         },
         {
           category: "Health",
           money: "215",
           description: "Cough syrup",
-          date: "08.01.2021",
+          date: "08/01/2021",
           key: "08Health215"
         }
       ])

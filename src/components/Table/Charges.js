@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Charge from "./Charge";
 import { Input } from "./PartForTable/Input";
 import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
+import AddElementModal from "./AddElementModal"
 
 function Charges() {
   const chargeCategory = React.createRef();
   const chargeDescription = React.createRef();
   const chargeMoney = React.createRef();
+  const [isModalOpen,setModalOpen] = useState(false);
   const [charges, setCharges] = useState(
     JSON.parse(localStorage.getItem("charges"))
   );
@@ -41,33 +43,7 @@ function Charges() {
   return (
     <div className="charges table">
       <form className="table__inputs table__charges">
-        <select id="charge-categories" ref={chargeCategory}>
-          <option disabled>Pick category</option>
-          {JSON.parse(localStorage.getItem("chargeCategories")).map(
-            (category) => (
-              <option value={category.name} key={category.categoryId}>
-                {category.name}
-              </option>
-            )
-          )}
-        </select>
-        <Input
-          key="6gd4fg5d6f4gd3fg4df5g4"
-          ref={chargeDescription}
-          id="description"
-          type="text"
-          label="Description"
-          name="description"
-        />
-        <Input
-          key="d7fg68fgd6f8g76"
-          ref={chargeMoney}
-          id="money"
-          type="number"
-          label="Money"
-          name="money"
-        />
-        <ButtonsForTable clickBtn={addCharge} className="table__btn">
+      <ButtonsForTable clickBtn={()=>setModalOpen(true)}>
           Add
         </ButtonsForTable>
       </form>
@@ -90,6 +66,7 @@ function Charges() {
           ))}
         </tbody>
       </table>
+      <AddElementModal title="charge" isModalOpen={isModalOpen} setModalOpen={setModalOpen} setElements={setCharges} />
     </div>
   );
 }
