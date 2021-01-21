@@ -10,13 +10,13 @@ export default function NavPanel() {
       <nav className={`nav nav--shadow`}>
         <div className='nav__logo'>
           <img className='nav__logo--img'  src={logo}/>
-          <h4 className='nav__logo--text'>KeePocket</h4>
+          <NavLink className='nav-logo' to='/'><h4 className='nav__logo--text'>KeePocket</h4></NavLink>
         </div>
         <div className='nav__links'>
           <NavLink className="nav__link" activeClassName="active-link" to="/setting">
             Setting
         </NavLink>
-          <NavLink className="nav__link" activeClassName="active-link" to="/dataanalusis">
+          <NavLink className="nav__link" activeClassName="active-link" to="/data-analysis">
             Data
         </NavLink>
 

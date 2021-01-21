@@ -1,14 +1,12 @@
 import "./css/style.css";
 import './fonts/fonts.css';
-import {MainPage} from './components/MainPage/MainPage';
+import { MainPage } from './components/MainPage/MainPage';
 import { Setting } from "./components/Settings/Setting";
 import { useEffect } from "react";
-import Charges from "./components/Table/Charges";
-import Incomes from "./components/Table/Incomes";
-import Graphs from "./components/Graphs/Graphs";
-import {Link,NavLink,Route, BrowserRouter as Router,  Switch  }  from 'react-router-dom';
+
+import { Link, NavLink, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import NavPanel from "./components/Navigation/NavPanel"
-import Tabs from './components/Tabs/Tabs.js'
+import DataAnalysis from './components/DataAnalysis/DataAnalysis.js'
 
 function App() {
   if (!localStorage.getItem("incomes")) {
@@ -136,25 +134,18 @@ function App() {
       ])
     );
   }
-  
-  
-  
-         
+
+
+
+
   return (
     <div className="App">
       <Router>
         <NavPanel />
-
-        <Route path='/dataanalusis' component={Tabs} />
-        <Route path='/dataanalusis/chargetable'  component={Charges}/>
-        <Route path='/dataanalusis/chargeincomes' component={Incomes}/>
-        <Route path='/dataanalusis/chargegraphic'  component={Graphs}/>
         <Switch>
-        <Route path='/setting' component={Setting} />
-        {/* <Route path='/graphs' component={Graphs} />
-        <Route path='/incomes' component={Incomes} />
-        <Route path='/charges' component={Charges} />
-        <Route path={'/'} component={MainPage}/> */}
+          <Route exact path='/data-analysis' component={DataAnalysis} />
+          <Route exact path='/setting' component={Setting} />
+          <Route exact path={'/'} component={MainPage} />
         </Switch>
       </Router>
     </div>
