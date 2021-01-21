@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Income from "./Income";
 import { Input } from "./PartForTable/Input";
 import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
+import AddElementModal from "./AddElementModal"
 
 function Incomes() {
+  const [isModalOpen,setModalOpen] = useState(false);
   const [incomes, setIncomes] = useState(
     JSON.parse(localStorage.getItem("incomes"))
   );
@@ -40,33 +42,7 @@ function Incomes() {
   return (
     <div className="incomes table">
       <form className="table__inputs">
-        <select id="income-categories" ref={incomeCategory}>
-          <option disabled>Pick category</option>
-          {JSON.parse(localStorage.getItem("incomeCategories")).map(
-            (category) => (
-              <option value={category.name} key={category.categoryId}>
-                {category.name}
-              </option>
-            )
-          )}
-        </select>
-        <Input
-          key="9iu8o78kj9hj79kh87jkh"
-          ref={incomeDescription}
-          id="description"
-          type="text"
-          label="Description"
-          name="description"
-        />
-        <Input
-          key="21xvc5v1cv23b4ghg5"
-          ref={incomeMoney}
-          id="money"
-          type="number"
-          label="Money"
-          name="money"
-        />
-        <ButtonsForTable clickBtn={addIncome} className="table__btn">
+        <ButtonsForTable clickBtn={()=>setModalOpen(true)}>
           Add
         </ButtonsForTable>
       </form>
@@ -89,6 +65,7 @@ function Incomes() {
           ))}
         </tbody>
       </table>
+      <AddElementModal title="income" isModalOpen={isModalOpen} setModalOpen={setModalOpen} setElements={setIncomes} />
     </div>
   );
 }
