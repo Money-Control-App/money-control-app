@@ -27,7 +27,7 @@ export const MainPage = () => {
                 Don't forget to fill it
             </div>
             </div>
-            {avatarUser &&
+            {infoUser &&
                 <div className='main__balance'>
                     Total balance: 
                 </div>
