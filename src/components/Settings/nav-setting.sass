@@ -1,0 +1,24 @@
+$context: 16
+$maxWidth: 1440
+@mixin adaptiv-font($pcSize, $mobSize)
+    $addSize: $pcSize - $mobSize
+    $maxWidth: $maxWidth - 320
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}))
+
+.nav-setting
+    display: flex
+    justify-content: flex-end
+    margin-bottom: 20px
+    margin-right: 150px
+    &-link
+        color: #00303f
+        font-family: 'FredokaOne'
+        text-decoration: none
+        @include adaptiv-font(18, 14)
+        margin: 0 5px
+        &:hover
+            color: #0a8db4
+        
+
+.active-link-s
+    color: #cdac81

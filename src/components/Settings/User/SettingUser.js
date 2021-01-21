@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import FillForm from './FillForm';
-import { Input } from './PartsForm/Input';
-import { ButtonSubmit } from './PartsForm/ButtonSubmit';
+import { Input } from '../PartsForm/Input';
+import { ButtonSubmit } from '../PartsForm/ButtonSubmit';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useData } from './DataUser';
-import blankPhoto from '../../img/newUser/blank_photo.webp';
+import blankPhoto from '../../../img/newUser/blank_photo.webp';
 import * as yup from 'yup';
 import "yup-phone";
 import PhoneInput from 'react-phone-input-2';
@@ -44,7 +44,7 @@ const schema = yup.object().shape({
     //         )
 });
 
-export const MainSetting = () => {
+export const SettingUser = () => {
     const [phone, setPhone] = useState();
 
     const { data, setValues } = useData();
