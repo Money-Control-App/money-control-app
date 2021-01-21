@@ -9,7 +9,7 @@ export default function NavPanel() {
         <NavLink className="link" activeClassName="active-link" to="/setting">
           Setting
         </NavLink>
-        <NavLink className="link" activeClassName="active-link" to="/graphs">
+        {/* <NavLink className="link" activeClassName="active-link" to="/graphs">
         Graphs
         </NavLink>
         <NavLink className="link" activeClassName="active-link" to="/incomes">
@@ -18,7 +18,10 @@ export default function NavPanel() {
         
         <NavLink className="link" activeClassName="active-link" to="/charges">
         Charges
-        </NavLink>
+        </NavLink> */}
+        <NavLink className="link" activeClassName="active-link" to="/dataanalusis">
+          Data analysis
+        </NavLink> 
         </div>
       </nav>
   );
