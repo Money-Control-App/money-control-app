@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import Income from "./Income";
 import { Input } from "./PartForTable/Input";
 import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
+import AddElementModal from "./AddElementModal"
 
 function Incomes() {
+  const [isModalOpen,setModalOpen] = useState(false);
   const [incomes, setIncomes] = useState(
     JSON.parse(localStorage.getItem("incomes"))
   );
@@ -69,6 +71,9 @@ function Incomes() {
         <ButtonsForTable clickBtn={addIncome} className="table__btn">
           Add
         </ButtonsForTable>
+        <ButtonsForTable clickBtn={()=>setModalOpen(true)}>
+          Opeen
+        </ButtonsForTable>
       </form>
       <table>
         <tbody>
@@ -89,6 +94,7 @@ function Incomes() {
           ))}
         </tbody>
       </table>
+      <AddElementModal title="income" isModalOpen={isModalOpen} setModalOpen={setModalOpen} />
     </div>
   );
 }
