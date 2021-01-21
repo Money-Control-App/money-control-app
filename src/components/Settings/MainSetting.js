@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FillForm from './FillForm';
 import { Input } from './PartsForm/Input';
 import { ButtonSubmit } from './PartsForm/ButtonSubmit';
@@ -18,7 +18,7 @@ const TYPE_AVATAR = ["image/jpg",
     "image/jpeg",
     "image/gif",
     "image/png",
-    'image/webp'];
+    "image/webp"];
 
 const schema = yup.object().shape({
     firstName:
@@ -40,12 +40,12 @@ const schema = yup.object().shape({
     //         .test(
     //             "fileFormat",
     //             "Unsupported Format",
-    //             value => value && TYPE_AVATAR.includes(value[0].type)
+    //             value => TYPE_AVATAR.includes(value.type)
     //         )
 });
 
 export const MainSetting = () => {
-    const refPhone = React.createRef();
+    const [phone, setPhone] = useState();
 
     const { data, setValues } = useData();
     const { register, handleSubmit, errors } = useForm({
@@ -56,30 +56,28 @@ export const MainSetting = () => {
     const infoUser = JSON.parse(localStorage.getItem("User-Info"));
     const avatarUser = JSON.parse(localStorage.getItem("avatar"));
     const [profilePhoto, setAvatar] = useState(avatarUser? avatarUser : blankPhoto);
-
+console.log(infoUser)
     const photoHandle = (event) => {
         const newPhoto = new FileReader();
         newPhoto.onload = () => {
             if (newPhoto.readyState === 2) {
-                console.log(newPhoto.result)
-               
-                
                 setAvatar(newPhoto.result)
-                console.log(profilePhoto)
             }
         }
         newPhoto.readAsDataURL(event.target.files[0]);
     }
 
     const changeNumber = (number) => {
-        refPhone.current.value = number;
-        console.log(refPhone.current.value )
+        setPhone(number)
     }
 
+    useEffect(() => {
+        setPhone(phone)
+    }, [phone]);
+
     const onSubmit = (data) => {
-        const phoneNumberInp = infoUser ? infoUser.data.phoneNumber : refPhone.current.value;
+        const phoneNumberInp = infoUser ? infoUser.data.phoneNumber : phone;
         data.phoneNumber = phoneNumberInp;
-        console.log(data);
         setValues(data);
         localStorage.setItem("avatar", JSON.stringify(profilePhoto));
         localStorage.setItem('User-Info', JSON.stringify({ data }));
@@ -114,7 +112,7 @@ export const MainSetting = () => {
                 <div className='form__avatar'>
                     <div className='form__avatar--block'><img src={profilePhoto} className='avatar' /></div>
                     <Input
-                        // ref={register}
+                        ref={register}
                         name='loadAvatar'
                         type='file'
                         id='loadAvatar'
@@ -145,7 +143,6 @@ export const MainSetting = () => {
             />
             <PhoneInput
                 inputStyle={{ width: '100%' }}
-                ref={refPhone}
                 country='ua'
                 placeholder='+380991234567'
                 value={infoUser ? infoUser.data.phoneNumber : ''}
