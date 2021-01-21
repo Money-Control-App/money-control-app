@@ -145,9 +145,9 @@ function App() {
       <Router>
         <NavPanel />
         <Switch>
-          <Route path='/data-analysis' component={Tabs} />
-          <Route path='/setting' component={Setting} />
-          <Route path={'/'} component={MainPage} />
+          <Route exact path='/data-analysis' component={Tabs} />
+          <Route exact path='/setting' component={Setting} />
+          <Route exact path={'/'} component={MainPage} />
 
            <Route path='/data-analysis/chargetable'  component={Charges}/>
         <Route path='/data-analysis/:chargeincomes' component={Incomes}/>
