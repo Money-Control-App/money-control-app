@@ -28,7 +28,7 @@ export const Setting = ({ children, ...props }) => {
                 <Switch>
                     <Route exact path='/setting/:user' component={userSetting} />
                     <Route path='/setting/:reminder' component={Reminder} />
-                    <Route exact path={'/setting'} component={userSetting} />
+                    <Route exact path={'/setting'} component={Reminder} />
                 </Switch>
             </Router>
         </div>

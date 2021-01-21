@@ -99,5 +99,5 @@ console.log(endtDate)
 
 
 
-export default Graphs
+export default Graphs;
  
