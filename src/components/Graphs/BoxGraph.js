@@ -6,11 +6,13 @@ import {
   YAxis,
   VerticalGridLines,
   HorizontalGridLines,
+  Hint,
   VerticalBarSeries,
   VerticalBarSeriesCanvas,
 } from 'react-vis';
 
 import '../../css/sourse/default-styles-vis.css';
+import './graph.sass';
 
 export default function BoxGraph(props) {
   const [inputSource, setInputSource] = useState(
@@ -45,17 +47,27 @@ export default function BoxGraph(props) {
     });
     return result;
   });
+  const [hint, setHint] = useState(false);
 
   return (
     <div>
-      <XYPlot width={700} height={500} stackBy='y'>
+      <XYPlot width={500} height={400} stackBy='y'>
         <VerticalGridLines />
         <HorizontalGridLines />
         <XAxis tickFormat={(v) => datesInput[v]} title='dates' />
         <YAxis />
         {valuesInput.map(
-          (v, index) => (v = <VerticalBarSeries data={v} key={index} />),
+          (v, index) =>
+            (v = (
+              <VerticalBarSeries
+                data={v}
+                key={index}
+                onValueMouseOver={(h) => setHint({ sum: h.y })}
+                onSeriesMouseOut={(h) => setHint(false)}
+              />
+            )),
         )}
+        {hint !== false && <Hint value={hint} />}
       </XYPlot>
     </div>
   );

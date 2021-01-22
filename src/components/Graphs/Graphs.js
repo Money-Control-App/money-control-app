@@ -3,14 +3,14 @@ import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Switch } from 'react-router-dom';
 
 import BoxGraph from './BoxGraph';
 import Dates from './PartsGraph/Dates';
 import LinearGraph from './LinearGraph';
 import RadialGraph from './RadialGraph';
 
-import './graph.css';
+import './graph.sass';
 
 function Graphs() {
   const [dataType, setDataType] = useState('incomes');
@@ -31,7 +31,7 @@ function Graphs() {
       <nav className='graph-nav'>
         <div className='graph-inputs'>
           <div className='input-type'>
-            <FormControl component='fieldset' onChange={handleChangeDataType}>
+            <FormControl component='fieldset' onChange={handleChangeDataType} className = 'inputs'>
               <RadioGroup
                 row
                 aria-label='inputType'
@@ -65,39 +65,48 @@ function Graphs() {
           <Router>
             <NavLink
               className='graph-link'
-              activeClassName='active-link'
-              to='/radial'
+              activeClassName='active-graph-link'
+              to='/data-analysis/radial'
             >
               Radial
             </NavLink>
             <NavLink
               className='graph-link'
-              activeClassName='active-link'
-              to='/linear'
+              activeClassName='active-graph-link'
+              to='/data-analysis/linear'
             >
               Linear
             </NavLink>
             <NavLink
               className='graph-link'
-              activeClassName='active-link'
-              to='/box'
+              activeClassName='active-graph-link'
+              to='/data-analysis/box'
             >
               Bar
             </NavLink>
-
+            <Switch>
             <Route
               className='radial'
-              path='/radial'
+               path='/data-analysis/radial'
+               exact
               component={() => <RadialGraph source={dataType} />}
             />
             <Route
-              path='/linear'
+              path='/data-analysis/linear'
+              exact
               component={() => <LinearGraph source={dataType} />}
             />
             <Route
-              path='/box'
+              path='/data-analysis/box'
+              exact
               component={() => <BoxGraph source={dataType} />}
             />
+            <Route
+              className='radial'
+               path='/data-analysis'
+               exact
+              component={() => <RadialGraph source={dataType} />} />
+            </Switch>
           </Router>
         </div>
       </nav>

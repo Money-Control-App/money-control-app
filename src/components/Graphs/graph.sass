@@ -20,10 +20,21 @@
     flex-direction: row
     justify-content: space-between
     align-items: baseline
-    margin:20px
+    margin: 20px
+
+.input-type
+    .inputs
+        display: flex
+        flex-direction: column
 
 .radial-wrapper
     display: inline
+
+.graph
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    position: relative
 
 .graph-link
     border: 3px solid rgb(189, 188, 188)
@@ -32,3 +43,30 @@
     border-radius: 5px
     text-decoration: none
     min-width: 30px
+    position: absolute
+    font-size: 1rem
+    font-family: inherit
+
+.active-graph-link
+    border: 3px solid darkblue
+    background-color: darkblue
+    font-weight: bold
+    color: rgb(189, 188, 188)
+    padding: 5px
+    border-radius: 5px
+    text-decoration: none
+    min-width: 30px
+    position: absolute
+    font-size: 1.1rem
+    font-family: inherit
+
+.graph-link:first-of-type
+    left: -62%
+
+.graph-link:nth-of-type(2)
+    left: -65%
+    top: 10%
+
+.graph-link:last-of-type
+    left: -65%
+    top: 20%
