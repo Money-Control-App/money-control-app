@@ -1,0 +1,26 @@
+$context: 16
+$maxWidth: 1440
+@mixin adaptiv-font($pcSize, $mobSize)
+    $addSize: $pcSize - $mobSize
+    $maxWidth: $maxWidth - 320
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}))
+
+.nav-tables
+    margin-top: 20px
+    padding-right: 200px
+    margin-right: 0
+    border-bottom: 1px ridge #cdac81
+    .nav-setting-link
+        color: #00303f
+        font-family: 'JosefinSans'
+        text-decoration: none
+        @include adaptiv-font(20, 16)
+        margin: 0 5px
+        font-weight: bolder
+        &:hover
+            color: #0a8db4
+            
+        
+    .active-link-s
+        color: #000000
+        border-bottom: 1px ridge #111111

@@ -1,0 +1,18 @@
+$context: 16
+$maxWidth: 1440
+@mixin adaptiv-font($pcSize, $mobSize)
+    $addSize: $pcSize - $mobSize
+    $maxWidth: $maxWidth - 320
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth})) !important
+
+.MuiTypography-h4
+    font-family: 'CodaCaption' !important
+    text-shadow: 0 1px #cdac81,
+    -1px 0 #e9c595,
+    -1px 2px #cc9041,
+    -2px 1px #e9c595,
+    -2px 3px #cc9041
+    margin-left: 7px !important
+    letter-spacing: 1.7px !important
+    @include adaptiv-font(34, 28) 
+    
