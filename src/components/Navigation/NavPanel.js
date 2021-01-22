@@ -1,21 +1,27 @@
 import React from "react";
 import { Link, NavLink, BrowserRouter as Router } from "react-router-dom";
 
+import logo from '../../img/icons/logo.svg';
+import './nav.sass';
+
 export default function NavPanel() {
   return (
-    <nav className="nav">
-        <div>here will be a logo</div>
-        <div>
-        <NavLink className="link" activeClassName="active-link" to="/home">
-          Home
+    <div className='nav__container'>
+      <nav className={`nav nav--shadow`}>
+        <div className='nav__logo'>
+          <img className='nav__logo--img'  src={logo}/>
+          <NavLink className='nav-logo' to='/'><h4 className='nav__logo--text'>KeePocket</h4></NavLink>
+        </div>
+        <div className='nav__links'>
+          <NavLink className="nav__link" activeClassName="active-link" to="/setting">
+            Setting
         </NavLink>
-        <NavLink className="link" activeClassName="active-link" to="/categories">
-          Categories
+          <NavLink className="nav__link" activeClassName="active-link" to="/data-analysis">
+            Data
         </NavLink>
-        <NavLink className="link" activeClassName="active-link" to="/dataAnalysis">
-          Data analysis
-        </NavLink>
+
         </div>
       </nav>
+    </div>
   );
 }

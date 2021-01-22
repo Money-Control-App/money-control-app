@@ -1,0 +1,65 @@
+$context: 16
+$maxWidth: 1440
+
+@mixin adaptiv-font($pcSize, $mobSize)
+    $addSize: $pcSize - $mobSize
+    $maxWidth: $maxWidth - 320
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}))
+
+.main
+    &--page
+        display: flex
+        padding-top: 30px
+        flex-direction: row-reverse
+        justify-content: space-between
+    &--user
+        display: flex
+        flex-direction: column-reverse
+        align-items: center
+    &__name
+        @include adaptiv-font(32, 20)
+        margin-top: 10px
+        color: #000000
+        font-family: 'BreeSerif'
+    &__avatar
+        height: 200px
+        width: 200px
+        border-radius: 50%
+        @media ( max-width: 425px )
+            height: 150px
+            width: 150px
+        @media ( max-width: 320px )
+            height: 100px
+            width: 100px
+    &__text
+        @include adaptiv-font(72, 22)
+        align-self: center
+        margin-right: 30px
+        font-family: 'Bangers'
+        margin-top: -5px
+        color: #00303f
+        text-shadow: 0 1px #808d93, -1px 0 #cdd2d5,-1px 2px #808d93, 
+        -2px 1px #cdd2d5,
+        -2px 3px #808d93,
+        -3px 2px #cdd2d5,
+        -3px 4px #808d93,
+        -4px 3px #cdd2d5,
+        -4px 5px #808d93,
+        -5px 4px #cdd2d5,
+        -5px 6px #808d93,
+        -6px 5px #cdd2d5,
+        -6px 7px #808d93,
+        -7px 6px #cdd2d5,
+        -7px 8px #808d93,
+        -8px 7px #cdd2d5
+
+.avatar-block
+    padding: 5px
+    border-radius: 50%
+    border: 3px dashed #00303f
+
+.main__balance
+    color: #cdac81
+    font-family: 'FredokaOne'
+    @include adaptiv-font(40, 22)
+    margin-top: 150px
