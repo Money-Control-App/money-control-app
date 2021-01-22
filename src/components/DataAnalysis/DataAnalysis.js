@@ -5,6 +5,7 @@ import Graphs from "../Graphs/Graphs";
 import Charges from "../Table/Charges";
 import Incomes from "../Table/Incomes";
 
+import './nav-tables.sass';
 const NavTab = () => {
   return (
     <Router>
@@ -17,9 +18,9 @@ const NavTab = () => {
         </NavLink>
       </nav>
       <Switch>
-        {/* <Route path={'/data-analysis'} component={Charges} /> */}
-        <Route path='/data-analysis/:tables/:charges' component={Charges} />
-        <Route path='/data-analysis/:tables/:incomes' component={Incomes} />
+        <Route path={'/data-analysis'} component={Charges} />
+        <Route path='/data-analysis/tables/charges' component={Charges} />
+        <Route path='/data-analysis/tables/incomes' component={Incomes} />
       </Switch>
     </Router>
   )
@@ -38,8 +39,8 @@ export default function DataAnalysis() {
 
       <Switch>
         <Route exact path={'/data-analysis'} component={Graphs} />
-        <Route exact path='/data-analysis/:tables' component={NavTab} />
-        <Route exact path='/data-analysis/:graphics' component={Graphs} />
+        <Route exact path='/data-analysis/tables' component={NavTab} />
+        <Route exact path='/data-analysis/graphics' component={Graphs} />
       </Switch>
     </Router>
 

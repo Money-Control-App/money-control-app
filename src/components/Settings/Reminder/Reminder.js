@@ -1,7 +1,10 @@
+
+import { Header } from '../PartsForm/Header';
+
 export const Reminder = () => {
     return (
         <div>
-            Reminder
+            <Header>Reminder</Header>
         </div>
     )
 }

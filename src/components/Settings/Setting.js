@@ -14,7 +14,7 @@ const userSetting = () => {
     <DataProvider>
         <Container
             maxWidth='sm'>
-            <Header>Setting UUser </Header>
+            <Header>User Setting</Header>
             <SettingUser />
         </Container>
     </DataProvider>
@@ -26,8 +26,8 @@ export const Setting = ({ children, ...props }) => {
             <Router>
                 <NavSetting />
                 <Switch>
-                    <Route exact path='/setting/:user' component={userSetting} />
-                    <Route path='/setting/:reminder' component={Reminder} />
+                    <Route exact path='/setting/user' component={userSetting} />
+                    <Route exact path='/setting/reminder' component={Reminder} />
                     <Route exact path={'/setting'} component={Reminder} />
                 </Switch>
             </Router>

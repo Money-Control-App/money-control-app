@@ -3,7 +3,7 @@ import React from 'react';
 function FillForm({ children, ...props }) {
 
     return (
-        <form noValidate {...props}>
+        <form noValidate {...props} className='form-user'>
             {children}
         </form>
     )

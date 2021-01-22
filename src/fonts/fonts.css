@@ -31,3 +31,20 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'CodaCaption';
+	src: url('./fonts/CodaCaption-ExtraBold.eot');
+	src: local('☺'), url('./fonts/CodaCaption-ExtraBold.woff') format('woff'), url('./fonts/CodaCaption-ExtraBold.ttf') format('truetype'), url('./fonts/CodaCaption-ExtraBold.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+@font-face {
+	font-family: 'Blinker';
+	src: url('./fonts/Blinker-Regular.eot');
+	src: local('☺'), url('./fonts/Blinker-Regular.woff') format('woff'), url('./fonts/Blinker-Regular.ttf') format('truetype'), url('./fonts/Blinker-Regular.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
