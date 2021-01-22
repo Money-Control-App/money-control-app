@@ -1,37 +1,38 @@
-import React, { useState, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+
 import './graph.css';
 
 const RadialGraph = (props) => {
   const [inputSource, setInputSource] = useState(
     JSON.parse(localStorage.getItem(props.source.toString())),
-  )
+  );
 
   const categorySource =
-    props.source === 'incomes' ? 'incomeCategories' : 'chargeCategories'
+    props.source === 'incomes' ? 'incomeCategories' : 'chargeCategories';
 
   const [categories, setCategories] = useState(
     JSON.parse(localStorage.getItem(categorySource.toString())),
-  )
+  );
 
   const valuesInput = categories.map((category) => {
     let totalSum = inputSource.reduce((total, input) => {
       return total + +input.money
-    }, 0)
+    }, 0);
 
     let catSum = inputSource
       .filter((input) => input.category == category.name)
       .reduce((total, input) => {
         return total + +input.money
-      }, 0)
+      }, 0);
 
     return {
       id: category.name,
       value: Math.round((+catSum / +totalSum) * 100),
     }
-  })
+  });
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,9 +60,9 @@ const RadialGraph = (props) => {
       margin: '0 auto',
       color: theme.palette.action.hover,
     },
-  }))
+  }));
 
-  const classes = useStyles()
+  const classes = useStyles();
 
   return (
     <Box className='radial-wrapper'>
@@ -98,6 +99,6 @@ const RadialGraph = (props) => {
       </Box>
     </Box>
   )
-}
+};
 
-export default RadialGraph
+export default RadialGraph;
