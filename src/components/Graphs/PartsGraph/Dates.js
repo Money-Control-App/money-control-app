@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import TextField from '@material-ui/core/TextField'
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import React, { useState } from 'react';
+
+import '../graph.sass';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -12,20 +14,21 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
-}))
+}));
 
 export default function Dates() {
-  const classes = useStyles()
+  const classes = useStyles();
 
-  const [startDate, setStartDate] = useState('')
+  const [startDate, setStartDate] = useState('');
 
   const addStartDate = (e) => {
-    setStartDate(e.target.value)
-    console.log(startDate)
-    const data = { value: startDate }
-    console.log(data)
-/*      this.props.handleChangeStartDate(data)
- */   }
+    setStartDate(e.target.value);
+    console.log(startDate);
+    const data = { value: startDate };
+    console.log(data);
+    /*      this.props.handleChangeStartDate(data)
+     */
+  };
 
   return (
     <form className={classes.container} noValidate>
@@ -52,5 +55,5 @@ export default function Dates() {
         }}
       />
     </form>
-  )
+  );
 }
