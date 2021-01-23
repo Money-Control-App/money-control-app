@@ -20,11 +20,15 @@ export default function BoxGraph(props) {
   );
 
   const inputsWitinDates = inputSource.filter(
-    (record) => record.date > props.startDate && record.date < props.endDate,
+    (record) => (record.date > props.startDate && record.date < props.endDate),
   );
   /* ADD DATES IN GRAPH COMPONENT AND CHANGE inputSource TO inputsWitinDates */
   const datesInput = [
-    ...new Set(inputSource.map((record) => (record = record.date)).sort()),
+    ...new Set(
+      inputSource
+        .map((record) => (record = record.date))
+        .sort()
+    ),
   ];
   const categorySource =
     props.source === 'incomes' ? 'incomeCategories' : 'chargeCategories';
