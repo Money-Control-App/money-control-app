@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { Link, NavLink, Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import NavPanel from "./components/Navigation/NavPanel"
 import DataAnalysis from './components/DataAnalysis/DataAnalysis.js'
-
 function App() {
   if (!localStorage.getItem("incomes")) {
     localStorage.setItem(
