@@ -18,9 +18,9 @@ const NavTab = () => {
         </NavLink>
       </nav>
       <Switch>
-        <Route path={'/data-analysis'} component={Charges} />
-        <Route path='/data-analysis/tables/charges' component={Charges} />
-        <Route path='/data-analysis/tables/incomes' component={Incomes} />
+        <Route exact path={'/data-analysis'} component={Incomes} />
+        <Route exact path='/data-analysis/tables/charges' component={Charges} />
+        <Route exact path='/data-analysis/tables/incomes' component={Incomes} />
       </Switch>
     </Router>
   )
@@ -38,7 +38,7 @@ export default function DataAnalysis() {
       </nav>
 
       <Switch>
-        <Route exact path={'/data-analysis'} component={Graphs} />
+        <Route exact path={'/data-analysis'} component={NavTab} />
         <Route exact path='/data-analysis/tables' component={NavTab} />
         <Route exact path='/data-analysis/graphics' component={Graphs} />
       </Switch>
