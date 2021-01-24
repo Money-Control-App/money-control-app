@@ -6,6 +6,9 @@ import Charges from "../Table/Charges";
 import Incomes from "../Table/Incomes";
 import { totalBalance } from '../Balance/Balance';
 import './nav-tables.sass';
+
+const balanceStyle = (totalBalance() > 0)? 'balance-positive' : 'balance-negative'
+
 const NavTab = () => {
   return (
     <Router>
@@ -30,7 +33,7 @@ export default function DataAnalysis() {
     <Router>
       <nav className='nav-setting-data'>
         <div className='nav-balance'>
-          Total balance: <span className='ShareTechMono'>{totalBalance()}</span>
+          Total balance: <span className={balanceStyle}>{totalBalance()}</span>
         </div>
         <div className='nav-data'>
           <NavLink to="/data-analysis/tables" className="nav-setting-link" activeClassName="active-link-s">
