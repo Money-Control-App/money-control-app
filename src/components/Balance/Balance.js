@@ -6,7 +6,6 @@ export function totalBalance () {
     const totalExpense = expenseSum.reduce((total, expense) => total + (+expense.money), 0);
 
     const totalIncomes = incomeSum.reduce((total, income) => total + (+income.money), 0);
-    console.log(totalIncomes, totalExpense)
     return totalIncomes - totalExpense;
 };
 
