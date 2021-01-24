@@ -4,7 +4,7 @@ import { Link, NavLink, BrowserRouter as Router, Route, Switch } from "react-rou
 import Graphs from "../Graphs/Graphs";
 import Charges from "../Table/Charges";
 import Incomes from "../Table/Incomes";
-
+import { totalBalance } from '../Balance/Balance';
 import './nav-tables.sass';
 const NavTab = () => {
   return (
@@ -28,13 +28,18 @@ const NavTab = () => {
 export default function DataAnalysis() {
   return (
     <Router>
-      <nav className='nav-setting'>
-        <NavLink to="/data-analysis/tables" className="nav-setting-link" activeClassName="active-link-s">
-          Tables
-        </NavLink>
-        <NavLink to="/data-analysis/graphics" className="nav-setting-link" activeClassName="active-link-s">
-          Graphics
-        </NavLink>
+      <nav className='nav-setting-data'>
+        <div className='nav-balance'>
+          Total balance: <span className='ShareTechMono'>{totalBalance()}</span>
+        </div>
+        <div className='nav-data'>
+          <NavLink to="/data-analysis/tables" className="nav-setting-link" activeClassName="active-link-s">
+            Tables
+          </NavLink>
+          <NavLink to="/data-analysis/graphics" className="nav-setting-link" activeClassName="active-link-s">
+            Graphics
+          </NavLink>
+        </div>
       </nav>
 
       <Switch>
