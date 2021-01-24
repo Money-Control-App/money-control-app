@@ -2,11 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
-import balance from './Balance'
+import { totalBalance } from './Balance';
 
 import './balance.sass';
 
-const balanceStyle = (balance > 0) ? 'balance-positive' : 'balance-negative'
+const balanceStyle = (totalBalance() > 0) ? 'balance-positive' : 'balance-negative'
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',

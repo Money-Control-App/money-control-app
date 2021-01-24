@@ -5,6 +5,18 @@ $maxWidth: 1440
     $maxWidth: $maxWidth - 320
     font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}))
 
+.nav-setting-data
+    display: flex
+    margin-bottom: 20px
+    margin-right: 150px
+    margin-top: 80px
+    margin-left: 20px
+    color: #00303f
+    font-family: 'FredokaOne'
+    justify-content: space-between
+    @media screen and ( max-width: 500px )
+        justify-content: center
+        margin-right: 0px
 .nav-tables
     margin-top: 20px
     padding-right: 200px
@@ -24,3 +36,6 @@ $maxWidth: 1440
     .active-link-s
         color: #000000
         border-bottom: 1px ridge #111111
+
+.balance
+    font-family: 'ShareTechMono'
