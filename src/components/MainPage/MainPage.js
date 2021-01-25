@@ -1,12 +1,16 @@
 import { Container } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import standartPhoto from '../../img/newUser/blank_photo.webp';
 
 import './main-page.sass';
 
 export const MainPage = () => {
-    const infoUser = JSON.parse(localStorage.getItem("User-Info"));
-    const avatarUser = JSON.parse(localStorage.getItem("avatar"));
+
+        let infoUser, avatarUser;
+    useEffect(()=>{
+         infoUser = JSON.parse(localStorage.getItem("User-Info"));
+         avatarUser = JSON.parse(localStorage.getItem("avatar"));
+    })
 
     return (
         <Container maxWidth='md'>

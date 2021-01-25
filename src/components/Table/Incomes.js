@@ -1,43 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Income from "./Income";
-import { Input } from "./PartForTable/Input";
 import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
 import AddElementModal from "./AddElementModal"
 
-function Incomes() {
+function Incomes({incomes, setIncomes}) {
   const [isModalOpen,setModalOpen] = useState(false);
-  const [incomes, setIncomes] = useState(
-    JSON.parse(localStorage.getItem("incomes"))
-  );
-  const incomeCategory = React.createRef();
-  const incomeDescription = React.createRef();
-  const incomeMoney = React.createRef();
   let incomesArr = [];
 
   useEffect(() => {
     incomesArr = JSON.parse(localStorage.getItem("incomes"));
   });
-
-  function addIncome(e) {
-    e.preventDefault();
-    if (incomeCategory.current.value && incomeMoney.current.value > 0) {
-      incomesArr.push({
-        key:
-          new Date().getDate() +
-          incomeCategory.current.value +
-          incomeMoney.current.value,
-        category: incomeCategory.current.value,
-        description: incomeDescription.current.value,
-        money: incomeMoney.current.value,
-        date: new Date().toLocaleDateString(),
-      });
-      incomeDescription.current.value = "";
-      incomeMoney.current.value = "";
-    }
-    console.log(incomesArr);
-    localStorage.setItem("incomes", JSON.stringify(incomesArr));
-    setIncomes(JSON.parse(localStorage.getItem("incomes")));
-  }
 
   return (
     <div className="incomes table">

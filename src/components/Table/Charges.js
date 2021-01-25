@@ -1,44 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Charge from "./Charge";
-import { Input } from "./PartForTable/Input";
 import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
 import AddElementModal from "./AddElementModal"
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 
-function Charges() {
-  const chargeCategory = React.createRef();
-  const chargeDescription = React.createRef();
-  const chargeMoney = React.createRef();
+function Charges({charges,setCharges}) {
   const [isModalOpen,setModalOpen] = useState(false);
-  const [charges, setCharges] = useState(
-    JSON.parse(localStorage.getItem("charges"))
-  );
+  
   let chargesArr = [];
 
   useEffect(() => {
     chargesArr = JSON.parse(localStorage.getItem("charges"));
   });
-
-  function addCharge(e) {
-    e.preventDefault();
-    console.log(chargesArr);
-    if (chargeCategory.current.value && chargeMoney.current.value > 0) {
-      chargesArr.push({
-        key:
-          new Date().getDate() +
-          chargeCategory.current.value +
-          chargeMoney.current.value,
-        category: chargeCategory.current.value,
-        description: chargeDescription.current.value,
-        money: chargeMoney.current.value,
-        date: new Date().toLocaleDateString(),
-      });
-      chargeDescription.current.value = "";
-      chargeMoney.current.value = "";
-    }
-    console.log(chargesArr);
-    localStorage.setItem("charges", JSON.stringify(chargesArr));
-    setCharges(JSON.parse(localStorage.getItem("charges")));
-  }
 
   return (
     <div className="charges table">
@@ -47,6 +21,11 @@ function Charges() {
           Add
         </ButtonsForTable>
       </form>
+      <Select>
+        <MenuItem value='today'>Today</MenuItem>
+        <MenuItem value='today'>Today</MenuItem>
+        <MenuItem value='today'>Today</MenuItem>
+      </Select>
       <table>
         <tbody>
           <tr key="head">
