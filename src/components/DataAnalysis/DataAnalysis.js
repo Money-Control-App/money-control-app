@@ -30,7 +30,7 @@ export default function DataAnalysis() {
     <Router>
       <nav className='nav-setting-data'>
         <div className='nav-balance'>
-          Total balance: <span className='ShareTechMono'>{totalBalance()}</span>
+          Total balance: <span className='balance'>{totalBalance()}</span>
         </div>
         <div className='nav-data'>
           <NavLink to="/data-analysis/tables" className="nav-setting-link" activeClassName="active-link-s">

@@ -1,5 +1,7 @@
 $context: 16
 $maxWidth: 1440
+
+$mainColor: #00303f
 @mixin adaptiv-font($pcSize, $mobSize)
     $addSize: $pcSize - $mobSize
     $maxWidth: $maxWidth - 320
@@ -11,19 +13,20 @@ $maxWidth: 1440
     margin-right: 150px
     margin-top: 80px
     margin-left: 20px
-    color: #00303f
+    color: $mainColor
     font-family: 'FredokaOne'
     justify-content: space-between
     @media screen and ( max-width: 500px )
         justify-content: center
         margin-right: 0px
+
 .nav-tables
     margin-top: 20px
     padding-right: 200px
     margin-right: 0
     border-bottom: 1px ridge #cdac81
     .nav-setting-link
-        color: #00303f
+        color: $mainColor
         font-family: 'JosefinSans'
         text-decoration: none
         @include adaptiv-font(20, 16)
@@ -31,11 +34,6 @@ $maxWidth: 1440
         font-weight: bolder
         &:hover
             color: #0a8db4
-            
-        
     .active-link-s
         color: #000000
         border-bottom: 1px ridge #111111
-
-.balance
-    font-family: 'ShareTechMono'
