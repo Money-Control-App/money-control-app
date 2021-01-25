@@ -19,7 +19,7 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
     e.preventDefault();
     if (category.current.value && money.current.value > 0) {
       elementsArr.push({
-        key:
+        id:
           new Date().getDate() + category.current.value + money.current.value,
         category: category.current.value,
         description: description.current.value,
