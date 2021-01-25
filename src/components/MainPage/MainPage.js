@@ -1,16 +1,19 @@
 import { Container } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import standartPhoto from '../../img/newUser/blank_photo.webp';
+import Balance from '../Balance/Balance';
 
 import './main-page.sass';
 
 export const MainPage = () => {
-
-        let infoUser, avatarUser;
-    useEffect(()=>{
-         infoUser = JSON.parse(localStorage.getItem("User-Info"));
-         avatarUser = JSON.parse(localStorage.getItem("avatar"));
-    })
+    const [charges, setCharges] = useState(
+        JSON.parse(localStorage.getItem('charges'))
+    );
+    const [incomes, setIncomes] = useState(
+        JSON.parse(localStorage.getItem('incomes'))
+    );
+    const infoUser = JSON.parse(localStorage.getItem('User-Info'));
+    const avatarUser = JSON.parse(localStorage.getItem('avatar'));
 
     return (
         <Container maxWidth='md'>
@@ -33,7 +36,7 @@ export const MainPage = () => {
             </div>
             {infoUser &&
                 <div className='main__balance'>
-                    Total balance: 
+                    Total balance: <Balance charges={charges} incomes={incomes} />
                 </div>
             }
         </Container>
