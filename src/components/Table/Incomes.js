@@ -1,71 +1,39 @@
-import React, { useEffect, useState } from "react";
-import Income from "./Income";
-import { Input } from "./PartForTable/Input";
-import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
-import AddElementModal from "./AddElementModal"
+import React, { useEffect, useState } from 'react';
+import { ButtonsForTable } from './PartForTable/ButtonsForTable';
+import AddElementModal from './AddElementModal';
+import { DataGrid } from '@material-ui/data-grid';
 
-function Incomes() {
-  const [isModalOpen,setModalOpen] = useState(false);
-  const [incomes, setIncomes] = useState(
-    JSON.parse(localStorage.getItem("incomes"))
-  );
-  const incomeCategory = React.createRef();
-  const incomeDescription = React.createRef();
-  const incomeMoney = React.createRef();
+function Incomes({ incomes, setIncomes }) {
+  const [isModalOpen, setModalOpen] = useState(false);
   let incomesArr = [];
 
   useEffect(() => {
-    incomesArr = JSON.parse(localStorage.getItem("incomes"));
+    incomesArr = JSON.parse(localStorage.getItem('incomes'));
   });
 
-  function addIncome(e) {
-    e.preventDefault();
-    if (incomeCategory.current.value && incomeMoney.current.value > 0) {
-      incomesArr.push({
-        key:
-          new Date().getDate() +
-          incomeCategory.current.value +
-          incomeMoney.current.value,
-        category: incomeCategory.current.value,
-        description: incomeDescription.current.value,
-        money: incomeMoney.current.value,
-        date: new Date().toLocaleDateString(),
-      });
-      incomeDescription.current.value = "";
-      incomeMoney.current.value = "";
-    }
-    console.log(incomesArr);
-    localStorage.setItem("incomes", JSON.stringify(incomesArr));
-    setIncomes(JSON.parse(localStorage.getItem("incomes")));
-  }
+  const columns = [
+    { field: 'category', headerName: 'Category', width: 130 },
+    { field: 'description', headerName: 'Description', width: 160 },
+    { field: 'date', headerName: 'Date', width: 130 },
+    { field: 'money', headerName: 'Money', width: 130 },
+  ];
 
   return (
-    <div className="incomes table">
-      <form className="table__inputs">
-        <ButtonsForTable clickBtn={()=>setModalOpen(true)}>
+    <div>
+      <form className='table__inputs'>
+        <ButtonsForTable clickBtn={() => setModalOpen(true)}>
           Add
         </ButtonsForTable>
       </form>
-      <table>
-        <tbody>
-          <tr key="head">
-            <th>Category</th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>Money</th>
-          </tr>
-          {incomes.map((income) => (
-            <Income
-              category={income.category}
-              description={income.description}
-              date={income.date}
-              money={income.money}
-              key={income.incomeKey}
-            />
-          ))}
-        </tbody>
-      </table>
-      <AddElementModal title="income" isModalOpen={isModalOpen} setModalOpen={setModalOpen} setElements={setIncomes} />
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid rows={incomes} columns={columns} />
+      </div>
+      <AddElementModal
+        title='income'
+        isModalOpen={isModalOpen}
+        setModalOpen={setModalOpen}
+        setElements={setIncomes}
+      />
     </div>
   );
 }
