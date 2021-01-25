@@ -4,10 +4,13 @@ import { Input } from '../PartsForm/Input';
 import { ButtonSubmit } from '../PartsForm/ButtonSubmit';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useData } from './DataUser';
-import blankPhoto from '../../../img/newUser/blank_photo.webp';
 import * as yup from 'yup';
 import "yup-phone";
+
+import { app } from '../../../firebase/base';
+import { useData } from './DataUser';
+import blankPhoto from '../../../img/newUser/blank_photo.webp';
+
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/material.css';
 import './form.sass';
@@ -35,14 +38,8 @@ const schema = yup.object().shape({
         yup.string()
             .email("Email. should have correct format")
             .required(MESSAGE_FOR_FILL),
-    // loadAvatar:
-    //     yup.mixed()
-    //         .test(
-    //             "fileFormat",
-    //             "Unsupported Format",
-    //             value => TYPE_AVATAR.includes(value.type)
-    //         )
 });
+const db = app.firestore();
 
 export const SettingUser = () => {
     const [phone, setPhone] = useState();
@@ -55,16 +52,17 @@ export const SettingUser = () => {
 
     const infoUser = JSON.parse(localStorage.getItem("User-Info"));
     const avatarUser = JSON.parse(localStorage.getItem("avatar"));
-    const [profilePhoto, setAvatar] = useState(avatarUser? avatarUser : blankPhoto);
-console.log(infoUser)
-    const photoHandle = (event) => {
+    const [avatarURL, setAvatarURL] = useState(null);
+    const [usersCollection, setUsersCollection] = useState([]);
+    const [profilePhoto, setAvatar] = useState(avatarUser ? avatarUser : blankPhoto);
+    const photoHandle = async (event) => {
         const newPhoto = new FileReader();
-        newPhoto.onload = () => {
-            if (newPhoto.readyState === 2) {
-                setAvatar(newPhoto.result)
-            }
-        }
-        newPhoto.readAsDataURL(event.target.files[0]);
+        const file = event.target.files[0];
+        const storageRef = app.storage().ref();
+        const fileRef = storageRef.child(file.name);
+        await fileRef.put(file);
+        setAvatar(await fileRef.getDownloadURL());
+        console.log(avatarURL)
     }
 
     const changeNumber = (number) => {
@@ -72,15 +70,32 @@ console.log(infoUser)
     }
 
     useEffect(() => {
-        setPhone(phone)
+        setPhone(phone);
+
+        // const fetchUsers = async () => {
+        //     const usersCollectionFirebase = await db.collection('users').get();
+        //     setUsersCollection(usersCollectionFirebase.docs.map(doc => 
+        //          doc.data()
+        //     ))
+        // }
+        // fetchUsers();
+        // console.log(usersCollection);
+        // usersCollection.map(user => console.log(user))
     }, [phone]);
 
-    const onSubmit = (data) => {
+    const onSubmit =  (data) => {
         const phoneNumberInp = infoUser ? infoUser.data.phoneNumber : phone;
         data.phoneNumber = phoneNumberInp;
         setValues(data);
         localStorage.setItem("avatar", JSON.stringify(profilePhoto));
         localStorage.setItem('User-Info', JSON.stringify({ data }));
+
+        // const userName = e.target.userName.value;
+        // // if (!userName) return;
+        // console.log(userName)
+        // db.collection('users').doc(userName).set({
+        //     avatar: avatarURL,
+        // })
     };
 
     return (
