@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import AddElementModal from './AddElementModal';
+import { Container } from '@material-ui/core';
 import { DataGrid } from '@material-ui/data-grid';
 
+import './tables.sass';
 function Incomes({ incomes, setIncomes }) {
   const [isModalOpen, setModalOpen] = useState(false);
   let incomesArr = [];
@@ -12,10 +14,11 @@ function Incomes({ incomes, setIncomes }) {
   });
 
   const columns = [
-    { field: 'category', headerName: 'Category', width: 130 },
-    { field: 'description', headerName: 'Description', width: 160 },
-    { field: 'date', headerName: 'Date', width: 130 },
-    { field: 'money', headerName: 'Money', width: 130 },
+    { field: 'category', headerName: 'Category', width: 130,  headerAlign: 'center', headerClassName:'table-header' },
+    { field: 'description', headerName: 'Description', width: 160,  headerAlign: 'center', headerClassName: 'table-header' },
+    { field: 'date', headerName: 'Date',  width: 130,  headerAlign: 'center', headerClassName: 'table-header' },
+    { field: 'money', headerName: 'Money',  width: 130,  headerAlign: 'center', headerClassName:'table-header' },
+    { field: 'user', headerName: 'User',  width: 100,  headerAlign: 'center', headerClassName: 'table-header' },
   ];
 
   return (
@@ -25,8 +28,15 @@ function Incomes({ incomes, setIncomes }) {
           Add
         </ButtonsForTable>
       </form>
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={incomes} columns={columns} />
+      <div style={{ height: 300}}>
+        <DataGrid
+          rows={incomes}
+          columns={columns}
+          autoPageSize
+          hideFooter
+          autoHeight={true}
+          disableColumnMenu
+        />
       </div>
       <AddElementModal
         title='income'
