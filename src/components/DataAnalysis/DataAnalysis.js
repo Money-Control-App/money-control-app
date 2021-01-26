@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Graphs from "../Graphs/Graphs";
 import Charges from "../Table/Charges";
 import Incomes from "../Table/Incomes";
-import { totalBalance } from '../Balance/Balance';
+import Balance from '../Balance/Balance'
 import './nav-tables.sass';
-const NavTab = () => {
+
+// const balanceStyle = (totalBalance() > 0)? 'balance-positive' : 'balance-negative'
+
+
+
+const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
+  
   return (
     <Router>
       <nav className={`nav-setting nav-tables`}>
@@ -18,19 +24,31 @@ const NavTab = () => {
         </NavLink>
       </nav>
       <Switch>
-        <Route exact path={'/data-analysis'} component={Incomes} />
-        <Route exact path='/data-analysis/tables/charges' component={Charges} />
-        <Route exact path='/data-analysis/tables/incomes' component={Incomes} />
+        <Route exact path={'/data-analysis'}>
+          <Incomes incomes={incomes} setIncomes={setIncomes} />
+        </Route>
+        <Route exact path='/data-analysis/tables/charges'>
+          <Charges charges={charges} setCharges={setCharges} />
+        </Route>
+        <Route exact path='/data-analysis/tables/incomes'>
+          <Incomes incomes={incomes} setIncomes={setIncomes} />
+        </Route>
       </Switch>
     </Router>
   )
 }
 export default function DataAnalysis() {
+  const [charges, setCharges] = useState(
+    JSON.parse(localStorage.getItem("charges"))
+  );
+  const [incomes, setIncomes] = useState(
+    JSON.parse(localStorage.getItem("incomes"))
+  );
   return (
     <Router>
       <nav className='nav-setting-data'>
         <div className='nav-balance'>
-          Total balance: <span className='balance'>{totalBalance()}</span>
+          Total balance: <Balance charges={charges} incomes={incomes} />
         </div>
         <div className='nav-data'>
           <NavLink to="/data-analysis/tables" className="nav-setting-link" activeClassName="active-link-s">
@@ -43,8 +61,12 @@ export default function DataAnalysis() {
       </nav>
 
       <Switch>
-        <Route exact path={'/data-analysis'} component={NavTab} />
-        <Route exact path='/data-analysis/tables' component={NavTab} />
+        <Route exact path={'/data-analysis'}>
+          <NavTab charges={charges} setCharges={setCharges} incomes={incomes} setIncomes={setIncomes} />
+        </Route>
+        <Route exact path='/data-analysis/tables' >
+          <NavTab charges={charges} setCharges={setCharges} incomes={incomes} setIncomes={setIncomes} />
+        </Route>
         <Route exact path='/data-analysis/graphics' component={Graphs} />
       </Switch>
     </Router>
