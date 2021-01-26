@@ -14,11 +14,13 @@ function Charges({ charges, setCharges }) {
   });
 
   const columns = [
-    { field: 'category', headerName: 'Category', width: 130 },
-    { field: 'description', headerName: 'Description', width: 160 },
-    { field: 'date', headerName: 'Date', width: 130 },
-    { field: 'money', headerName: 'Money', width: 130 },
+    { field: 'category', headerName: 'Category', width: 150,  headerAlign: 'center', headerClassName:'table-header' },
+    { field: 'description', headerName: 'Description', width: 160,  headerAlign: 'center', headerClassName: 'table-header' },
+    { field: 'date', headerName: 'Date',  width: 130,  headerAlign: 'center', headerClassName: 'table-header' },
+    { field: 'money', headerName: 'Money',  width: 130,  headerAlign: 'center', headerClassName:'table-header' },
+    { field: 'user', headerName: 'User',  width: 100,  headerAlign: 'center', headerClassName: 'table-header' },
   ];
+
 
   return (
     <div>
@@ -27,8 +29,12 @@ function Charges({ charges, setCharges }) {
           Add
         </ButtonsForTable>
       </form>
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid rows={charges} columns={columns} />
+      <div style={{ height: 400, width: '80%', display: 'flex' }}>
+        <DataGrid 
+        rows={charges} 
+        columns={columns} 
+        autoPageSize
+        hideFooter/>
       </div>
       <AddElementModal
         title='charge'
