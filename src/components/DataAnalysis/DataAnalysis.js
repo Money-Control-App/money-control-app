@@ -5,6 +5,7 @@ import Graphs from "../Graphs/Graphs";
 import Charges from "../Table/Charges";
 import Incomes from "../Table/Incomes";
 import Balance from '../Balance/Balance'
+import Table from '../Table/Table'
 import './nav-tables.sass';
 
 // const balanceStyle = (totalBalance() > 0)? 'balance-positive' : 'balance-negative'
@@ -25,13 +26,13 @@ const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
       </nav>
       <Switch>
         <Route exact path={'/data-analysis'}>
-          <Incomes incomes={incomes} setIncomes={setIncomes} />
+          <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/charges'>
-          <Charges charges={charges} setCharges={setCharges} />
+          <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/incomes'>
-          <Incomes incomes={incomes} setIncomes={setIncomes} />
+        <Table title='income' rows={incomes} setRows={setIncomes} />
         </Route>
       </Switch>
     </Router>
