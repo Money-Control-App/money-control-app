@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -323,7 +324,7 @@ export default function EnhancedTable({title, rows, setRows}) {
                       </TableCell>
                       <TableCell align="right">{row.category}</TableCell>
                       <TableCell align="right">{row.description}</TableCell>
-                      <TableCell align="right">{row.date}</TableCell>
+                      <TableCell align="right">{moment(row.date).format('LL')}</TableCell>
                       <TableCell align="right">{row.money}</TableCell>
                     </TableRow>
                   );

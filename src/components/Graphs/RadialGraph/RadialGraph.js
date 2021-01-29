@@ -1,7 +1,9 @@
 import { RadialChart, Hint } from 'react-vis';
 import React, { useState, useEffect } from 'react';
 
-import './graph.sass';
+import RadialGraphCalculation from './RadialGraphCalc';
+
+import '../GraphNav/graph.sass';
 
 const RadialGraph = (props) => {
   const [inputSource, setInputSource] = useState(
@@ -15,22 +17,7 @@ const RadialGraph = (props) => {
     JSON.parse(localStorage.getItem(categorySource.toString())),
   );
 
-  const valuesInput = categories.map((category) => {
-    let totalSum = inputSource.reduce((total, input) => {
-      return total + +input.money;
-    }, 0);
-
-    let catSum = inputSource
-      .filter((input) => input.category == category.name)
-      .reduce((total, input) => {
-        return total + +input.money;
-      }, 0);
-
-    return {
-      category: category.name,
-      sum: Math.round((+catSum / +totalSum) * 100),
-    };
-  });
+  const inputForRadialGraph = RadialGraphCalculation(categories, inputSource);
 
   const [hint, setHint] = useState(false);
 
@@ -40,7 +27,7 @@ const RadialGraph = (props) => {
       innerRadius={100}
       radius={140}
       getAngle={(d) => d.sum}
-      data={valuesInput}
+      data={inputForRadialGraph}
       onValueMouseOver={(h) => setHint({ category: h.category, sum: h.sum })}
       onSeriesMouseOut={(h) => setHint(false)}
       width={500}

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 
 import {
@@ -8,36 +9,37 @@ import {
   HorizontalGridLines,
   Hint,
   AreaSeries,
-  LineSeries,
 } from 'react-vis';
 
-import '../../css/sourse/default-styles-vis.css';
-import './graph.sass';
+import LinearGraphCalculation from './LinearGraphCalc';
+
+import '../../../css/sourse/default-styles-vis.css';
+import '../GraphNav/graph.sass';
 
 export default function LinearGraph(props) {
   const [inputSource, setInputSource] = useState(
     JSON.parse(localStorage.getItem(props.source.toString())),
   );
-
   const inputsWitinDates = inputSource.filter(
-    (record) => record.date > props.startDate && record.date < props.endDate,
+    (record) =>
+      Date.parse(record.date) > Date.parse(props.startDate) &&
+      Date.parse(record.date) < Date.parse(props.lastDate),
   );
-  /* ADD DATES IN GRAPH COMPONENT AND CHANGE inputSource TO inputsWitinDates */
+
   const datesInput = [
-    ...new Set(inputSource.map((record) => (record = record.date)).sort()),
+    ...new Set(
+      inputsWitinDates
+        .map((record) => (record = record.date))
+        .sort()
+        .map((date) => (date = moment(date).format('L'))),
+    ),
   ];
 
-  const valuesInput = datesInput.map((date, index) => {
-    let totalSum = inputSource
-      .filter((input) => input.date == date)
-      .reduce((total, input) => {
-        return total + +input.money;
-      }, 0);
-    return {
-      x: index,
-      y: totalSum,
-    };
-  });
+  const inputForLinearGraph = LinearGraphCalculation(
+    datesInput,
+    inputsWitinDates,
+  );
+
   const [hint, setHint] = useState(false);
 
   return (
@@ -49,7 +51,7 @@ export default function LinearGraph(props) {
       <AreaSeries
         className='area-series-example'
         curve='curveMonotoneX'
-        data={valuesInput}
+        data={inputForLinearGraph}
         onValueMouseOver={(h) => setHint({ date: h.x, sum: h.y })}
         onSeriesMouseOut={(h) => setHint(false)}
       />
