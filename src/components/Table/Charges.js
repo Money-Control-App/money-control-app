@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment'
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import AddElementModal from './AddElementModal';
 import Table from '@material-ui/core/Table';
@@ -119,7 +120,7 @@ function Charges({ charges, setCharges }) {
                   <TableCell>{charge.category}</TableCell>
                   <TableCell>{charge.category}</TableCell>
                   <TableCell>{charge.description}</TableCell>
-                  <TableCell>{charge.date}</TableCell>
+                  <TableCell>{moment(charge.date).format('L')}</TableCell>
                   <TableCell>{charge.money}</TableCell>
                 </TableRow>
               );
