@@ -122,21 +122,21 @@ function Graphs() {
               activeClassName='active-graph-link'
               to='/data-analysis/radial'
             >
-              Radial
+              Donut chart
             </NavLink>
             <NavLink
               className='graph-link'
               activeClassName='active-graph-link'
               to='/data-analysis/linear'
             >
-              Linear
+              Linear chart
             </NavLink>
             <NavLink
               className='graph-link'
               activeClassName='active-graph-link'
               to='/data-analysis/box'
             >
-              Bar
+              Bar chart
             </NavLink>
             <NavLink
               className='graph-link'

@@ -13,7 +13,6 @@ import './nav-tables.sass';
 
 
 const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
-  console.log(charges)
   return (
     <Router>
       <nav className={`nav-setting nav-tables`}>
@@ -32,7 +31,6 @@ const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
           <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/incomes'>
-        console.log(charges)
         <Table title='income' rows={incomes} setRows={setIncomes} />
         </Route>
       </Switch>
@@ -46,13 +44,12 @@ export default function DataAnalysis() {
     const [incomes, setIncomes] = useState(
       JSON.parse(localStorage.getItem("incomes"))
       );
-      const balanceStyle = (Balance({charges,incomes}) > 0)? 'balance-positive' : 'balance-negative'
 
       return (
         <Router>
       <nav className='nav-setting-data'>
         <div className='nav-balance'>
-          Total balance: <span className = {balanceStyle}>{Balance ({charges,incomes}) } </span>
+          Total balance: {Balance ({charges,incomes}) }
         </div>
         <div className='nav-data'>
           <NavLink to="/data-analysis/tables" className="nav-setting-link" activeClassName="active-link-s">

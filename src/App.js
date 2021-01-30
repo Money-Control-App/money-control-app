@@ -16,7 +16,7 @@ import DataAnalysis from './components/DataAnalysis/DataAnalysis.js';
 import defaultIncomes from './components/Table/default-incomes';
 import defaultIncomeCategories from './components/Table/default-income-categories';
 import defaultCharges from './components/Table/default-charges';
-import defaultChargeCategories from './components/Table/default-charge-categories';
+import defaultChargeCategories from './components/Table/defaultChargeCategories';
 import ErrorPage from './components/ErrorPage/ErrorPage';
 
 function App() {
