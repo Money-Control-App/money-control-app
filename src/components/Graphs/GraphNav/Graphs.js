@@ -14,10 +14,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 import BoxGraph from '../BoxGraph/BoxGraph';
+import ForecastGraph from '../Forecast/ForeacstGraph';
 import LinearGraph from '../LinearGraph/LinearGraph';
 import RadialGraph from '../RadialGraph/RadialGraph';
 
-import ErrorPage from '../../ErrorPage/ErrorPage';
 
 import './graph.sass';
 
@@ -138,6 +138,13 @@ function Graphs() {
             >
               Bar
             </NavLink>
+            <NavLink
+              className='graph-link'
+              activeClassName='active-graph-link'
+              to='/data-analysis/forecast'
+            >
+              Forecast
+            </NavLink>
             <Switch>
               <Route
                 className='radial'
@@ -167,12 +174,17 @@ function Graphs() {
                   />
                 )}
               />
+                <Route
+                exact
+                  className='radial'
+                  path='/data-analysis/forecast'
+                  component={() => <ForecastGraph />}
+                />
               <Route
                 className='radial'
                 path='/'
                 component={() => <RadialGraph source={dataType} />}
               />
-              <Route exact path='*' component={ErrorPage} />
             </Switch>
           </Router>
         </div>
