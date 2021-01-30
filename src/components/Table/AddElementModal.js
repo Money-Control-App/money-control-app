@@ -1,15 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PostAddIcon from '@material-ui/icons/PostAdd';
 import TablePortal from './TablePortal';
 import { Input } from './PartForTable/Input';
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
+import {parseData} from '../Settings/Reminder/untils';
 import './AddElementModal.sass';
 
 const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
+  const [enteredSum,setEnteredSum]=useState('')
   const category = React.createRef();
   const description = React.createRef();
   const money = React.createRef();
   let elementsArr = [];
+  const limitData =parseData('limit');
+  const {limit}=limitData;
+  const balance=parseData('balance')
 
   useEffect(() => {
     elementsArr = JSON.parse(localStorage.getItem(title + 's'));
@@ -35,6 +40,7 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
     setElements(JSON.parse(localStorage.getItem(title + 's')));
     setModalOpen(false);
   }
+
 
   return (
     <>
@@ -72,8 +78,18 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
                   type='number'
                   label='Money'
                   name='money'
+                  value={enteredSum}
+                  onChange={e=>setEnteredSum(e.target.value)}
                 />
               </div>
+
+              {
+                limit!==null? (
+                    ((+balance)-(+enteredSum)<limit)?(
+                        <p>if you add this cost your balance will be lower than the limit</p>
+                    ) :null
+                ) :null
+              }
 
               <div className='modal-footer'>
                 <ButtonsForTable
