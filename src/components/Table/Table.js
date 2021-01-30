@@ -24,11 +24,9 @@ import Avatar from '@material-ui/core/Avatar';
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import AddElementModal from './AddElementModal'
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+import standartPhoto from '../../img/newUser/blank_photo.webp';
 
-
+const avatarUser = JSON.parse(localStorage.getItem('avatar'));
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -84,9 +82,9 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'default'}
+            align={'center'}
             sortDirection={orderBy === headCell.id ? order : false}
+            className='table-header'
           >
             <TableSortLabel
               active={orderBy === headCell.id}
@@ -95,7 +93,7 @@ function EnhancedTableHead(props) {
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                <span className={classes.visuallyHidden}>
+                <span>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
@@ -119,8 +117,8 @@ EnhancedTableHead.propTypes = {
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
+    paddingLeft: '5px',
+    paddingRight: '5px',
   },
   highlight:
     theme.palette.type === 'light'
@@ -152,11 +150,11 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
+        <Typography className={classes.title} variant="h5" id="tableTitle" component="div">
           
         </Typography>
       )}
-
+  
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton aria-label="delete">
@@ -183,11 +181,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
+    width: '70%',
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 'auto',
+    marginBottom: '20px'
   },
   visuallyHidden: {
     border: 0,
@@ -212,18 +210,23 @@ export default function EnhancedTable({title, rows, setRows}) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [isModalOpen, setModalOpen] = useState(false);
 
-    let finArr = [];
+  let finArr = [];
+  const arrayCategories = JSON.parse(localStorage.getItem(title + 'Categories'));
 
   useEffect(() => {
     finArr = JSON.parse(localStorage.getItem(title + 's'));
   });
-
+  
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
+  const finderIcon = (findName) => {
+    const idForCategory = arrayCategories.find(category => category.name === findName).categoryId;
+    return idForCategory;
+  }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.name);
@@ -272,22 +275,22 @@ export default function EnhancedTable({title, rows, setRows}) {
 
   return (
     <div className={classes.root}>
-        <form className='table__inputs'>
-        <ButtonsForTable clickBtn={() => setModalOpen(true)}>
+      <Paper className={classes.paper}>
+      <form className='table__inputs-add'>
+        <ButtonsForTable className='btn-add' clickBtn={() => setModalOpen(true)} >
           Add
         </ButtonsForTable>
       </form>
-      <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
+        <TableContainer >
           <Table
-            className={classes.table}
+            className={classes.table, 'table-money'}
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
           >
             <EnhancedTableHead
-              classes={classes}
+              // classes={classes}
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -318,13 +321,16 @@ export default function EnhancedTable({title, rows, setRows}) {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
-                        <Avatar src='../../img/newUser/blank_photowebp' />
+                      <TableCell align='center' component="td" id={labelId} scope="row">
+                        <Avatar src={avatarUser ? avatarUser : standartPhoto} />
                       </TableCell>
-                      <TableCell align="right">{row.category}</TableCell>
-                      <TableCell align="right">{row.description}</TableCell>
-                      <TableCell align="right">{row.date}</TableCell>
-                      <TableCell align="right">{row.money}</TableCell>
+                      <TableCell align="center" className='category-row' component="td">
+                        <div className='category-icon' style= {{background: `url(/img/${title}/${finderIcon(row.category)}.svg)`}} />
+                        <div>{row.category}</div>
+                        </TableCell>
+                      <TableCell align="center">{row.description}</TableCell>
+                      <TableCell align="center">{row.date}</TableCell>
+                      <TableCell align="center">{row.money}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -346,10 +352,6 @@ export default function EnhancedTable({title, rows, setRows}) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
       <AddElementModal
         title={title}
         isModalOpen={isModalOpen}

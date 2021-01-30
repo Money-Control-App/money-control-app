@@ -6,7 +6,8 @@ import { SettingUser } from './User/SettingUser';
 import { Header } from './PartsForm/Header';
 import { DataProvider } from './User/DataUser';
 import { Reminder } from './Reminder/Reminder';
-import './setting.sass';
+import { Categories } from './Categories/Categories';
+import './setting.sass'; 
 import NavSetting from './NavSetting';
 
 const userSetting = () => {
@@ -28,6 +29,7 @@ export const Setting = ({ children, ...props }) => {
                 <Switch>
                     <Route exact path='/setting/user' component={userSetting} />
                     <Route exact path='/setting/reminder' component={Reminder} />
+                    <Route exact path='/setting/categories' component={Categories} />
                     <Route exact path={'/setting'} component={Reminder} />
                 </Switch>
             </Router>

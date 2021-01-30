@@ -12,6 +12,9 @@ export default function NavSetting() {
             <NavLink className="nav-setting-link" activeClassName="active-link-s" to="/setting/reminder">
                 Reminder
             </NavLink>
+            <NavLink className="nav-setting-link" activeClassName="active-link-s" to="/setting/categories">
+                Categories
+            </NavLink>
         </nav>
     );
 }
