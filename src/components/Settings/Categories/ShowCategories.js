@@ -18,7 +18,7 @@ import AddIcon from '@material-ui/icons/Add';
 import './show-categories.sass';
 const arrayCategories = JSON.parse(localStorage.getItem('charge' + 'Categories'));
 const numberIcon = (new Array(11).fill(1));
-const lastId = arrayCategories.pop().categoryId;
+//const lastId = arrayCategories.pop().categoryId;
 export const ShowCategories = () => {
     const addCategory = () => {
 

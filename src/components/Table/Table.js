@@ -93,12 +93,7 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
-              {orderBy === headCell.id ? (
-//                  <span>
-// //                 {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-//                 </span>
-                null
-              ) : null}
+
             </TableSortLabel>
           </TableCell>
         ))}
