@@ -32,7 +32,6 @@ const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
           <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/incomes'>
-        console.log(charges)
         <Table title='income' rows={incomes} setRows={setIncomes} />
         </Route>
       </Switch>

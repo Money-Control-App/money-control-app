@@ -140,6 +140,20 @@ const useToolbarStyles = makeStyles((theme) => ({
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles();
   const { numSelected } = props;
+  const { selected } = props;
+  const { rows, setRows } = props;
+  const { title } = props;
+
+  const deleteSelected = () => {
+    const reduced = rows.reduce((acc,row)=>{
+      if (selected.indexOf(row.id) === -1 ){
+        acc.push(row)
+      }
+      return acc;
+    },[])
+    localStorage.setItem(title + 's',JSON.stringify(reduced))
+    setRows(reduced);
+  }
 
   return (
     <Toolbar
@@ -159,7 +173,7 @@ const EnhancedTableToolbar = (props) => {
   
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton aria-label="delete">
+          <IconButton onClick={deleteSelected} aria-label="delete">
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -283,7 +297,7 @@ export default function EnhancedTable({title, rows, setRows}) {
           Add
         </ButtonsForTable>
       </form>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar title={title} selected={selected} rows={rows} setRows={setRows} numSelected={selected.length} />
         <TableContainer >
           <Table
             className={classes.table, 'table-money'}
@@ -304,17 +318,20 @@ export default function EnhancedTable({title, rows, setRows}) {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => {
+                        handleClick(event, row.id);
+                        console.log(event.target);
+                      }}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
