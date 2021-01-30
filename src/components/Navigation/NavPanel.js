@@ -19,8 +19,7 @@ export default function NavPanel() {
           <NavLink className="nav__link" activeClassName="active-link" to="/data-analysis">
             Data
         </NavLink>
-
-        </div>
+              </div>
       </nav>
     </div>
   );

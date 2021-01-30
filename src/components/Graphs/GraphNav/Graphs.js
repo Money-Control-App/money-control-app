@@ -14,9 +14,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 import BoxGraph from '../BoxGraph/BoxGraph';
-import Dates from '../PartsGraph/Dates';
 import LinearGraph from '../LinearGraph/LinearGraph';
 import RadialGraph from '../RadialGraph/RadialGraph';
+
+import ErrorPage from '../../ErrorPage/ErrorPage';
 
 import './graph.sass';
 
@@ -24,8 +25,8 @@ function Graphs() {
   const [dataType, setDataType] = useState('incomes');
   const handleChangeDataType = (e) => setDataType(e.target.value);
 
-  const pastDate = moment().subtract(10, 'days').format('YYYY-MM-DD')
-  
+  const pastDate = moment().subtract(30, 'days').format('YYYY-MM-DD');
+
   const [startDate, setStartDate] = useState(pastDate);
   const addStartDate = (e) => {
     const newdate = e.target.value;
@@ -171,6 +172,7 @@ function Graphs() {
                 path='/'
                 component={() => <RadialGraph source={dataType} />}
               />
+              <Route exact path='*' component={ErrorPage} />
             </Switch>
           </Router>
         </div>
