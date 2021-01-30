@@ -16,7 +16,8 @@ import DataAnalysis from './components/DataAnalysis/DataAnalysis.js';
 import defaultIncomes from './components/Table/default-incomes';
 import defaultIncomeCategories from './components/Table/default-income-categories';
 import defaultCharges from './components/Table/default-charges';
-import { defaultChargeCategories } from './components/Table/defaultChargeCategories';
+import defaultChargeCategories from './components/Table/default-charge-categories';
+import ErrorPage from './components/ErrorPage/ErrorPage';
 
 function App() {
 
@@ -49,7 +50,8 @@ function App() {
         <Switch>
           <Route exact path='/data-analysis' component={DataAnalysis} />
           <Route exact path='/setting' component={Setting} />
-          <Route exact path={'/'} component={MainPage} />
+          <Route exact path='/' component={MainPage} />
+          <Route path='*' component={ErrorPage} />
         </Switch>
       </Router>
     </div>
