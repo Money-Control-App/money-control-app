@@ -1,10 +1,10 @@
 export default function RadialGraphCalculation (categories, inputSource) {
     const inputForRadialGraph = categories.map((category) => {
-        let totalSum = inputSource.reduce((total, input) => {
+        const totalSum = inputSource.reduce((total, input) => {
           return total + +input.money;
         }, 0);
     
-        let catSum = inputSource
+        const catSum = inputSource
           .filter((input) => input.category == category.name)
           .reduce((total, input) => {
             return total + +input.money;

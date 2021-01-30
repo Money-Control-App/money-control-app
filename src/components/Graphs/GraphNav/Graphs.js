@@ -18,7 +18,6 @@ import ForecastGraph from '../Forecast/ForeacstGraph';
 import LinearGraph from '../LinearGraph/LinearGraph';
 import RadialGraph from '../RadialGraph/RadialGraph';
 
-
 import './graph.sass';
 
 function Graphs() {
@@ -40,6 +39,11 @@ function Graphs() {
     const newdate = e.target.value;
     setLastDate(newdate);
   };
+
+  const datesErrorStyle =
+    Date.parse(lastDate) > Date.parse(startDate)
+      ? 'error-hidden'
+      : 'error-visible';
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -112,6 +116,10 @@ function Graphs() {
                 }}
               />
             </form>
+            <p className={datesErrorStyle}>
+              Oooops.. seems like the dates are messed a bit, please check one
+              more time!
+            </p>
           </div>
         </div>
         <div className='graph'>
@@ -150,7 +158,13 @@ function Graphs() {
                 className='radial'
                 path='/data-analysis/radial'
                 exact
-                component={() => <RadialGraph source={dataType} />}
+                component={() => (
+                  <RadialGraph
+                    source={dataType}
+                    startDate={startDate}
+                    lastDate={lastDate}
+                  />
+                )}
               />
               <Route
                 path='/data-analysis/linear'
@@ -174,12 +188,12 @@ function Graphs() {
                   />
                 )}
               />
-                <Route
+              <Route
                 exact
-                  className='radial'
-                  path='/data-analysis/forecast'
-                  component={() => <ForecastGraph />}
-                />
+                className='radial'
+                path='/data-analysis/forecast'
+                component={() => <ForecastGraph />}
+              />
               <Route
                 className='radial'
                 path='/'
