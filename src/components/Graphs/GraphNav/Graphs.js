@@ -197,7 +197,13 @@ function Graphs() {
               <Route
                 className='radial'
                 path='/'
-                component={() => <RadialGraph source={dataType} />}
+                component={() => (
+                  <RadialGraph
+                    source={dataType}
+                    startDate={startDate}
+                    lastDate={lastDate}
+                  />
+                )}
               />
             </Switch>
           </Router>

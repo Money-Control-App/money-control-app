@@ -34,7 +34,6 @@ export default function LinearGraph(props) {
         .map((date) => (date = moment(date).format('L'))),
     ),
   ];
-
   const inputForLinearGraph = LinearGraphCalculation(
     datesInput,
     inputsWitinDates,
