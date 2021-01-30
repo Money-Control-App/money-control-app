@@ -1,5 +1,5 @@
 import { RadialChart, Hint } from 'react-vis';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import RadialGraphCalculation from './RadialGraphCalc';
 
