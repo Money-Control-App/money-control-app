@@ -20,6 +20,7 @@ import defaultChargeCategories from './components/Table/default-charge-categorie
 import ErrorPage from './components/ErrorPage/ErrorPage';
 
 function App() {
+
   if (!localStorage.getItem('incomes')) {
     localStorage.setItem('incomes', JSON.stringify(defaultIncomes));
   }
@@ -38,7 +39,7 @@ function App() {
   if (!localStorage.getItem('chargeCategories')) {
     localStorage.setItem(
       'chargeCategories',
-      JSON.stringify(defaultChargeCategories),
+      JSON.stringify(defaultChargeCategories)
     );
   }
 

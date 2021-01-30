@@ -235,8 +235,9 @@ export default function EnhancedTable({title, rows, setRows}) {
   };
 
   const finderIcon = (findName) => {
-    const idForCategory = arrayCategories.find(category => category.name === findName).categoryId;
-    return idForCategory;
+    const idForCategory = arrayCategories.find(category => category.name === findName);
+    console.log(idForCategory)
+    return idForCategory ? idForCategory.categoryId : 'none';
   }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
