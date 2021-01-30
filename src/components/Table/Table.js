@@ -94,9 +94,10 @@ function EnhancedTableHead(props) {
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                 <span>
-//                 {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                </span>
+//                  <span>
+// //                 {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+//                 </span>
+                null
               ) : null}
             </TableSortLabel>
           </TableCell>
