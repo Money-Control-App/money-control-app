@@ -236,7 +236,6 @@ export default function EnhancedTable({title, rows, setRows}) {
 
   const finderIcon = (findName) => {
     const idForCategory = arrayCategories.find(category => category.name === findName);
-    console.log(idForCategory)
     return idForCategory ? idForCategory.categoryId : 'none';
   }
   const handleSelectAllClick = (event) => {
@@ -322,7 +321,6 @@ export default function EnhancedTable({title, rows, setRows}) {
                       hover
                       onClick={(event) => {
                         handleClick(event, row.id);
-                        console.log(event.target);
                       }}
                       role="checkbox"
                       aria-checked={isItemSelected}
