@@ -26,13 +26,13 @@ const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
       </nav>
       <Switch>
         <Route exact path={'/data-analysis'}>
-          <Table title='charge' rows={charges} setRows={setCharges}  />
+          <Table key='charge' title='charge' rows={charges} setRows={setCharges}  />
         </Route>
         <Route exact path='/data-analysis/tables/charges'>
-          <Table title='charge' rows={charges} setRows={setCharges} />
+          <Table key='charge' title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/incomes'>
-        <Table title='income' rows={incomes} setRows={setIncomes} />
+        <Table key='income' title='income' rows={incomes} setRows={setIncomes} />
         </Route>
       </Switch>
     </Router>
