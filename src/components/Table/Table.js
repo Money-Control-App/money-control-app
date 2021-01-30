@@ -93,12 +93,7 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
-              {orderBy === headCell.id ? (
-//                  <span>
-// //                 {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-//                 </span>
-                null
-              ) : null}
+            
             </TableSortLabel>
           </TableCell>
         ))}
@@ -226,8 +221,9 @@ export default function EnhancedTable({title, rows, setRows}) {
   };
 
   const finderIcon = (findName) => {
-    const idForCategory = arrayCategories.find(category => category.name === findName).categoryId;
-    return idForCategory;
+    const idForCategory = arrayCategories.find(category => category.name === findName);
+    console.log(idForCategory)
+    return idForCategory ? idForCategory.categoryId : 'none';
   }
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {

@@ -1,4 +1,4 @@
-const defaultChargeCategories = [
+export const defaultChargeCategories = [
     {
       categoryId: 1,
       name: 'Health',
@@ -13,4 +13,3 @@ const defaultChargeCategories = [
     },
   ]
 
-  export default defaultChargeCategories

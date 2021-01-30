@@ -16,9 +16,10 @@ import DataAnalysis from './components/DataAnalysis/DataAnalysis.js';
 import defaultIncomes from './components/Table/default-incomes';
 import defaultIncomeCategories from './components/Table/default-income-categories';
 import defaultCharges from './components/Table/default-charges';
-import defaultChargeCategories from './components/Table/default-charge-categories';
+import { defaultChargeCategories } from './components/Table/defaultChargeCategories';
 
 function App() {
+
   if (!localStorage.getItem('incomes')) {
     localStorage.setItem('incomes', JSON.stringify(defaultIncomes));
   }
@@ -37,7 +38,7 @@ function App() {
   if (!localStorage.getItem('chargeCategories')) {
     localStorage.setItem(
       'chargeCategories',
-      JSON.stringify(defaultChargeCategories),
+      JSON.stringify(defaultChargeCategories)
     );
   }
 
