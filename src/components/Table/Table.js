@@ -94,8 +94,8 @@ function EnhancedTableHead(props) {
             >
               {headCell.label}
               {orderBy === headCell.id ? (
-                <span>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                 <span>
+//                 {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </span>
               ) : null}
             </TableSortLabel>
@@ -330,7 +330,6 @@ export default function EnhancedTable({title, rows, setRows}) {
                         <div className='category-icon' style= {{background: `url(/img/${title}/${finderIcon(row.category)}.svg)`}} />
                         <div>{row.category}</div>
                        </TableCell>
-                      <TableCell align="center">{row.category}</TableCell>
                       <TableCell align="center">{row.description}</TableCell>
                       <TableCell align="center">{moment(row.date).format('LL')}</TableCell>
                       <TableCell align="center">{row.money}</TableCell>
