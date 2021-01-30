@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -324,13 +325,16 @@ export default function EnhancedTable({title, rows, setRows}) {
                       <TableCell align='center' component="td" id={labelId} scope="row">
                         <Avatar src={avatarUser ? avatarUser : standartPhoto} />
                       </TableCell>
+
                       <TableCell align="center" className='category-row' component="td">
                         <div className='category-icon' style= {{background: `url(/img/${title}/${finderIcon(row.category)}.svg)`}} />
                         <div>{row.category}</div>
-                        </TableCell>
+                       </TableCell>
+                      <TableCell align="center">{row.category}</TableCell>
                       <TableCell align="center">{row.description}</TableCell>
-                      <TableCell align="center">{row.date}</TableCell>
+                      <TableCell align="center">{moment(row.date).format('LL')}</TableCell>
                       <TableCell align="center">{row.money}</TableCell>
+
                     </TableRow>
                   );
                 })}

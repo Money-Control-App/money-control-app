@@ -24,8 +24,9 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
         category: category.current.value,
         description: description.current.value,
         money: money.current.value,
-        date: new Date().toLocaleDateString('ua-UK'),
-      });
+        date: new Date()
+        .toUTCString(),
+       });
       description.current.value = '';
       money.current.value = '';
     }

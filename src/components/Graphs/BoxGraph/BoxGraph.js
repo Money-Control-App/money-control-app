@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useState, useEffect } from 'react';
 
 import {
@@ -8,11 +9,12 @@ import {
   HorizontalGridLines,
   Hint,
   VerticalBarSeries,
-  VerticalBarSeriesCanvas,
 } from 'react-vis';
 
-import '../../css/sourse/default-styles-vis.css';
-import './graph.sass';
+import BoxGraphCalculation from './BoxGraphCalc';
+
+import '../../../css/sourse/default-styles-vis.css';
+import '../GraphNav/graph.sass';
 
 export default function BoxGraph(props) {
   const [inputSource, setInputSource] = useState(
@@ -20,37 +22,32 @@ export default function BoxGraph(props) {
   );
 
   const inputsWitinDates = inputSource.filter(
-    (record) => (record.date > props.startDate && record.date < props.endDate),
+    (record) =>
+      Date.parse(record.date) > Date.parse(props.startDate) &&
+      Date.parse(record.date) < Date.parse(props.lastDate),
   );
-  /* ADD DATES IN GRAPH COMPONENT AND CHANGE inputSource TO inputsWitinDates */
+
   const datesInput = [
     ...new Set(
-      inputSource
+      inputsWitinDates
         .map((record) => (record = record.date))
         .sort()
+        .map((date) => (date = moment(date).format('L'))),
     ),
   ];
+
   const categorySource =
     props.source === 'incomes' ? 'incomeCategories' : 'chargeCategories';
+
   const [categories, setCategories] = useState(
     JSON.parse(localStorage.getItem(categorySource.toString())),
   );
-  const valuesInput = categories.map((category) => {
-    let result = datesInput.map((date, index) => {
-      let sum = inputSource
-        .filter(
-          (input) => input.category == category.name && input.date == date,
-        )
-        .reduce((total, input) => {
-          return total + +input.money;
-        }, 0);
-      return {
-        x: index,
-        y: sum,
-      };
-    });
-    return result;
-  });
+
+  const inputForBoxGraph = BoxGraphCalculation(
+    categories,
+    datesInput,
+    inputsWitinDates,
+  );
   const [hint, setHint] = useState(false);
 
   return (
@@ -60,7 +57,7 @@ export default function BoxGraph(props) {
         <HorizontalGridLines />
         <XAxis tickFormat={(v) => datesInput[v]} title='dates' />
         <YAxis />
-        {valuesInput.map(
+        {inputForBoxGraph.map(
           (v, index) =>
             (v = (
               <VerticalBarSeries

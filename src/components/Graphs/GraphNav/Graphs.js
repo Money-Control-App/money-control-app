@@ -1,5 +1,6 @@
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import moment from 'moment';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import React, { useState } from 'react';
@@ -12,10 +13,10 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
-import BoxGraph from './BoxGraph';
-import Dates from './PartsGraph/Dates';
-import LinearGraph from './LinearGraph';
-import RadialGraph from './RadialGraph';
+import BoxGraph from '../BoxGraph/BoxGraph';
+import Dates from '../PartsGraph/Dates';
+import LinearGraph from '../LinearGraph/LinearGraph';
+import RadialGraph from '../RadialGraph/RadialGraph';
 
 import './graph.sass';
 
@@ -23,21 +24,21 @@ function Graphs() {
   const [dataType, setDataType] = useState('incomes');
   const handleChangeDataType = (e) => setDataType(e.target.value);
 
-  const [startDate, setStartDate] = useState('2020-12-24');
-  const addStartDate = (e) => { 
-    let newdate = e.target.value
-    newdate= newdate.toLocaleDateString()
-    setStartDate(newdate)};
+  const pastDate = moment().subtract(10, 'days').format('YYYY-MM-DD')
+  
+  const [startDate, setStartDate] = useState(pastDate);
+  const addStartDate = (e) => {
+    const newdate = e.target.value;
+    setStartDate(newdate);
+  };
 
-  const [endDate, setEndDate] = useState('2021-01-31');
-  const addEndDate = (e) => {
-    let newdate = e.target.value
-    newdate= newdate.toLocaleDateString()
-    setEndDate(newdate)};
+  const currentDate = moment().format('YYYY-MM-DD');
 
-  console.log(dataType);
-  console.log(startDate);
-  console.log(endDate);
+  const [lastDate, setLastDate] = useState(currentDate);
+  const addLastDate = (e) => {
+    const newdate = e.target.value;
+    setLastDate(newdate);
+  };
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -102,9 +103,9 @@ function Graphs() {
                 id='date'
                 label='End Date'
                 type='date'
-                value={endDate}
+                value={lastDate}
                 className={classes.textField}
-                onChange={addEndDate}
+                onChange={addLastDate}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -146,7 +147,13 @@ function Graphs() {
               <Route
                 path='/data-analysis/linear'
                 exact
-                component={() => <LinearGraph source={dataType} />}
+                component={() => (
+                  <LinearGraph
+                    source={dataType}
+                    startDate={startDate}
+                    lastDate={lastDate}
+                  />
+                )}
               />
               <Route
                 path='/data-analysis/box'
@@ -155,7 +162,7 @@ function Graphs() {
                   <BoxGraph
                     source={dataType}
                     startDate={startDate}
-                    endDate={endDate}
+                    lastDate={lastDate}
                   />
                 )}
               />
@@ -167,11 +174,6 @@ function Graphs() {
             </Switch>
           </Router>
         </div>
-        {/*  <div className='flex-wrapper-graphs'>
-          <RadialGraph source={dataType} />
-          <LinearGraph source={dataType} />
-          <BoxGraph source={dataType} />
-          </div> */}
       </nav>
     </div>
   );

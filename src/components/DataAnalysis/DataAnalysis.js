@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Graphs from "../Graphs/Graphs";
+import Graphs from "../Graphs/GraphNav/Graphs";
 import Charges from "../Table/Charges";
 import Incomes from "../Table/Incomes";
 import Balance from '../Balance/Balance'
