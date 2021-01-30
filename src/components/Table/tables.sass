@@ -3,9 +3,62 @@ $maxWidth: 1440
 @mixin adaptiv-font($pcSize, $mobSize)
     $addSize: $pcSize - $mobSize
     $maxWidth: $maxWidth - 320
-    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}))
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth})) !important
 
-.table-header
-    @include adaptiv-font(20, 12)
-    font-family: 'BreeSerif'
-    color: #00303f
+.table-header span
+    @include adaptiv-font(20, 14) 
+    font-family: 'BreeSerif' !important
+    color: #00303f !important
+    text-align: center !important
+
+.category-icon
+    width: 30px
+    height: 30px
+    background-size: contain !important
+    background-repeat: no-repeat !important
+    margin-right: 3px
+
+.category-row
+    display: flex !important
+    align-items: center
+    // border-bottom: none !important
+
+.MuiTableCell-root
+    // padding-left: 0px !important
+    // padding-right: 0px !important
+
+.table-money
+    background-color: #eccda4
+    .MuiTableHead-root
+        background-color: #ecb66f
+    .MuiTableCell-root
+        border-bottom: none !important
+    .MuiTableHead-root
+        border-bottom: 2.5px solid #f5f4f4
+    tr:not(:last-child) 
+        border-bottom: 1.5px solid #ece6dd
+    td
+        font-family: 'Blinker' !important
+        @include adaptiv-font(16, 12)
+.MuiToolbar-regular
+        min-height: 40px !important
+        background-color: #f5f4f4 !important
+
+
+.MuiPaper-root 
+    color: rgba(0, 0, 0, 0.87)
+    background-color: transparent !important
+
+.transparent-elevation1
+    box-shadow: none !important
+        
+.table__inputs-add
+    display: flex
+    justify-content: flex-end
+    .MuiButton-label
+        &:hover
+            color: #ada0a0 !important
+    button
+        background-color: transparent !important
+        box-shadow: none !important
+        

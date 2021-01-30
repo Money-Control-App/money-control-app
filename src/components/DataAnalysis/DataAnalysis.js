@@ -13,7 +13,7 @@ import './nav-tables.sass';
 
 
 const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
-  
+  console.log(charges)
   return (
     <Router>
       <nav className={`nav-setting nav-tables`}>
@@ -26,12 +26,13 @@ const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
       </nav>
       <Switch>
         <Route exact path={'/data-analysis'}>
-          <Table title='charge' rows={charges} setRows={setCharges} />
+          <Table title='charge' rows={charges} setRows={setCharges}  />
         </Route>
         <Route exact path='/data-analysis/tables/charges'>
           <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/incomes'>
+        console.log(charges)
         <Table title='income' rows={incomes} setRows={setIncomes} />
         </Route>
       </Switch>
