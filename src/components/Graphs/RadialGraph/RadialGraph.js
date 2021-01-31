@@ -1,3 +1,4 @@
+import moment from 'moment'
 import { RadialChart, Hint } from 'react-vis';
 import React, { useState } from 'react';
 
@@ -17,7 +18,13 @@ const RadialGraph = (props) => {
     JSON.parse(localStorage.getItem(categorySource.toString())),
   );
 
-  const inputForRadialGraph = RadialGraphCalculation(categories, inputSource);
+  const inputsWitinDates = inputSource.filter(
+    (record) =>
+      Date.parse(record.date) > Date.parse(props.startDate) &&
+      Date.parse(record.date) < Date.parse(props.lastDate),
+  );
+
+  const inputForRadialGraph = RadialGraphCalculation(categories, inputsWitinDates);
 
   const [hint, setHint] = useState(false);
 
@@ -31,7 +38,7 @@ const RadialGraph = (props) => {
       onValueMouseOver={(h) => setHint({ category: h.category, sum: h.sum })}
       onSeriesMouseOut={(h) => setHint(false)}
       width={500}
-      height={400}
+      height={300}
       padAngle={0.04}
     >
       {hint !== false && <Hint value={hint} />}

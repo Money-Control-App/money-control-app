@@ -34,7 +34,6 @@ export default function LinearGraph(props) {
         .map((date) => (date = moment(date).format('L'))),
     ),
   ];
-
   const inputForLinearGraph = LinearGraphCalculation(
     datesInput,
     inputsWitinDates,
@@ -43,7 +42,7 @@ export default function LinearGraph(props) {
   const [hint, setHint] = useState(false);
 
   return (
-    <XYPlot width={500} height={400}>
+    <XYPlot width={500} height={300}>
       <VerticalGridLines />
       <HorizontalGridLines />
       <XAxis tickFormat={(v) => datesInput[v]} title='dates' />
