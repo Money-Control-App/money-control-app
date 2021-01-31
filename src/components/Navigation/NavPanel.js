@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink, BrowserRouter as Router } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import logo from '../../img/icons/logo.svg';
 import './nav.sass';
@@ -9,7 +9,7 @@ export default function NavPanel() {
     <div className='nav__container'>
       <nav className={`nav nav--shadow`}>
         <div className='nav__logo'>
-          <img className='nav__logo--img'  src={logo}/>
+          <img className='nav__logo--img' src={logo} />
           <NavLink className='nav-logo' to='/'><h4 className='nav__logo--text'>KeePocket</h4></NavLink>
         </div>
         <div className='nav__links'>
@@ -19,7 +19,7 @@ export default function NavPanel() {
           <NavLink className="nav__link" activeClassName="active-link" to="/data-analysis">
             Data
         </NavLink>
-              </div>
+        </div>
       </nav>
     </div>
   );

@@ -17,7 +17,6 @@ $mainColor: #00303f
     font-family: 'FredokaOne'
     justify-content: space-between
     @media screen and ( max-width: 500px )
-        justify-content: center
         margin-right: 0px
 
 .nav-tables
@@ -29,7 +28,7 @@ $mainColor: #00303f
         color: $mainColor
         font-family: 'JosefinSans'
         text-decoration: none
-        @include adaptiv-font(20, 16)
+        @include adaptiv-font(20, 14)
         margin: 0 5px
         font-weight: bolder
         &:hover
@@ -37,8 +36,9 @@ $mainColor: #00303f
     .active-link-s
         color: #000000
         border-bottom: 1px ridge #111111
-
+.nav-balance
+    @include adaptiv-font(20, 14)
 .balance
     font-family: 'ShareTechMono'
-
+   
 
