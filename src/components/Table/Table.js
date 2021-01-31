@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment'
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
@@ -21,19 +21,36 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Avatar from '@material-ui/core/Avatar';
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
-import AddElementModal from './AddElementModal'
+import AddElementModal from './AddElementModal';
 
 import standartPhoto from '../../img/newUser/blank_photo.webp';
 import './tables.sass';
+import { EmojiSymbolsOutlined } from '@material-ui/icons';
 
 const avatarUser = JSON.parse(localStorage.getItem('avatar'));
 
 function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
+  if (orderBy === 'money') {
+    if (Number(b[orderBy]) < Number(a[orderBy])) {
+      return -1;
+    }
+    if (Number(b[orderBy]) > Number(a[orderBy])) {
+      return 1;
+    }
+  } else if (orderBy === 'date') {
+    if (new Date(b[orderBy]) < new Date(a[orderBy])) {
+      return -1;
+    }
+    if (new Date(b[orderBy]) > new Date(a[orderBy])) {
+      return 1;
+    }
+  } else {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
   }
   return 0;
 }
@@ -57,13 +74,26 @@ function stableSort(array, comparator) {
 const headCells = [
   { id: 'avatar', numeric: false, disablePadding: true, label: 'User' },
   { id: 'category', numeric: false, disablePadding: true, label: 'Category' },
-  { id: 'description', numeric: false, disablePadding: false, label: 'Description' },
+  {
+    id: 'description',
+    numeric: false,
+    disablePadding: false,
+    label: 'Description',
+  },
   { id: 'date', numeric: false, disablePadding: false, label: 'Date' },
   { id: 'money', numeric: true, disablePadding: false, label: 'Money' },
 ];
 
 function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const {
+    classes,
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -71,7 +101,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell padding='checkbox'>
           <Checkbox
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -92,7 +122,6 @@ function EnhancedTableHead(props) {
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
-
             </TableSortLabel>
           </TableCell>
         ))}
@@ -102,7 +131,7 @@ function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object,
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
@@ -119,13 +148,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-        color: theme.palette.secondary.main,
-        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-      }
+          color: theme.palette.secondary.main,
+          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+        }
       : {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.secondary.dark,
-      },
+          color: theme.palette.text.primary,
+          backgroundColor: theme.palette.secondary.dark,
+        },
   title: {
     flex: '1 1 100%',
   },
@@ -141,13 +170,13 @@ const EnhancedTableToolbar = (props) => {
   const deleteSelected = () => {
     const reduced = rows.reduce((acc, row) => {
       if (selected.indexOf(row.id) === -1) {
-        acc.push(row)
+        acc.push(row);
       }
       return acc;
-    }, [])
-    localStorage.setItem(title + 's', JSON.stringify(reduced))
+    }, []);
+    localStorage.setItem(title + 's', JSON.stringify(reduced));
     setRows(reduced);
-  }
+  };
 
   return (
     <Toolbar
@@ -156,28 +185,36 @@ const EnhancedTableToolbar = (props) => {
       })}
     >
       {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+        <Typography
+          className={classes.title}
+          color='inherit'
+          variant='subtitle1'
+          component='div'
+        >
           {numSelected} selected
         </Typography>
       ) : (
-          <Typography className={classes.title} variant="h5" id="tableTitle" component="div">
-
-          </Typography>
-        )}
+        <Typography
+          className={classes.title}
+          variant='h5'
+          id='tableTitle'
+          component='div'
+        ></Typography>
+      )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton onClick={deleteSelected} aria-label="delete">
+        <Tooltip title='Delete'>
+          <IconButton onClick={deleteSelected} aria-label='delete'>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
       ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
+        <Tooltip title='Filter list'>
+          <IconButton aria-label='filter list'>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+      )}
     </Toolbar>
   );
 };
@@ -195,7 +232,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     margin: 'auto',
-    marginBottom: '20px'
+    marginBottom: '20px',
   },
   visuallyHidden: {
     border: 0,
@@ -213,16 +250,17 @@ const useStyles = makeStyles((theme) => ({
 export default function EnhancedTable({ title, rows, setRows }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('category');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [isModalOpen, setModalOpen] = useState(false);
 
-
   let finArr = [];
-  const arrayCategories = JSON.parse(localStorage.getItem(title + 'Categories'));
+  const arrayCategories = JSON.parse(
+    localStorage.getItem(title + 'Categories')
+  );
 
   useEffect(() => {
     finArr = JSON.parse(localStorage.getItem(title + 's'));
@@ -235,9 +273,11 @@ export default function EnhancedTable({ title, rows, setRows }) {
   };
 
   const finderIcon = (findName) => {
-    const idForCategory = arrayCategories.find(category => category.name === findName);
+    const idForCategory = arrayCategories.find(
+      (category) => category.name === findName
+    );
     return idForCategory ? idForCategory.categoryId : 'none';
-  }
+  };
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.id);
@@ -260,7 +300,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -276,29 +316,35 @@ export default function EnhancedTable({ title, rows, setRows }) {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <form className='table__inputs-add'>
-          <ButtonsForTable className='btn-add' clickBtn={() => setModalOpen(true)} >
+          <ButtonsForTable
+            className='btn-add'
+            clickBtn={() => setModalOpen(true)}
+          >
             Add
-        </ButtonsForTable>
+          </ButtonsForTable>
         </form>
-        <EnhancedTableToolbar title={title} selected={selected} rows={rows} setRows={setRows} numSelected={selected.length} />
-        <TableContainer >
+        <EnhancedTableToolbar
+          title={title}
+          selected={selected}
+          rows={rows}
+          setRows={setRows}
+          numSelected={selected.length}
+        />
+        <TableContainer>
           <Table
-            className={classes.table, 'table-money'}
-            aria-labelledby="tableTitle"
+            className={(classes.table, 'table-money')}
+            aria-labelledby='tableTitle'
             size={dense ? 'small' : 'medium'}
-            aria-label="enhanced table"
+            aria-label='enhanced table'
           >
             <EnhancedTableHead
               // classes={classes}
@@ -322,30 +368,47 @@ export default function EnhancedTable({ title, rows, setRows }) {
                       onClick={(event) => {
                         handleClick(event, row.id);
                       }}
-                      role="checkbox"
+                      role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.id}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell padding='checkbox'>
                         <Checkbox
                           checked={isItemSelected}
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell align='center' component="td" id={labelId} scope="row">
+                      <TableCell
+                        align='center'
+                        component='td'
+                        id={labelId}
+                        scope='row'
+                      >
                         <Avatar src={avatarUser ? avatarUser : standartPhoto} />
                       </TableCell>
 
-                      <TableCell align="center" className='category-row' component="td">
-                        <div className='category-icon' style={{ background: `url(/img/${title}/${finderIcon(row.category)}.svg)` }} />
+                      <TableCell
+                        align='center'
+                        className='category-row'
+                        component='td'
+                      >
+                        <div
+                          className='category-icon'
+                          style={{
+                            background: `url(/img/${title}/${finderIcon(
+                              row.category
+                            )}.svg)`,
+                          }}
+                        />
                         <div>{row.category}</div>
                       </TableCell>
-                      <TableCell align="center">{row.description}</TableCell>
-                      <TableCell align="center">{moment(row.date).format('LL')}</TableCell>
-                      <TableCell align="center">{row.money}</TableCell>
-
+                      <TableCell align='center'>{row.description}</TableCell>
+                      <TableCell align='center'>
+                        {moment(row.date).format('LL')}
+                      </TableCell>
+                      <TableCell align='center'>{Number(row.money)}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -359,7 +422,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
         </TableContainer>
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
-          component="div"
+          component='div'
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
@@ -368,6 +431,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
         />
       </Paper>
       <AddElementModal
+        key={title}
         title={title}
         isModalOpen={isModalOpen}
         setModalOpen={setModalOpen}

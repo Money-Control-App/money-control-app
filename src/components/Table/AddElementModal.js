@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from "react";
-import PostAddIcon from "@material-ui/icons/PostAdd";
-import TablePortal from "./TablePortal";
-import { Input } from "./PartForTable/Input";
-import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
-import { parseData } from "../Settings/Reminder/untils";
-import "./AddElementModal.sass";
+import React, { useEffect, useState } from 'react';
+import PostAddIcon from '@material-ui/icons/PostAdd';
+import TablePortal from './TablePortal';
+import { Input } from './PartForTable/Input';
+import { ButtonsForTable } from './PartForTable/ButtonsForTable';
+import { parseData } from '../Settings/Reminder/untils';
+import './AddElementModal.sass';
 
 const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
-  const [enteredSum, setEnteredSum] = useState("");
+  const [enteredSum, setEnteredSum] = useState('');
   const category = React.createRef();
   const description = React.createRef();
   const money = React.createRef();
   let elementsArr = [];
-  let limitData = parseData("limit");
+  let limitData = parseData('limit');
 
-  const isItChargeTable = title === "charge" ? true : false;
+  const isItChargeTable = title === 'charge' ? true : false;
 
   if (
     limitData === null ||
     (!limitData.limit && !limitData.remind && !limitData.limitInPercents)
   ) {
     limitData = {
-      limit: "0",
-      limitInPercents: "0",
+      limit: '0',
+      limitInPercents: '0',
       remind: false,
     };
   } else {
-    if (limitData.limit === "") {
+    if (limitData.limit === '') {
       limitData = { ...limitData, limit: null };
     }
-    if (limitData.limitInPercents === "") {
+    if (limitData.limitInPercents === '') {
       limitData = { ...limitData, limitInPercents: null };
     }
   }
   const { limit, remind, limitInPercents } = limitData;
-  const balance = parseData("balance");
+  const balance = parseData('balance');
 
   useEffect(() => {
-    elementsArr = JSON.parse(localStorage.getItem(title + "s"));
+    elementsArr = JSON.parse(localStorage.getItem(title + 's'));
   });
 
   function addElement(e) {
@@ -50,16 +50,22 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
         money: money.current.value,
         date: new Date().toUTCString(),
       });
-      description.current.value = "";
-      money.current.value = "";
+      description.current.value = '';
+      money.current.value = '';
+      setEnteredSum('');
     }
     console.log(elementsArr);
-    localStorage.setItem(title + "s", JSON.stringify(elementsArr));
-    setElements(JSON.parse(localStorage.getItem(title + "s")));
+    localStorage.setItem(title + 's', JSON.stringify(elementsArr));
+    setElements(JSON.parse(localStorage.getItem(title + 's')));
     setModalOpen(false);
   }
 
-
+  function closeModal() {
+    description.current.value = '';
+    money.current.value = '';
+    setEnteredSum('');
+    setModalOpen(false);
+  }
 
   const showReminder = () => {
     if (isItChargeTable && remind) {
@@ -78,14 +84,14 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
     <>
       {isModalOpen && (
         <TablePortal>
-          <div className="modal-overlay">
-            <div className="modal-window">
-              <div className="modal-header">
-                <PostAddIcon fontSize="small" />
+          <div className='modal-overlay'>
+            <div className='modal-window'>
+              <div className='modal-header'>
+                <PostAddIcon fontSize='small' />
                 Add {title}
-                <select id="categories" ref={category}>
+                <select id='categories' ref={category}>
                   <option disabled>Pick category</option>
-                  {JSON.parse(localStorage.getItem(title + "Categories")).map(
+                  {JSON.parse(localStorage.getItem(title + 'Categories')).map(
                     (category) => (
                       <option value={category.name} key={category.categoryId}>
                         {category.name}
@@ -94,22 +100,22 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
                   )}
                 </select>
               </div>
-              <div className="modal-body">
+              <div className='modal-body'>
                 <Input
-                  key="9iu8o78kj9hj79kh87jkh"
+                  key='9iu8o78kj9hj79kh87jkh'
                   ref={description}
-                  id="description"
-                  type="text"
-                  label="Description"
-                  name="description"
+                  id='description'
+                  type='text'
+                  label='Description'
+                  name='description'
                 />
                 <Input
-                  key="21xvc5v1cv23b4ghg5"
+                  key='21xvc5v1cv23b4ghg5'
                   ref={money}
-                  id="money"
-                  type="number"
-                  label="Money"
-                  name="money"
+                  id='money'
+                  type='number'
+                  label='Money'
+                  name='money'
                   value={enteredSum}
                   onChange={(e) => setEnteredSum(e.target.value)}
                 />
@@ -121,19 +127,18 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
                 </p>
               ) : null}
 
-
-              <div className="modal-footer">
+              <div className='modal-footer'>
                 <ButtonsForTable
-                  id="btn-add"
-                  className={"btn-add"}
-                  key="bn87mb87b6n765fg4"
-                  clickBtn={() => setModalOpen(false)}
+                  id='btn-add'
+                  className={'btn-add'}
+                  key='bn87mb87b6n765fg4'
+                  clickBtn={closeModal}
                 >
                   Close
                 </ButtonsForTable>
                 <ButtonsForTable
-                  key="f87gd98f7gd8fg"
-                  className={"btn-add"}
+                  key='f87gd98f7gd8fg'
+                  className={'btn-add'}
                   clickBtn={addElement}
                 >
                   Add
