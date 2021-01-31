@@ -220,6 +220,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [isModalOpen, setModalOpen] = useState(false);
 
+
   let finArr = [];
   const arrayCategories = JSON.parse(localStorage.getItem(title + 'Categories'));
 
