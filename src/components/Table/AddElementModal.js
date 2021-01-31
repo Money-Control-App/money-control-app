@@ -4,6 +4,7 @@ import TablePortal from "./TablePortal";
 import { Input } from "./PartForTable/Input";
 import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
 import { parseData } from "../Settings/Reminder/untils";
+import '../Settings/Reminder/reminder.sass'
 import "./AddElementModal.sass";
 
 const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
@@ -101,7 +102,7 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
               </div>
 
               {showReminder() ? (
-                <p>
+                <p className='color-red'>
                   if you add this cost your balance will be lower than the limit
                 </p>
               ) : null}

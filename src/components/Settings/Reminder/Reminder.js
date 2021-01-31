@@ -81,7 +81,7 @@ export const Reminder = () => {
                 }}
                 checked={limitInUah}
               />
-              <label>limit by UAH</label>
+              <label>limit in UAH</label>
           </div>
           <div className='d-flex'>
             <input
@@ -108,13 +108,13 @@ export const Reminder = () => {
               checked={isReminderChecked}
               onChange={() => setIsReminderChecked(!isReminderChecked)}
             />
-            <label className="remind-check">
-              remind me when my balance will be lower than limit
+            <label className="remind-check checkbox-text">
+              Remind me when my balance will be lower than limit
             </label>
           </div>
 
-          {limitInUah && enteredSum<0?(<p className='m-botton'>Нou have entered a number that is less than or equal to 0</p>):null}
-          {limitInPercents && (enteredSum<0 || enteredSum>100 )?<p className="m-botton">You entered uncorrec percents value</p>:null}
+          {limitInUah && enteredSum<0?(<p className='m-botton color-red'>You have entered a number that is less than or equal to 0</p>):null}
+          {limitInPercents && (enteredSum<0 || enteredSum>100 )?<p className="m-botton color-red">You entered uncorrec percents value</p>:null}
 
           <Button variant="contained" fullWidth onClick={sendData}>
             save changes
