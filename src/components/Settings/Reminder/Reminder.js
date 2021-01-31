@@ -14,10 +14,10 @@ export const Reminder = () => {
   const [isReminderChecked, setIsReminderChecked] = useState(
     data !== null ? data.remind : false
   );
-  const [limit, setLimit] = useState(data !== null ? data.limit : "");
-  const [limitInPercents, setLimitInPercents] = useState(
-    data !== null ? data.limitInPercents : ""
-  );
+  const [enteredSum,setEnteredSum] =useState(data!==null?data.limitValue:'')
+  const [limitInUah,setLimitInUah]=useState(data!==null?data.limitInUah:true)
+  const [limitInPercents,setLimitInPercents]=useState(data!==null?data.limitInPercents:false)
+  const [isCorrectData,setIsCorrectData]=useState(false)
 
   const [open, setOpen] = useState(true);
   const [alert, setAlert] = useState(false);
@@ -27,36 +27,34 @@ export const Reminder = () => {
     setAlert(false);
   };
 
-  const createObject = () => {
-    let reminder = {};
-    if (
-      isReminderChecked &&
-      +limit >= 0 &&
-      limitInPercents >= 0 &&
-      limitInPercents <= 100
-    ) {
-      reminder = {
-        limit: limit,
-        limitInPercents: limitInPercents,
-        remind: true,
-      };
-    } else if (!isReminderChecked) {
-      reminder = {
-        limit: "",
-        limitInPercents: "",
-        remind: false,
-      };
+  const createObject=()=>{
+    let reminder={};
+    if(isReminderChecked){
+      setIsCorrectData(true)
+      reminder={limitValue:enteredSum,limitInUah:limitInUah,limitInPercents:limitInPercents,remind:true}
     }
-
+    else{
+      setIsCorrectData(true)
+      reminder={limitValue:'', limitInUah:true, limitInPercents:false, remind:false}
+    }
     return reminder;
-  };
+  }
+
+  const isEnteredSumCorrect=(enteredSum)=>{
+    if(limitInUah && (enteredSum>0))return true
+    if(limitInPercents && (enteredSum>=0 && enteredSum<=100)) return true
+    return  false
+  }
 
   const sendData = () => {
-    const reminder = createObject();
-    setAlert(true);
-    setOpen(true);
-    setTimeout(resetAlert, 2000);
-    setItemsToLocalStorage("limit", reminder);
+    if(!isReminderChecked || (isReminderChecked && isEnteredSumCorrect(enteredSum))){
+      const reminder = createObject();
+      setAlert(true);
+      setOpen(true);
+      setTimeout(resetAlert, 2000);
+      setItemsToLocalStorage("limit", reminder);
+    }
+
   };
 
   return (
@@ -66,21 +64,44 @@ export const Reminder = () => {
         <div className="reminder-settings">
           <Input
             type="number"
-            value={limit}
-            onChange={(e) => setLimit(e.target.value)}
+            value={enteredSum}
+            onChange={(e) => setEnteredSum(e.target.value)}
             disabled={!isReminderChecked}
             placeholder="Your limit"
             label="Set the value of limit"
           />
 
-          <Input
-            type="number"
-            value={limitInPercents}
-            onChange={(e) => setLimitInPercents(e.target.value)}
-            disabled={!isReminderChecked}
-            placeholder="Your percentage limit"
-            label="Set the value of a percentage limit"
-          />
+          <div className='d-flex'>
+            <input
+                type='checkbox'
+                disabled={!isReminderChecked}
+                onChange={()=>{
+                  setLimitInUah(!limitInUah)
+                  setLimitInPercents(!limitInPercents);
+                }}
+                checked={limitInUah}
+              />
+              <label>limit by UAH</label>
+          </div>
+          <div className='d-flex'>
+            <input
+                type='checkbox'
+                disabled={!isReminderChecked}
+                onChange={()=>{
+                  setLimitInPercents(!limitInPercents);
+                  setLimitInUah(!limitInUah)
+                }}
+                checked={limitInPercents}
+              />
+              <label>limit in percents</label>
+          </div>
+
+
+
+
+
+
+
 
           <div className="d-flex">
             <Checkbox
@@ -92,23 +113,20 @@ export const Reminder = () => {
             </label>
           </div>
 
-          {+limit <= 0 && limit ? (
-            <p className="m-botton">
-              Нou have entered a number that is less than or equal to 0
-            </p>
-          ) : null}
-          {+limitInPercents < 0 || limitInPercents > 100 ? (
-            <p className="m-botton">You entered uncorrec percents value</p>
-          ) : null}
+          {limitInUah && enteredSum<0?(<p className='m-botton'>Нou have entered a number that is less than or equal to 0</p>):null}
+          {limitInPercents && (enteredSum<0 || enteredSum>100 )?<p className="m-botton">You entered uncorrec percents value</p>:null}
 
           <Button variant="contained" fullWidth onClick={sendData}>
             save changes
           </Button>
         </div>
       </div>
-      {alert && (
-        <AlertOwn open={open} resetAlert={resetAlert} text="Limit saved" />
-      )}
+      {isCorrectData?(
+          alert &&  (
+              <AlertOwn open={open} resetAlert={resetAlert} text="Limit saved" />
+          )
+      ):null
+      }
     </>
   );
 };

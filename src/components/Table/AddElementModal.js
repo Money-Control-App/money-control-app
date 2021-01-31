@@ -12,29 +12,16 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
   const description = React.createRef();
   const money = React.createRef();
   let elementsArr = [];
+  const isItChargeTable = title === "charge" ? true : false;
+  const balance = parseData("balance");
+
   let limitData = parseData("limit");
 
-  const isItChargeTable = title === "charge" ? true : false;
-
-  if (
-    limitData === null ||
-    (!limitData.limit && !limitData.remind && !limitData.limitInPercents)
-  ) {
-    limitData = {
-      limit: "0",
-      limitInPercents: "0",
-      remind: false,
-    };
-  } else {
-    if (limitData.limit === "") {
-      limitData = { ...limitData, limit: null };
-    }
-    if (limitData.limitInPercents === "") {
-      limitData = { ...limitData, limitInPercents: null };
-    }
+  if(!limitData){
+    limitData={limitValue:'', limitInUah:true, limitInPercents:false, remind:false}
   }
-  const { limit, remind, limitInPercents } = limitData;
-  const balance = parseData("balance");
+
+  const {limitValue,limitInUah,limitInPercents,remind}=limitData;
 
   useEffect(() => {
     elementsArr = JSON.parse(localStorage.getItem(title + "s"));
@@ -59,16 +46,14 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
     setModalOpen(false);
   }
 
-
-
   const showReminder = () => {
-    if (isItChargeTable && remind) {
-      if (limit) {
-        if (balance - enteredSum < limit) return true;
+    if(isItChargeTable&&remind){
+      if(limitInUah){
+        if(balance-enteredSum<limitValue)return true;
       }
-      if (limitInPercents) {
-        const limit = (balance * limitInPercents) / 100;
-        if (balance - enteredSum < limit) return true;
+      if(limitInPercents){
+        const limit=parseInt(balance*limitValue/100);
+        if(balance-enteredSum<limit) return  true
       }
     }
     return false;
