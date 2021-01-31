@@ -14,6 +14,8 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
   let elementsArr = [];
   let limitData = parseData('limit');
 
+  const  isItChargeTable=title==='charge'?true:false;
+
   if (limitData === null) {
     limitData = {
       limit: '0',
@@ -88,7 +90,7 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
                 />
               </div>
 
-              {limit !== null && remind ? (
+              {limit !== null && remind && isItChargeTable ? (
                 +balance - +enteredSum < limit ? (
                   <p>
                     if you add this cost your balance will be lower than the
