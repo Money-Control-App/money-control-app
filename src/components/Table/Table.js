@@ -166,6 +166,7 @@ const EnhancedTableToolbar = (props) => {
   const { selected } = props;
   const { rows, setRows } = props;
   const { title } = props;
+  const { setSelected } = props;
 
   const deleteSelected = () => {
     const reduced = rows.reduce((acc, row) => {
@@ -176,6 +177,7 @@ const EnhancedTableToolbar = (props) => {
     }, []);
     localStorage.setItem(title + 's', JSON.stringify(reduced));
     setRows(reduced);
+    setSelected([])
   };
 
   return (
@@ -256,6 +258,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [filterDate, setFilterDate] = useState(new Date(0))
 
   let finArr = [];
   const arrayCategories = JSON.parse(
@@ -316,6 +319,11 @@ export default function EnhancedTable({ title, rows, setRows }) {
     setPage(0);
   };
 
+  const byDate = (record) => {
+    const date = new Date(record.date)
+    return date > filterDate
+  }
+
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -333,6 +341,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
           </ButtonsForTable>
         </form>
         <EnhancedTableToolbar
+          setSelected={setSelected}
           title={title}
           selected={selected}
           rows={rows}
@@ -356,7 +365,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
               rowCount={rows.length}
             />
             <TableBody>
-              {stableSort(rows, getComparator(order, orderBy))
+              {stableSort(rows, getComparator(order, orderBy)).filter(byDate)
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.id);
