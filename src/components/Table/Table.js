@@ -18,7 +18,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import EditIcon from '@material-ui/icons/Edit';
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
 import Avatar from '@material-ui/core/Avatar';
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import AddElementModal from './AddElementModal';
@@ -167,6 +169,7 @@ const EnhancedTableToolbar = (props) => {
   const { rows, setRows } = props;
   const { title } = props;
   const { setSelected } = props;
+  const { setFilterDate } = props;
 
   const deleteSelected = () => {
     const reduced = rows.reduce((acc, row) => {
@@ -179,6 +182,36 @@ const EnhancedTableToolbar = (props) => {
     setRows(reduced);
     setSelected([])
   };
+
+  const handleOnChange = (event) => {
+    
+    switch (event.target.value){
+      case 'all':
+        setFilterDate(new Date(0));
+        break;
+      case '30':
+        let monthAgo = new Date();
+        const foo = new Date().getDate() - 30;
+        monthAgo.setHours(0,0,0,0);
+        monthAgo.setDate(new Date().getDate() - 30);
+        setFilterDate(monthAgo);
+        break;
+      case '7':
+        let weekAgo = new Date();
+        weekAgo.setHours(0,0,0,0);
+        weekAgo.setDate(new Date().getDate() - 7);
+        setFilterDate(weekAgo);
+        break;
+      case 'today':
+        let today = new Date();
+        today.setHours(0,0,0,0);
+        setFilterDate(today);
+        break;
+      default:
+        setFilterDate(new Date(0));
+        break;
+    }
+  }
 
   return (
     <Toolbar
@@ -201,7 +234,14 @@ const EnhancedTableToolbar = (props) => {
           variant='h5'
           id='tableTitle'
           component='div'
-        ></Typography>
+        >
+          <Select onChange={handleOnChange} style={{width: '150px'}}>
+            <MenuItem selected value='all'>All time</MenuItem>
+            <MenuItem value='30'>Last 30 days</MenuItem>
+            <MenuItem value='7'>Last 7 days</MenuItem>
+            <MenuItem value='today'>Today</MenuItem>
+          </Select>
+        </Typography>
       )}
 
       {numSelected > 0 ? (
@@ -211,11 +251,7 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title='Filter list'>
-          <IconButton aria-label='filter list'>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
+        <></>
       )}
     </Toolbar>
   );
@@ -320,7 +356,8 @@ export default function EnhancedTable({ title, rows, setRows }) {
   };
 
   const byDate = (record) => {
-    const date = new Date(record.date)
+    const date = new Date(record.date);
+    debugger
     return date > filterDate
   }
 
@@ -341,6 +378,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
           </ButtonsForTable>
         </form>
         <EnhancedTableToolbar
+          setFilterDate={setFilterDate}
           setSelected={setSelected}
           title={title}
           selected={selected}
