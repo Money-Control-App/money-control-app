@@ -6,8 +6,8 @@ export default function BoxGraphCalculation(
   inputSource,
 ) {
   const inputForBoxGraph = categories.map((category) => {
-    let result = datesInput.map((date, index) => {
-      let sum = inputSource
+    const result = datesInput.map((date, index) => {
+      const sum = inputSource
         .filter(
           (input) =>
             input.category == category.name &&

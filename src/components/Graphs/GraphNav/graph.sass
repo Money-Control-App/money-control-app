@@ -1,5 +1,6 @@
 .graph
     width: 300px
+    min-height: 400px
     margin: 20px 30%
     display: inline
 
@@ -11,12 +12,6 @@
     flex-direction: column
     align-items: center
     margin: 25px
-
-/** .flex-wrapper-graphs
-    display: flex
-    flex-direction: row
-    align-items: baseline
-    padding: 0 **/
 
 .graph-link + .graph-link
     margin-left: 10px
@@ -69,15 +64,27 @@
 
 .graph-link:first-of-type
     left: -62%
+    top: 10%
 
 .graph-link:nth-of-type(2)
     left: -65%
-    top: 10%
+    top: 20%
 
 .graph-link:nth-of-type(3)
     left: -65%
-    top: 20%
+    top: 30%
 
 .graph-link:last-of-type
     left: -65%
-    top: 30%
+    top: 40%
+
+.error-hidden
+    visibility: hidden
+
+.error-visible
+    color: red
+    font-family: 'BreeSerif'
+    font-size: 0.8rem
+    font-weight: lighter
+    padding: 5px
+    visibility: visible  
