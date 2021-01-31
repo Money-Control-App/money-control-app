@@ -7,7 +7,7 @@ import { Link, NavLink, BrowserRouter as Router, Route, Switch } from "react-rou
 export const Categories = () => {
     return (
         <div>
-            <Header>Categories</Header>
+            <Header type='Categories' />
             <Router>
       <nav className={`nav-setting nav-tables`}>
         <NavLink to="/setting/categories/charges" className="nav-setting-link" activeClassName="active-link-s">
@@ -18,7 +18,7 @@ export const Categories = () => {
         </NavLink>
       </nav>
       <Switch>
-        <Route exact path={'/setting'}>
+        <Route exact path={'/setting/categories'}>
             <ShowCategories title='income' key={2}/>
         </Route>
         <Route exact path='/setting/categories/charges'>

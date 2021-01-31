@@ -17,8 +17,6 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Avatar from '@material-ui/core/Avatar';
@@ -26,6 +24,7 @@ import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import AddElementModal from './AddElementModal'
 
 import standartPhoto from '../../img/newUser/blank_photo.webp';
+import './tables.sass';
 
 const avatarUser = JSON.parse(localStorage.getItem('avatar'));
 
@@ -120,13 +119,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: '1 1 100%',
   },
@@ -140,13 +139,13 @@ const EnhancedTableToolbar = (props) => {
   const { title } = props;
 
   const deleteSelected = () => {
-    const reduced = rows.reduce((acc,row)=>{
-      if (selected.indexOf(row.id) === -1 ){
+    const reduced = rows.reduce((acc, row) => {
+      if (selected.indexOf(row.id) === -1) {
         acc.push(row)
       }
       return acc;
-    },[])
-    localStorage.setItem(title + 's',JSON.stringify(reduced))
+    }, [])
+    localStorage.setItem(title + 's', JSON.stringify(reduced))
     setRows(reduced);
   }
 
@@ -161,11 +160,11 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography className={classes.title} variant="h5" id="tableTitle" component="div">
-          
-        </Typography>
-      )}
-  
+          <Typography className={classes.title} variant="h5" id="tableTitle" component="div">
+
+          </Typography>
+        )}
+
       {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton onClick={deleteSelected} aria-label="delete">
@@ -173,12 +172,12 @@ const EnhancedTableToolbar = (props) => {
           </IconButton>
         </Tooltip>
       ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
+          <Tooltip title="Filter list">
+            <IconButton aria-label="filter list">
+              <FilterListIcon />
+            </IconButton>
+          </Tooltip>
+        )}
     </Toolbar>
   );
 };
@@ -211,7 +210,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function EnhancedTable({title, rows, setRows}) {
+export default function EnhancedTable({ title, rows, setRows }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -227,7 +226,7 @@ export default function EnhancedTable({title, rows, setRows}) {
   useEffect(() => {
     finArr = JSON.parse(localStorage.getItem(title + 's'));
   });
-  
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
@@ -287,11 +286,11 @@ export default function EnhancedTable({title, rows, setRows}) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-      <form className='table__inputs-add'>
-        <ButtonsForTable className='btn-add' clickBtn={() => setModalOpen(true)} >
-          Add
+        <form className='table__inputs-add'>
+          <ButtonsForTable className='btn-add' clickBtn={() => setModalOpen(true)} >
+            Add
         </ButtonsForTable>
-      </form>
+        </form>
         <EnhancedTableToolbar title={title} selected={selected} rows={rows} setRows={setRows} numSelected={selected.length} />
         <TableContainer >
           <Table
@@ -339,9 +338,9 @@ export default function EnhancedTable({title, rows, setRows}) {
                       </TableCell>
 
                       <TableCell align="center" className='category-row' component="td">
-                        <div className='category-icon' style= {{background: `url(/img/${title}/${finderIcon(row.category)}.svg)`}} />
+                        <div className='category-icon' style={{ background: `url(/img/${title}/${finderIcon(row.category)}.svg)` }} />
                         <div>{row.category}</div>
-                       </TableCell>
+                      </TableCell>
                       <TableCell align="center">{row.description}</TableCell>
                       <TableCell align="center">{moment(row.date).format('LL')}</TableCell>
                       <TableCell align="center">{row.money}</TableCell>

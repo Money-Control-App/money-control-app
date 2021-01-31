@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import { Link, NavLink, BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { NavLink, BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Balance from '../Balance/Balance'
+import Balance from '../Balance/Balance';
 import Graphs from "../Graphs/GraphNav/Graphs";
-import ErrorPage from "../ErrorPage/ErrorPage";
-import Charges from "../Table/Charges";
-import Incomes from "../Table/Incomes";
-import Table from '../Table/Table'
+import Table from '../Table/Table';
 import './nav-tables.sass';
 
-
-
-
-const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
+const NavTab = ({ charges, setCharges, incomes, setIncomes }) => {
   return (
     <Router>
       <nav className={`nav-setting nav-tables`}>
@@ -25,13 +19,13 @@ const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
       </nav>
       <Switch>
         <Route exact path={'/data-analysis'}>
-          <Table title='charge' rows={charges} setRows={setCharges}  />
+          <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/charges'>
           <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/incomes'>
-        <Table title='income' rows={incomes} setRows={setIncomes} />
+          <Table title='income' rows={incomes} setRows={setIncomes} />
         </Route>
       </Switch>
     </Router>
@@ -40,16 +34,16 @@ const NavTab = ({charges,setCharges,incomes,setIncomes}) => {
 export default function DataAnalysis() {
   const [charges, setCharges] = useState(
     JSON.parse(localStorage.getItem("charges"))
-    );
-    const [incomes, setIncomes] = useState(
-      JSON.parse(localStorage.getItem("incomes"))
-      );
+  );
+  const [incomes, setIncomes] = useState(
+    JSON.parse(localStorage.getItem("incomes"))
+  );
 
-      return (
-        <Router>
+  return (
+    <Router>
       <nav className='nav-setting-data'>
         <div className='nav-balance'>
-          Total balance: {Balance ({charges,incomes}) }
+          Total balance: {Balance({ charges, incomes })}
         </div>
         <div className='nav-data'>
           <NavLink to="/data-analysis/tables" className="nav-setting-link" activeClassName="active-link-s">

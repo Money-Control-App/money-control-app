@@ -12,12 +12,6 @@
     align-items: center
     margin: 25px
 
-/** .flex-wrapper-graphs
-    display: flex
-    flex-direction: row
-    align-items: baseline
-    padding: 0 **/
-
 .graph-link + .graph-link
     margin-left: 10px
 
@@ -29,11 +23,17 @@
     align-items: baseline
     margin: 20px
 
-.input-type
-    .inputs
-        display: flex
-        flex-direction: column
-
+.input
+    &-type
+        .inputs
+            display: flex
+            flex-direction: column
+            .MuiTypography-body1
+                font-family: 'FredokaOne' !important
+    &-dates
+        .MuiInputLabel-animated
+            font-family: 'FredokaOne'
+            color: #585252
 .radial-wrapper
     display: inline
 
@@ -45,14 +45,14 @@
 
 .graph-link
     border: 3px solid rgb(189, 188, 188)
-    color: rgb(189, 188, 188)
+    color: rgb(163, 162, 162)
     padding: 5px
     border-radius: 5px
     text-decoration: none
     min-width: 30px
     position: absolute
     font-size: 1rem
-    font-family: inherit
+    font-family: 'Blinker'
 
 .active-graph-link
     border: 3px solid darkblue
@@ -69,15 +69,28 @@
 
 .graph-link:first-of-type
     left: -62%
-
+    @media ( max-width: 600px  )
+        left: -40%
+    @media ( max-width: 380px  )
+        left: -25%
 .graph-link:nth-of-type(2)
     left: -65%
     top: 10%
-
+    @media ( max-width: 600px  )
+        left: -43%
+    @media ( max-width: 380px  )
+        left: -28%
 .graph-link:nth-of-type(3)
     left: -65%
     top: 20%
-
+    @media ( max-width: 600px  )
+        left: -43%
+    @media ( max-width: 380px  )
+        left: -28%
 .graph-link:last-of-type
     left: -65%
     top: 30%
+    @media ( max-width: 600px  )
+        left: -43%
+    @media ( max-width: 380px  )
+        left: -28%
