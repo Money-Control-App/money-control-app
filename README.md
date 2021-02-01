@@ -56,7 +56,7 @@ Easy to navigate, add or delete the record.
 
 ### Graphics
 
-![Graphics](./image_readme/graphics.png)
+![Graphics](./image_readme/graphis.png)
 
 Choose the type of data (incomes or expenses), date range and the type of graph - ta-da! - a little magic and you receive your analytics!
 - **Donut chart** will show you a recentage of each category in the total sum of income / expenses. 
