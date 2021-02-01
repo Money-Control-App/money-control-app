@@ -20,16 +20,19 @@ The basic options avaliable in the application are:
 #### Setting User
 Here you can add personal information and choose yor avatar.
 This information will be shown on the main page and in the table of incomes / expenses.
+
 ![User Setting](./image_readme/user_setting.png)
 
 #### Reminder
 Here you can set your balance limit *(in UAH or %)*.
 If the limit is set and the option of reminder is activated (active tick near *"Remind me when my balance will be lower than limit"*) you will receive a notification when entering a charge that will get you below the limit.
+
 ![Reminder](./image_readme/reminder.png)
 
 #### Categories
 Here you can manage you categories of incomes and expenses: 
 *add new category, rename and change the icon for existing one, or even delete a category*.
+
 ![Categories](./image_readme/categories.png)
 
 ### Data
@@ -38,6 +41,7 @@ If you are having a great month and somehow spent more money that earned - the b
 **Don't let it be red!**
 
 #### Tables
+
 ![Tables](./image_readme/tables.png)
 
 ##### Charges
@@ -51,6 +55,7 @@ This is the most joinful page, isn't it?
 Easy to navigate, add or delete the record.
 
 ### Graphics
+
 ![Graphics](./image_readme/graphics.png)
 
 Choose the type of data (incomes or expenses), date range and the type of graph - ta-da! - a little magic and you receive your analytics!
@@ -61,4 +66,5 @@ Choose the type of data (incomes or expenses), date range and the type of graph 
 
 
 **Enjoy your time with KEEPOCKET!**
-<img src="https://media.giphy.com/media/SsTcO55LJDBsI/giphy.gif" width="70">
+
+<img src="https://media.giphy.com/media/SsTcO55LJDBsI/giphy.gif" width="470">
