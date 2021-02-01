@@ -9,29 +9,23 @@ $maxWidth: 1440
     font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}))
 
 .error__container
-    background-image: url('/img/errorPage/error404.jpg')
-    background-size: contain
-    background-repeat: no-repeat
+    display: flex
+    flex-direction: column
+    align-items: center
     margin: auto
     margin-top: 114px
-    position: relative
     min-height: 70vh
     height: auto
-    margin-left: auto
     width: 57%
 
 .error__link
     color: $mainColor
     font-family: 'FredokaOne'
     text-decoration: none
-    margin: 0 5px
+    margin: 10px 5px
     font-weight: bold
     @include adaptiv-font(32, 20)
-
-    text-align: center
-    position: absolute
-    bottom: -10%
-    left: 35%
+  
     @media screen and ( max-width: 570px )
         bottom: 25%
         left: 15%
@@ -44,3 +38,6 @@ $maxWidth: 1440
         left: 12%
     &:hover
         color: #0a8db4
+
+.error__img
+    height: 75vh

@@ -12,7 +12,7 @@ export default function RadialGraphCalculation (categories, inputSource) {
     
         return {
           category: category.name,
-          sum: Math.round((+catSum / +totalSum) * 100),
+          percentage: Math.round((+catSum / +totalSum) * 100),
         };
       });
 

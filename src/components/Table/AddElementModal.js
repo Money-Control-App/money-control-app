@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import TablePortal from './TablePortal';
-import { Input } from './PartForTable/Input';
-import { ButtonsForTable } from './PartForTable/ButtonsForTable';
-import { parseData } from '../Settings/Reminder/untils';
-import './AddElementModal.sass';
+
+import React, { useEffect, useState } from "react";
+import PostAddIcon from "@material-ui/icons/PostAdd";
+import TablePortal from "./TablePortal";
+import { Input } from "./PartForTable/Input";
+import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
+import { parseData } from "../Settings/Reminder/untils";
+import '../Settings/Reminder/reminder.sass'
+import "./AddElementModal.sass";
 
 const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
   const [enteredSum, setEnteredSum] = useState('');
@@ -12,29 +14,17 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
   const description = React.createRef();
   const money = React.createRef();
   let elementsArr = [];
-  let limitData = parseData('limit');
 
-  const isItChargeTable = title === 'charge' ? true : false;
+  const isItChargeTable = title === "charge" ? true : false;
+  const balance = parseData("balance");
 
-  if (
-    limitData === null ||
-    (!limitData.limit && !limitData.remind && !limitData.limitInPercents)
-  ) {
-    limitData = {
-      limit: '0',
-      limitInPercents: '0',
-      remind: false,
-    };
-  } else {
-    if (limitData.limit === '') {
-      limitData = { ...limitData, limit: null };
-    }
-    if (limitData.limitInPercents === '') {
-      limitData = { ...limitData, limitInPercents: null };
-    }
+  let limitData = parseData("limit");
+
+  if(!limitData){
+    limitData={limitValue:'', limitInUah:true, limitInPercents:false, remind:false}
   }
-  const { limit, remind, limitInPercents } = limitData;
-  const balance = parseData('balance');
+
+  const {limitValue,limitInUah,limitInPercents,remind}=limitData;
 
   useEffect(() => {
     elementsArr = JSON.parse(localStorage.getItem(title + 's'));
@@ -69,13 +59,13 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
   }
 
   const showReminder = () => {
-    if (isItChargeTable && remind) {
-      if (limit) {
-        if (balance - enteredSum < limit) return true;
+    if(isItChargeTable&&remind){
+      if(limitInUah){
+        if(balance-enteredSum<limitValue)return true;
       }
-      if (limitInPercents) {
-        const limit = (balance * limitInPercents) / 100;
-        if (balance - enteredSum < limit) return true;
+      if(limitInPercents){
+        const limit=parseInt(balance*limitValue/100);
+        if(balance-enteredSum<limit) return  true
       }
     }
     return false;
@@ -123,7 +113,7 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
               </div>
 
               {showReminder() ? (
-                <p>
+                <p className='color-red'>
                   if you add this cost your balance will be lower than the limit
                 </p>
               ) : null}

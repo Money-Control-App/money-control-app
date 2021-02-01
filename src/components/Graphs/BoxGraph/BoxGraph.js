@@ -14,7 +14,6 @@ import {
 import BoxGraphCalculation from './BoxGraphCalc';
 
 import '../../../css/sourse/default-styles-vis.css';
-import '../GraphNav/graph.sass';
 
 export default function BoxGraph(props) {
   const [inputSource, setInputSource] = useState(
@@ -50,9 +49,9 @@ export default function BoxGraph(props) {
   );
   const [hint, setHint] = useState(false);
 
-  return (
-    <div>
-      <XYPlot width={500} height={400} stackBy='y'>
+   return (
+    <div className = 'box-wrapper'>
+      <XYPlot width={500} height={300} stackBy='y'>
         <VerticalGridLines />
         <HorizontalGridLines />
         <XAxis tickFormat={(v) => datesInput[v]} title='dates' />
