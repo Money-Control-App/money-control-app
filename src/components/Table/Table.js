@@ -24,10 +24,9 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Avatar from '@material-ui/core/Avatar';
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import AddElementModal from './AddElementModal';
-
+import EditElementModal from './EditElementModal';
 import standartPhoto from '../../img/newUser/blank_photo.webp';
 import './tables.sass';
-import { EmojiSymbolsOutlined } from '@material-ui/icons';
 
 const avatarUser = JSON.parse(localStorage.getItem('avatar'));
 
@@ -169,7 +168,7 @@ const EnhancedTableToolbar = (props) => {
   const { rows, setRows } = props;
   const { title } = props;
   const { setSelected } = props;
-  const { setFilterDate } = props;
+  const { setFilterDate, setEditOpen } = props;
 
   const deleteSelected = () => {
     const reduced = rows.reduce((acc, row) => {
@@ -182,6 +181,10 @@ const EnhancedTableToolbar = (props) => {
     setRows(reduced);
     setSelected([])
   };
+
+  const editSelected = () => {
+    setEditOpen(true)
+  }
 
   const handleOnChange = (event) => {
     
@@ -235,7 +238,7 @@ const EnhancedTableToolbar = (props) => {
           id='tableTitle'
           component='div'
         >
-          <Select onChange={handleOnChange} style={{width: '150px'}}>
+          <Select defaultValue='all' onChange={handleOnChange} style={{width: '150px'}}>
             <MenuItem selected value='all'>All time</MenuItem>
             <MenuItem value='30'>Last 30 days</MenuItem>
             <MenuItem value='7'>Last 7 days</MenuItem>
@@ -245,11 +248,20 @@ const EnhancedTableToolbar = (props) => {
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title='Delete'>
-          <IconButton onClick={deleteSelected} aria-label='delete'>
-            <DeleteIcon />
+        <>
+        {
+          numSelected === 1 ? (<Tooltip title='Edit'>
+          <IconButton onClick={editSelected} aria-label='edit'>
+            <EditIcon />
           </IconButton>
-        </Tooltip>
+        </Tooltip>) : (<></>)
+        }
+          <Tooltip title='Delete'>
+            <IconButton onClick={deleteSelected} aria-label='delete'>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </>
       ) : (
         <></>
       )}
@@ -294,6 +306,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isEditOpen, setEditOpen] = useState(false)
   const [filterDate, setFilterDate] = useState(new Date(0))
 
   let finArr = [];
@@ -357,7 +370,6 @@ export default function EnhancedTable({ title, rows, setRows }) {
 
   const byDate = (record) => {
     const date = new Date(record.date);
-    debugger
     return date > filterDate
   }
 
@@ -385,6 +397,7 @@ export default function EnhancedTable({ title, rows, setRows }) {
           rows={rows}
           setRows={setRows}
           numSelected={selected.length}
+          setEditOpen={setEditOpen}
         />
         <TableContainer>
           <Table
@@ -484,6 +497,15 @@ export default function EnhancedTable({ title, rows, setRows }) {
         setModalOpen={setModalOpen}
         setElements={setRows}
       />
+      {isEditOpen ? (<EditElementModal
+        key={title + 'e'}
+        title={title}
+        selected={selected}
+        setSelected={setSelected}
+        isModalOpen={isEditOpen}
+        setModalOpen={setEditOpen}
+        setElements={setRows}
+      />) : (<></>)}
     </div>
   );
 }

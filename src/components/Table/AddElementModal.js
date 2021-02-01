@@ -60,7 +60,8 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
     setModalOpen(false);
   }
 
-  function closeModal() {
+  function closeModal(e) {
+    e.preventDefault();
     description.current.value = '';
     money.current.value = '';
     setEnteredSum('');
