@@ -22,9 +22,11 @@ import EditIcon from '@material-ui/icons/Edit';
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import Avatar from '@material-ui/core/Avatar';
+
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
 import AddElementModal from './AddElementModal';
 import EditElementModal from './EditElementModal';
+
 import standartPhoto from '../../img/newUser/blank_photo.webp';
 import './tables.sass';
 
@@ -87,7 +89,6 @@ const headCells = [
 
 function EnhancedTableHead(props) {
   const {
-    classes,
     onSelectAllClick,
     order,
     orderBy,
@@ -149,13 +150,13 @@ const useToolbarStyles = makeStyles((theme) => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: '1 1 100%',
   },
@@ -187,27 +188,26 @@ const EnhancedTableToolbar = (props) => {
   }
 
   const handleOnChange = (event) => {
-    
-    switch (event.target.value){
+
+    switch (event.target.value) {
       case 'all':
         setFilterDate(new Date(0));
         break;
       case '30':
         let monthAgo = new Date();
-        const foo = new Date().getDate() - 30;
-        monthAgo.setHours(0,0,0,0);
+        monthAgo.setHours(0, 0, 0, 0);
         monthAgo.setDate(new Date().getDate() - 30);
         setFilterDate(monthAgo);
         break;
       case '7':
         let weekAgo = new Date();
-        weekAgo.setHours(0,0,0,0);
+        weekAgo.setHours(0, 0, 0, 0);
         weekAgo.setDate(new Date().getDate() - 7);
         setFilterDate(weekAgo);
         break;
       case 'today':
         let today = new Date();
-        today.setHours(0,0,0,0);
+        today.setHours(0, 0, 0, 0);
         setFilterDate(today);
         break;
       default:
@@ -232,30 +232,30 @@ const EnhancedTableToolbar = (props) => {
           {numSelected} selected
         </Typography>
       ) : (
-        <Typography
-          className={classes.title}
-          variant='h5'
-          id='tableTitle'
-          component='div'
-        >
-          <Select defaultValue='all' onChange={handleOnChange} style={{width: '150px'}}>
-            <MenuItem selected value='all'>All time</MenuItem>
-            <MenuItem value='30'>Last 30 days</MenuItem>
-            <MenuItem value='7'>Last 7 days</MenuItem>
-            <MenuItem value='today'>Today</MenuItem>
-          </Select>
-        </Typography>
-      )}
+          <Typography
+            className={classes.title}
+            variant='h5'
+            id='tableTitle'
+            component='div'
+          >
+            <Select defaultValue='all' onChange={handleOnChange} style={{ width: '150px' }}>
+              <MenuItem selected value='all'>All time</MenuItem>
+              <MenuItem value='30'>Last 30 days</MenuItem>
+              <MenuItem value='7'>Last 7 days</MenuItem>
+              <MenuItem value='today'>Today</MenuItem>
+            </Select>
+          </Typography>
+        )}
 
       {numSelected > 0 ? (
         <>
-        {
-          numSelected === 1 ? (<Tooltip title='Edit'>
-          <IconButton onClick={editSelected} aria-label='edit'>
-            <EditIcon />
-          </IconButton>
-        </Tooltip>) : (<></>)
-        }
+          {
+            numSelected === 1 ? (<Tooltip title='Edit'>
+              <IconButton onClick={editSelected} aria-label='edit'>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>) : (<></>)
+          }
           <Tooltip title='Delete'>
             <IconButton onClick={deleteSelected} aria-label='delete'>
               <DeleteIcon />
@@ -263,8 +263,8 @@ const EnhancedTableToolbar = (props) => {
           </Tooltip>
         </>
       ) : (
-        <></>
-      )}
+          <></>
+        )}
     </Toolbar>
   );
 };
@@ -355,7 +355,6 @@ export default function EnhancedTable({ title, rows, setRows }) {
         selected.slice(selectedIndex + 1)
       );
     }
-
     setSelected(newSelected);
   };
 

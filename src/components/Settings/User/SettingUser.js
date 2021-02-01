@@ -19,12 +19,7 @@ import './form.sass';
 
 const REGULAR_NOT_NUMBER = /^([^0-9]*)$/;
 const MESSAGE_FOR_FILL = 'Fill this field';
-const PHONE_REGEXP = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
-const TYPE_AVATAR = ["image/jpg",
-    "image/jpeg",
-    "image/gif",
-    "image/png",
-    "image/webp"];
+const DELAY_FOR_ALERT = 2000;
 
 const schema = yup.object().shape({
     firstName:
@@ -42,7 +37,6 @@ const schema = yup.object().shape({
             .email("Email. should have correct format")
             .required(MESSAGE_FOR_FILL),
 });
-const db = app.firestore();
 
 export const SettingUser = () => {
     const [phone, setPhone] = useState();
@@ -55,20 +49,16 @@ export const SettingUser = () => {
     const [alert, setAlert] = useState(false);
     const infoUser = JSON.parse(localStorage.getItem("User-Info"));
     const avatarUser = JSON.parse(localStorage.getItem("avatar"));
-    const [avatarURL, setAvatarURL] = useState(null);
-
     const [profilePhoto, setAvatar] = useState(avatarUser ? avatarUser : blankPhoto);
+
     const photoHandle = async (event) => {
-        const newPhoto = new FileReader();
         const file = event.target.files[0];
         const storageRef = app.storage().ref();
         const fileRef = storageRef.child(file.name);
         await fileRef.put(file);
         setAvatar(await fileRef.getDownloadURL());
-    }
-    const changeNumber = (number) => {
-        setPhone(number)
-    }
+    };
+    const changeNumber = (number) => setPhone(number);
 
     useEffect(() => {
         setPhone(phone);
@@ -77,14 +67,15 @@ export const SettingUser = () => {
     const resetAlert = () => {
         setOpen(false);
         setAlert(false);
-    }
+    };
+
     const onSubmit = (data) => {
         const phoneNumberInp = infoUser ? infoUser.data.phoneNumber : phone;
         data.phoneNumber = phoneNumberInp;
         setValues(data);
         setAlert(true);
         setOpen(true);
-        setTimeout(resetAlert, 2000);
+        setTimeout(resetAlert, DELAY_FOR_ALERT);
         localStorage.setItem("avatar", JSON.stringify(profilePhoto));
         localStorage.setItem('User-Info', JSON.stringify({ data }));
     };
@@ -117,7 +108,13 @@ export const SettingUser = () => {
                     </div>
 
                     <div className='form__avatar'>
-                        <div className='form__avatar--block'><img src={profilePhoto} className='avatar' /></div>
+                        <div className='form__avatar--block'>
+                            <img
+                                src={profilePhoto}
+                                alt='user avatar'
+                                className='avatar'
+                            />
+                        </div>
                         <Input
                             ref={register}
                             name='loadAvatar'

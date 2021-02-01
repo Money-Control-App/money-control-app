@@ -3,6 +3,8 @@ import FormControl from '@material-ui/core/FormControl';
 import moment from 'moment';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
@@ -10,8 +12,6 @@ import {
   NavLink,
   Switch,
 } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 
 import BoxGraph from '../BoxGraph/BoxGraph';
 import ForecastGraph from '../Forecast/ForeacstGraph';

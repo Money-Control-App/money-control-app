@@ -1,8 +1,9 @@
 import { Container } from '@material-ui/core';
 import React, { useState } from 'react';
-import standartPhoto from '../../img/newUser/blank_photo.webp';
+
 import Balance from '../Balance/Balance';
 
+import standartPhoto from '../../img/newUser/blank_photo.webp';
 import './main-page.sass';
 
 export const MainPage = () => {
@@ -25,7 +26,10 @@ export const MainPage = () => {
                      !</h5>
                     </div>
                     <div className='avatar-block'>
-                        <img className='main__avatar' src={avatarUser ? avatarUser : standartPhoto} />
+                        <img
+                            className='main__avatar'
+                            alt='avatar user'
+                            src={avatarUser ? avatarUser : standartPhoto} />
                     </div>
                 </div>
                 <div className='main__text'>

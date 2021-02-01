@@ -4,6 +4,7 @@ import { NavLink, BrowserRouter as Router, Route, Switch } from "react-router-do
 import Balance from '../Balance/Balance';
 import Graphs from "../Graphs/GraphNav/Graphs";
 import Table from '../Table/Table';
+
 import './nav-tables.sass';
 
 const NavTab = ({ charges, setCharges, incomes, setIncomes }) => {
@@ -18,7 +19,7 @@ const NavTab = ({ charges, setCharges, incomes, setIncomes }) => {
         </NavLink>
       </nav>
       <Switch>
-        <Route exact path={'/data-analysis'}>
+        <Route exact path={'/data-analysis/tables'}>
           <Table title='charge' rows={charges} setRows={setCharges} />
         </Route>
         <Route exact path='/data-analysis/tables/charges'>

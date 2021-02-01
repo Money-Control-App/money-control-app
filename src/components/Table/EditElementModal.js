@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+
 import TablePortal from './TablePortal';
 import { Input } from './PartForTable/Input';
 import { ButtonsForTable } from './PartForTable/ButtonsForTable';
+
 import './AddElementModal.sass';
 
 const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements, selected, setSelected }) => {
@@ -10,11 +12,9 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements, select
   const description = React.createRef();
   const money = React.createRef();
   let elementsArr = [];
-//   const [element,setElement] = useState({})
 
-    elementsArr = JSON.parse(localStorage.getItem(title + 's'));
-    // setElement(elementsArr.find((element)=>element.id === selected[0]));
-    const element = elementsArr.find((element)=>element.id === selected[0]);
+  elementsArr = JSON.parse(localStorage.getItem(title + 's'));
+  const element = elementsArr.find((element) => element.id === selected[0]);
 
   function closeModal() {
     description.current.value = '';
@@ -22,28 +22,26 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements, select
     setModalOpen(false);
   }
 
-  function editElement () {
-      if (category.current.value && money.current.value > 0){
-        const newElement = {
-            id: new Date(element.date).getDate() + category.current.value + money.current.value,
-            category: category.current.value,
-            description: description.current.value,
-            money: money.current.value,
-            date: element.date,
-        }
-        const newArr = elementsArr.map(elem=>{
-            if (elem.id === selected[0]) {
-                return newElement
-            }
-            return elem
-        })
-        console.log(elementsArr);
-        console.log(newArr);
-        localStorage.setItem(title + 's', JSON.stringify(newArr));
-        setElements(newArr);
-        setSelected([])
-        setModalOpen(false);
+  function editElement() {
+    if (category.current.value && money.current.value > 0) {
+      const newElement = {
+        id: new Date(element.date).getDate() + category.current.value + money.current.value,
+        category: category.current.value,
+        description: description.current.value,
+        money: money.current.value,
+        date: element.date,
       }
+      const newArr = elementsArr.map(elem => {
+        if (elem.id === selected[0]) {
+          return newElement;
+        }
+        return elem;
+      })
+      localStorage.setItem(title + 's', JSON.stringify(newArr));
+      setElements(newArr);
+      setSelected([]);
+      setModalOpen(false);
+    }
   }
 
   return (
@@ -59,13 +57,13 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements, select
                   <option value={element.category} >{element.category}</option>
                   {JSON.parse(localStorage.getItem(title + 'Categories')).map(
                     (category) => {
-                        if(category.name != element.category){
-                            return (
-                                <option value={category.name} key={category.categoryId}>
-                                  {category.name}
-                                </option>
-                              )
-                        }
+                      if (category.name != element.category) {
+                        return (
+                          <option value={category.name} key={category.categoryId}>
+                            {category.name}
+                          </option>
+                        )
+                      }
                     }
                   )}
                 </select>

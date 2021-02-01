@@ -2,13 +2,15 @@ import React from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
 import { Container } from '@material-ui/core';
+
 import { SettingUser } from './User/SettingUser';
 import { Header } from './PartsForm/Header';
 import { DataProvider } from './User/DataUser';
 import { Reminder } from './Reminder/Reminder';
 import { Categories } from './Categories/Categories';
-import './setting.sass';
+
 import NavSetting from './NavSetting';
+import './setting.sass';
 
 const userSetting = () => {
     return (

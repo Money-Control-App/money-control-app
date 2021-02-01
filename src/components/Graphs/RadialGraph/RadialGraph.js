@@ -1,4 +1,3 @@
-import moment from 'moment'
 import { RadialChart, Hint } from 'react-vis';
 import React, { useState } from 'react';
 
@@ -35,7 +34,7 @@ const RadialGraph = (props) => {
       radius={140}
       getAngle={(d) => d.percentage}
       data={inputForRadialGraph}
-      onValueMouseOver={(h) => setHint({ category: h.category, ['% from total']: h.percentage+'%' })}
+      onValueMouseOver={(h) => setHint({ category: h.category, ['% from total']: h.percentage + '%' })}
       onSeriesMouseOut={(h) => setHint(false)}
       width={500}
       height={300}

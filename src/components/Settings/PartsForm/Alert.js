@@ -5,6 +5,7 @@ import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from '@material-ui/icons/Close';
 
 import './alert.sass';
+
 export const AlertOwn = ({ open, resetAlert, text }) => {
     return (
 

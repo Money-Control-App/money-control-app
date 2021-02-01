@@ -13,7 +13,7 @@ import {
 
 import BoxGraphCalculation from './BoxGraphCalc';
 
-import '../../../css/sourse/default-styles-vis.css';
+import './default-styles-vis.css';
 
 export default function BoxGraph(props) {
   const [inputSource, setInputSource] = useState(
@@ -49,8 +49,8 @@ export default function BoxGraph(props) {
   );
   const [hint, setHint] = useState(false);
 
-   return (
-    <div className = 'box-wrapper'>
+  return (
+    <div className='box-wrapper'>
       <XYPlot width={500} height={300} stackBy='y'>
         <VerticalGridLines />
         <HorizontalGridLines />
@@ -58,14 +58,14 @@ export default function BoxGraph(props) {
         <YAxis />
         {inputForBoxGraph.map(
           (v, index) =>
-            (v = (
-              <VerticalBarSeries
-                data={v}
-                key={index}
-                onValueMouseOver={(h) => setHint({ sum: h.y })}
-                onSeriesMouseOut={(h) => setHint(false)}
-              />
-            )),
+          (v = (
+            <VerticalBarSeries
+              data={v}
+              key={index}
+              onValueMouseOver={(h) => setHint({ sum: h.y })}
+              onSeriesMouseOut={(h) => setHint(false)}
+            />
+          )),
         )}
         {hint !== false && <Hint value={hint} />}
       </XYPlot>

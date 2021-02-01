@@ -10,8 +10,8 @@ export default function BoxGraphCalculation(
       const sum = inputSource
         .filter(
           (input) =>
-            input.category == category.name &&
-            moment(input.date).format('L') == date,
+            input.category === category.name &&
+            moment(input.date).format('L') === date,
         )
         .reduce((total, input) => {
           return total + +input.money;

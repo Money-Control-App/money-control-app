@@ -6,12 +6,12 @@ import CategoryIcon from '@material-ui/icons/Category';
 
 import './header.sass';
 
-export const Header = ({type}) => {
+export const Header = ({ type }) => {
     return (
         <div className='form__header'>
-            {type == "Reminder" && <DoneAllIcon fontSize = 'large'/>}
-            {type == "Categories" &&  <CategoryIcon fontSize="large" />}
-            {type == "User Setting" &&  <PersonAddIcon fontSize="large" />}
+            {type === "Reminder" && <DoneAllIcon fontSize='large' />}
+            {type === "Categories" && <CategoryIcon fontSize="large" />}
+            {type === "User Setting" && <PersonAddIcon fontSize="large" />}
             <Typography
                 align='center'
                 variant='h4'>

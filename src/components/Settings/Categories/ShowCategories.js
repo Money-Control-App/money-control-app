@@ -82,7 +82,7 @@ export const ShowCategories = ({ title }) => {
                                     <FormControl>
                                         <InputLabel id='demo-controlled-open-select-label'>
                                             Icon
-                    </InputLabel>
+                                        </InputLabel>
                                         <Select
                                             className='select-add-category'
                                             labelId='demo-simple-select-label'
@@ -94,6 +94,7 @@ export const ShowCategories = ({ title }) => {
                                                 <MenuItem value={index + 1}>
                                                     <img
                                                         src={`/img/${title}/${index + 1}.svg`}
+                                                        alt='icon'
                                                         className='icon-select'
                                                     />
                                                 </MenuItem>

@@ -13,7 +13,7 @@ import {
 
 import LinearGraphCalculation from './LinearGraphCalc';
 
-import '../../../css/sourse/default-styles-vis.css';
+import '../BoxGraph/default-styles-vis.css';
 import '../GraphNav/graph.sass';
 
 export default function LinearGraph(props) {

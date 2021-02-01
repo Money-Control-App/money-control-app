@@ -1,10 +1,12 @@
 
 import React, { useEffect, useState } from "react";
 import PostAddIcon from "@material-ui/icons/PostAdd";
+
 import TablePortal from "./TablePortal";
 import { Input } from "./PartForTable/Input";
 import { ButtonsForTable } from "./PartForTable/ButtonsForTable";
 import { parseData } from "../Settings/Reminder/untils";
+
 import '../Settings/Reminder/reminder.sass'
 import "./AddElementModal.sass";
 
@@ -20,11 +22,11 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
 
   let limitData = parseData("limit");
 
-  if(!limitData){
-    limitData={limitValue:'', limitInUah:true, limitInPercents:false, remind:false}
+  if (!limitData) {
+    limitData = { limitValue: '', limitInUah: true, limitInPercents: false, remind: false }
   }
 
-  const {limitValue,limitInUah,limitInPercents,remind}=limitData;
+  const { limitValue, limitInUah, limitInPercents, remind } = limitData;
 
   useEffect(() => {
     elementsArr = JSON.parse(localStorage.getItem(title + 's'));
@@ -44,7 +46,6 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
       money.current.value = '';
       setEnteredSum('');
     }
-    console.log(elementsArr);
     localStorage.setItem(title + 's', JSON.stringify(elementsArr));
     setElements(JSON.parse(localStorage.getItem(title + 's')));
     setModalOpen(false);
@@ -59,13 +60,13 @@ const AddElementModal = ({ title, isModalOpen, setModalOpen, setElements }) => {
   }
 
   const showReminder = () => {
-    if(isItChargeTable&&remind){
-      if(limitInUah){
-        if(balance-enteredSum<limitValue)return true;
+    if (isItChargeTable && remind) {
+      if (limitInUah) {
+        if (balance - enteredSum < limitValue) return true;
       }
-      if(limitInPercents){
-        const limit=parseInt(balance*limitValue/100);
-        if(balance-enteredSum<limit) return  true
+      if (limitInPercents) {
+        const limit = parseInt(balance * limitValue / 100);
+        if (balance - enteredSum < limit) return true
       }
     }
     return false;
