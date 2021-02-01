@@ -33,9 +33,9 @@ const RadialGraph = (props) => {
       className={'donut-chart'}
       innerRadius={100}
       radius={140}
-      getAngle={(d) => d.sum}
+      getAngle={(d) => d.percentage}
       data={inputForRadialGraph}
-      onValueMouseOver={(h) => setHint({ category: h.category, sum: h.sum })}
+      onValueMouseOver={(h) => setHint({ category: h.category, ['% from total']: h.percentage+'%' })}
       onSeriesMouseOut={(h) => setHint(false)}
       width={500}
       height={300}

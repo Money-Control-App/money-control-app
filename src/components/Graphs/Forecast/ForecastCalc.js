@@ -6,7 +6,6 @@ export default function ForecastCalc(input, startDate, lastDate) {
       Date.parse(record.date) > Date.parse(startDate) &&
       Date.parse(record.date) < Date.parse(lastDate),
   );
-
   const datesInput = [
     ...new Set(
       actualsWithinDates
@@ -16,16 +15,11 @@ export default function ForecastCalc(input, startDate, lastDate) {
     ),
   ];
 
-  const lastDateIndex = datesInput.length() - 1;
-  const lastActualWeek = datesInput[lastDateIndex];
-  datesInput.push(lastActualWeek + 1).push(lastActualWeek + 2);
-
-  const forecast = null;
-
   const forecastInput = datesInput.map((week, index) => {
-    const recordsNumber = actualsWithinDates
-      .filter((input) => moment(input.date).weeks() == week)
-      .length();
+    const recordsNumber = actualsWithinDates.filter(
+      (input) => moment(input.date).weeks() == week,
+    ).length;
+
     const totalSum = actualsWithinDates
       .filter((input) => moment(input.date).weeks() == week)
       .reduce((total, input) => {
@@ -37,11 +31,31 @@ export default function ForecastCalc(input, startDate, lastDate) {
     };
   });
 
-  const lastForecastIndex = forecastInput.length() - 1;
+  const lastForecastIndex = forecastInput.length - 1;
   const lastActual = forecastInput[lastForecastIndex];
-  forecastInput
-    .push({ x: lastActual.x + 1, y: lastActual.y })
-    .push({ x: lastActual.x + 2, y: lastActual.y });
 
-  return forecastInput;
+  const coefficient = (
+    forecastInput[lastForecastIndex].y / forecastInput[lastForecastIndex - 1].y
+  ).toFixed(2);
+
+  forecastInput[lastForecastIndex + 1] = {
+    x: lastActual.x + 1,
+    y: lastActual.y * coefficient,
+  };
+
+  forecastInput[lastForecastIndex + 2] = {
+    x: lastActual.x + 2,
+    y: forecastInput[lastForecastIndex + 1].y * coefficient,
+  };
+
+  const lastDateIndex = datesInput.length - 1;
+  const lastActualWeek = datesInput[lastDateIndex];
+
+  datesInput[lastDateIndex + 1] = lastActualWeek + 1;
+  datesInput[lastDateIndex + 2] = lastActualWeek + 2;
+
+  return {
+    dates: datesInput,
+    values: forecastInput,
+  };
 }
